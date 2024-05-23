@@ -247,7 +247,7 @@ informative:
    e.g., \<system\> (if exists), \<intended> and <operational\>, but the
    "immutable" metadata annotation returned indicates the immutability
    towards read-write configuration datastores, e.g., \<startup\>,
-   \<candidate\> and \<running\>.  
+   \<candidate\> and \<running\>.
 
    Note that "immutable" metadata annotation MUST NOT be included in a
    response unless a client explicitly requests them with a "with-immutable"
@@ -292,7 +292,7 @@ informative:
    elsewhere in this section.
 
    By default, as with all interior nodes, immutability is recursively
-   applied to descendants (see {{interior}}).  
+   applied to descendants (see {{interior}}).
 
    The immutable annotation attached to the individual list instance provides
    immutability with respect to the instance itself without any bearing on the
