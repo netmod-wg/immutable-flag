@@ -10,7 +10,7 @@ date:
 consensus: true
 v: 3
 area: "Operations and Management"
-workgroup: "Network Modeling"
+workgroup: "netmod"
 keyword:
  - immutable flag
  - system configuration
@@ -34,7 +34,7 @@ author:
     country: China
     email: bill.wu@huawei.com
  -
-    fullname: Balázs Lengyel
+    fullname: Balazs Lengyel
     organization: Ericsson
     email: balazs.lengyel@ericsson.com
  -
@@ -392,9 +392,9 @@ informative:
 # YANG Module {#module}
 
 ~~~~
-   <CODE BEGINS> file "ietf-immutable@2024-05-24.yang"
-   {::include ./ietf-immutable.yang}
-   <CODE ENDS>
+<CODE BEGINS> file "ietf-immutable@2024-05-24.yang"
+{::include ietf-immutable.yang}
+<CODE ENDS>
 ~~~~
 
 # Security Considerations
