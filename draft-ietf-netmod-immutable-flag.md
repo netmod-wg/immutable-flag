@@ -137,6 +137,20 @@ informative:
 
    {{use-cases}} describes the use cases in detail.
 
+## Editorial Note (To be removed by RFC Editor)
+
+  Note to the RFC Editor: This section is to be removed prior to publication.
+
+  This document contains placeholder values that need to be replaced with finalized
+  values at the time of publication.  This note summarizes all of the
+  substitutions that are needed.  No other RFC Editor instructions are specified
+  elsewhere in this document.
+
+  Please apply the following replacements:
+
+  * XXXX --> the assigned RFC number for this draft
+  * 2023-05-24 --> the actual date of the publication of this document
+
 # Conventions and Definitions
 
 {::boilerplate bcp14-tagged}
@@ -175,7 +189,7 @@ informative:
    can only be used for system configuration.
 
    The immutable annotation information is also visible in read-only
-   datastores like <system> (if exists), <intended> and <operational>
+   datastores like \<system\> (if exists), \<intended\> and \<operational\>
    when a "with-immutable" parameter is carried (see {{with-immutable}}),
    however this only serves as descriptive information about the
    instance node itself, but has no effect on the handling of the read-
@@ -190,16 +204,16 @@ informative:
 # Solution Overview
 
    Immutable configuration can only be created by the system regardless
-   of the implementation of <system> {{?I-D.ietf-netmod-system-config}}.
-   Immutable configuration is present in <system> (if implements). Immutable
-   configuration does not appear in <running> unless it is copied explicitly or
+   of the implementation of \<system\> {{?I-D.ietf-netmod-system-config}}.
+   Immutable configuration is present in \<system\> (if implements). Immutable
+   configuration does not appear in \<running\> unless it is copied explicitly or
    automatically (e.g., by "resolve-system" parameter) {{?I-D.ietf-netmod-system-config}}.
 
    A client may create/delete immutable nodes with same values as found
-   in <system> (if exists) in read-write configuration datastore (e.g.,
-   <candidate>, <running>), which merely mean making immutable nodes
+   in \<system\> (if exists) in read-write configuration datastore (e.g.,
+   \<candidate\>, \<running\>), which merely mean making immutable nodes
    visible/invisible in read-write configuration datastore
-   (e.g., <candidate>, <running>).
+   (e.g., \<candidate\>, \<running\>).
 
 # "Immutable" Metadata Annotation
 
@@ -224,18 +238,18 @@ informative:
 ## "with-immutable" Parameter {#with-immutable}
 
    The YANG model defined in this document (see {{module}}) augments the
-   <get-config>, <get> operation defined in {{!RFC6241}}, and the <get-data>
+   \<get-config\>, \<get\> operation defined in {{!RFC6241}}, and the \<get-data\>
    operation defined in {{!RFC8526}} with a new parameter named "with-immutable".
    When this parameter is present, it requests that the server includes
    "immutable" metadata annotations in its response.
 
    This parameter may be used for read-only configuration datastores,
-   e.g., <system> (if exists), <intended> and <operational>, but the
+   e.g., \<system\> (if exists), \<intended> and <operational\>, but the
    "immutable" metadata annotation returned indicates the immutability
-   towards read-write configuration datastores, e.g., <startup>,
-   <candidate> and <running>.  
+   towards read-write configuration datastores, e.g., \<startup\>,
+   \<candidate\> and \<running\>.  
 
-   Note that "immutable" metadata annotation MUST NOT be  included in a
+   Note that "immutable" metadata annotation MUST NOT be included in a
    response unless a client explicitly requests them with a "with-immutable"
    parameter.
 
@@ -347,14 +361,14 @@ informative:
    for application list entry named "my-ssh" is "false", which is also its
    inherited value from its parent node, and thus can be omitted.
 
-# Interaction between Immutable Flag and <system>
+# System Configuration Interactions
 
    The system datastore is defined to hold system configuration provided
    by the device itself and make system configuration visible to clients
    in order for being referenced or configurable prior to present in
-   <operational>.  However, the device may allow some system-initialized
+   \<operational\>.  However, the device may allow some system-initialized
    node to be overridden, while others may not.  System configuration
-   exists regardless of whether <system> is implemented.
+   exists regardless of whether \<system\> is implemented.
 
    This document defines a way to allow a server annotate instances of
    non-modifiable system configuration with metadata when system configuration
@@ -364,7 +378,7 @@ informative:
    to immutable configuration.  Legacy clients unaware of the "immutable"
    annotation don't see any changes and encounter an error as always.
 
-# Interaction between Immutable Flag and NACM
+# NACM Interactions
 
    The server rejects an operation request due to immutability when it
    tries to perform the operation on the request data.  It happens after
@@ -378,10 +392,9 @@ informative:
 # YANG Module {#module}
 
 ~~~~
-<CODE BEGINS> file "ietf-immutable@2024-05-24.yang"
-//RFC Ed.: replace XXXX with RFC number and remove this note
-{::include-fold ./ietf-immutable.yang}
-<CODE ENDS>
+   <CODE BEGINS> file "ietf-immutable@2024-05-24.yang"
+   {::include ./ietf-immutable.yang}
+   <CODE ENDS>
 ~~~~
 
 # Security Considerations
@@ -416,14 +429,13 @@ informative:
 ## The "YANG Module Names" Registry
 
 This document registers one module name in the 'YANG Module Names'
-registry, defined in [RFC6020].
+registry, defined in {{!RFC6020}}.
 
 ~~~~
         name: ietf-immutable
         prefix: im
         namespace: urn:ietf:params:xml:ns:yang:ietf-immutable
         RFC: XXXX
-        // RFC Ed.: replace XXXX and remove this comment
 ~~~~
 
 --- back
@@ -459,8 +471,8 @@ registry, defined in [RFC6020].
 
    {{?RFC8343}} defines a YANG data model for the management of network
    interfaces.  When a system-controlled interface is physically present,
-   the system creates an interface entry with valid name and type values in
-   <system> (if exists, see {{?I-D.ietf-netmod-system-config}}).
+   the system creates an interface entry with valid name and type
+   values in \<system\> (if exists, see {{?I-D.ietf-netmod-system-config}}).
 
    The system-generated type value is dependent on and represents the HW
    present, and as a consequence cannot be changed by the client.  If a
@@ -508,7 +520,7 @@ registry, defined in [RFC6020].
    the interface model.  The assigned MTU value is system-created and
    immutable from the context of the LNE.
 
-# Existing implementations {#implementations}
+# Existing Implementations {#implementations}
 
    There are already a number of full or partial implementations of
    immutability:
