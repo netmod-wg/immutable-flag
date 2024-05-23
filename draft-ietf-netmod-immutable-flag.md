@@ -10,7 +10,7 @@ date:
 consensus: true
 v: 3
 area: "Operations and Management"
-workgroup: "netmod"
+workgroup: "Network Modeling"
 keyword:
  - immutable flag
  - system configuration
