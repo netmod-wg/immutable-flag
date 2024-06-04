@@ -4,12 +4,12 @@
 
 netmod                                                        Q. Ma, Ed.
 Internet-Draft                                                     Q. Wu
-Intended status: Standards Track                                  Huawei
-Expires: 24 November 2024                                     B. Lengyel
-                                                                Ericsson
+Updates: 6241, 8526, 8040 (if approved)                           Huawei
+Intended status: Standards Track                         B. Lengyel, Ed.
+Expires: 6 December 2024                                        Ericsson
                                                                    H. Li
                                                                      HPE
-                                                             23 May 2024
+                                                             4 June 2024
 
 
               YANG Metadata Annotation for Immutable Flag
@@ -55,7 +55,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 24 November 2024.
+   This Internet-Draft will expire on 6 December 2024.
 
 Copyright Notice
 
@@ -648,9 +648,9 @@ Table of Contents
    [I-D.ietf-netmod-system-config]
               Ma, Q., Wu, Q., and C. Feng, "System-defined
               Configuration", Work in Progress, Internet-Draft, draft-
-              ietf-netmod-system-config-05, 21 February 2024,
+              ietf-netmod-system-config-06, 31 May 2024,
               <https://datatracker.ietf.org/doc/html/draft-ietf-netmod-
-              system-config-05>.
+              system-config-06>.
 
    [RFC8343]  Bjorklund, M., "A YANG Data Model for Interface
               Management", RFC 8343, DOI 10.17487/RFC8343, March 2018,
@@ -813,7 +813,7 @@ Authors' Addresses
    Email: bill.wu@huawei.com
 
 
-   Balazs Lengyel
+   Balazs Lengyel (editor)
    Ericsson
    Email: balazs.lengyel@ericsson.com
 
