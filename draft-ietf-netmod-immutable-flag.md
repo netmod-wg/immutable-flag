@@ -2,6 +2,7 @@
 title: "YANG Metadata Annotation for Immutable Flag"
 abbrev: "immutable flag"
 category: std
+updates: 6241, 8526, 8040
 
 docname: draft-ietf-netmod-immutable-flag-latest
 submissiontype: IETF  # also: "independent", "editorial", "IAB", or "IRTF"
@@ -36,6 +37,7 @@ author:
  -
     fullname: Balazs Lengyel
     organization: Ericsson
+    role: editor
     email: balazs.lengyel@ericsson.com
  -
     fullname: Hongwei Li
