@@ -264,7 +264,7 @@ module: ietf-immutable
 
 ~~~~
     urn:ietf:params:restconf:capability:with-immutable:1.0
-~~~~   
+~~~~
 
 # Use of Immutable Flag for Different Statements
 
