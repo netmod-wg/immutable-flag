@@ -2,16 +2,16 @@
 
 This is the working area for the IETF [NETMOD Working Group](https://datatracker.ietf.org/wg/netmod/documents/) Internet-Draft, "YANG Metadata Annotation for Immutable Flag".
 
-* [Editor's Copy](https://QiufangMa.github.io/immutable-flag/#go.draft-ietf-netmod-immutable-flag.html)
+* [Editor's Copy](https://netmod-wg.github.io/immutable-flag/#go.draft-ietf-netmod-immutable-flag.html)
 * [Datatracker Page](https://datatracker.ietf.org/doc/draft-ietf-netmod-immutable-flag)
 * [Working Group Draft](https://datatracker.ietf.org/doc/html/draft-ietf-netmod-immutable-flag)
-* [Compare Editor's Copy to Working Group Draft](https://QiufangMa.github.io/immutable-flag/#go.draft-ietf-netmod-immutable-flag.diff)
+* [Compare Editor's Copy to Working Group Draft](https://netmod-wg.github.io/immutable-flag/#go.draft-ietf-netmod-immutable-flag.diff)
 
 
 ## Contributing
 
 See the
-[guidelines for contributions](https://github.com/QiufangMa/immutable-flag/blob/main/CONTRIBUTING.md).
+[guidelines for contributions](https://github.com/netmod-wg/immutable-flag/blob/main/CONTRIBUTING.md).
 
 Contributions can be made by creating pull requests.
 The GitHub interface supports creating pull requests using the Edit (✏) button.
