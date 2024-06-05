@@ -61,7 +61,7 @@ module ietf-immutable {
      (RFC 8174) when, and only when, they appear in all
      capitals, as shown here.";
 
-  revision 2024-05-24 {
+  revision 2024-06-04 {
     description
       "Initial revision.";
     // RFC Ed.: replace XXXX and remove this comment
@@ -81,6 +81,12 @@ module ietf-immutable {
        specified.";
   }
 
+  feature immutable {
+    description
+      "Indicates that the server supports the 'immutable' metadata
+       annotation.";
+  }
+  
   grouping with-immutable-grouping {
     description
       "Grouping for the with-immutable parameter that augments the
@@ -88,30 +94,30 @@ module ietf-immutable {
     leaf with-immutable {
       type empty;
       description
-        "If this parameter is present, the server will return the
+        "If this parameter is present, the server returns the
          'immutable' annotation for configuration that it
-         internally thinks it immutable. When present, this
-         parameter allows the server to formally document existing
-         behavior on the mutability of some configuration nodes.";
+         internally thinks immutable.";
     }
   }
   augment "/ncds:get-data/ncds:input" {
+    if-feature "immutable";
     description
       "Allows the server to include 'immutable' metadata
        annotations in its response to get-data operation.";
     uses with-immutable-grouping;
   }
   augment "/nc:get-config/nc:input" {
+    if-feature "immutable";
     description
       "Allows the server to include 'immutable' metadata
        annotations in its response to get-config operation.";
     uses with-immutable-grouping;
   }
   augment "/nc:get/nc:input" {
+    if-feature "immutable";
     description
       "Allows the server to include 'immutable' metadata
        annotations in its response to get operation.";
     uses with-immutable-grouping;
   }
 }
-
