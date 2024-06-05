@@ -6,10 +6,10 @@ netmod                                                        Q. Ma, Ed.
 Internet-Draft                                                     Q. Wu
 Updates: 6241, 8526, 8040 (if approved)                           Huawei
 Intended status: Standards Track                         B. Lengyel, Ed.
-Expires: 6 December 2024                                        Ericsson
+Expires: 7 December 2024                                        Ericsson
                                                                    H. Li
                                                                      HPE
-                                                             4 June 2024
+                                                             5 June 2024
 
 
               YANG Metadata Annotation for Immutable Flag
@@ -55,7 +55,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 6 December 2024.
+   This Internet-Draft will expire on 7 December 2024.
 
 Copyright Notice
 
@@ -77,28 +77,30 @@ Table of Contents
      1.1.  Editorial Note (To be removed by RFC Editor)
    2.  Conventions and Definitions
    3.  Applicability
-   4.  Solution Overview
-   5.  "Immutable" Metadata Annotation
-     5.1.  Definition
-     5.2.  "with-immutable" Parameter
-   6.  Use of Immutable Flag for Different Statements
-     6.1.  The "leaf" Statement
-     6.2.  The "leaf-list" Statement
-     6.3.  The "container" Statement
-     6.4.  The "list" Statement
-     6.5.  The "anydata" Statement
-     6.6.  The "anyxml" Statement
-   7.  Immutability of Interior Nodes
-   8.  System Configuration Interactions
-   9.  NACM Interactions
-   10. YANG Module
-   11. Security Considerations
-   12. IANA Considerations
-     12.1.  The "IETF XML" Registry
-     12.2.  The "YANG Module Names" Registry
-   13. References
-     13.1.  Normative References
-     13.2.  Informative References
+   4.  "Immutable" Metadata Annotation
+     4.1.  Definition
+     4.2.  "with-immutable" Parameter
+       4.2.1.  NETCONF Extensions to Support "with-immutable"
+       4.2.2.  RESTCONF Extensions to Support "with-immutable"
+   5.  Use of Immutable Flag for Different Statements
+     5.1.  The "leaf" Statement
+     5.2.  The "leaf-list" Statement
+     5.3.  The "container" Statement
+     5.4.  The "list" Statement
+     5.5.  The "anydata" Statement
+     5.6.  The "anyxml" Statement
+   6.  Immutability of Interior Nodes
+   7.  System Configuration Datastore Interactions
+   8.  NACM Interactions
+   9.  YANG Module
+   10. Security Considerations
+   11. IANA Considerations
+     11.1.  The "IETF XML" Registry
+     11.2.  The "YANG Module Names" Registry
+     11.3.  RESTCONF Capability URN Registry
+   12. References
+     12.1.  Normative References
+     12.2.  Informative References
    Appendix A.  Detailed Use Cases
      A.1.  UC1 - Modeling of server capabilities
      A.2.  UC2 - HW based auto-configuration - Interface Example
@@ -135,11 +137,10 @@ Table of Contents
       and needed by the system, while additional list entries can be
       created, modified or deleted.
 
-   If the server always rejects the client attempts to override
-   immutable system configuration [I-D.ietf-netmod-system-config]
-   because it internally thinks it immutable, it should document this
-   towards the clients in a machine-readable way rather than writing as
-   plain text in the description statement.
+   If the server always rejects the client attempts to override some
+   system provided data because it internally thinks immutable, it
+   should document this towards the clients in a machine-readable way
+   rather than writing as plain text in the description statement.
 
    This document defines a way to formally document existing behavior,
    implemented by servers in production, on the immutability of some
@@ -179,7 +180,7 @@ Table of Contents
 
    *  XXXX --> the assigned RFC number for this draft
 
-   *  2023-05-24 --> the actual date of the publication of this document
+   *  2023-06-04 --> the actual date of the publication of this document
 
 2.  Conventions and Definitions
 
@@ -199,7 +200,7 @@ Table of Contents
 
    *  leaf
 
-   *  lea-list
+   *  leaf-list
 
    *  container
 
@@ -221,82 +222,98 @@ Table of Contents
 
    The following terms are defined in this document:
 
-   *  immutable flag:  A read-only state value the server provides to
-         describe immutability of the data, which is conveyed via a YANG
-         metadata annotation called "immutable" with a boolean value.
+   immutable flag: A read-only state value the server provides to
+   describe immutability of the data, which is conveyed via a YANG
+   metadata annotation called "immutable" with a boolean value.
 
 3.  Applicability
 
    While immutable flag applies to all configuration nodes, its value
    "true" can only be used for system configuration.
 
-   The immutable annotation information is also visible in read-only
-   datastores like <system> (if exists), <intended> and <operational>
-   when a "with-immutable" parameter is carried (see Section 5.2),
-   however this only serves as descriptive information about the
-   instance node itself, but has no effect on the handling of the read-
-   only datastore.
+   The immutable flag is also visible in read-only datastores like
+   <system> (if implemented, see [I-D.ietf-netmod-system-config]),
+   <intended> and <operational> when a "with-immutable" parameter is
+   carried (Section 4.2), however this only serves as descriptive
+   information about the instance node itself, but has no effect on the
+   handling of the read-only datastore.
 
    Configuration data must have the same immutability in different
    writable datastores.  The immutability of data nodes is protocol and
    user independent.  The immutability and configured value of an
-   existing node MUST only change via software upgrade or hardware
-   resource/license change.
+   existing node MUST only change via software upgrade, hardware
+   resources change, or license change.
 
-4.  Solution Overview
+4.  "Immutable" Metadata Annotation
 
-   Immutable configuration can only be created by the system regardless
-   of the implementation of <system> [I-D.ietf-netmod-system-config].
-   Immutable configuration is present in <system> (if implements).
-   Immutable configuration does not appear in <running> unless it is
-   copied explicitly or automatically (e.g., by "resolve-system"
-   parameter) [I-D.ietf-netmod-system-config].
+4.1.  Definition
 
-   A client may create/delete immutable nodes with same values as found
-   in <system> (if exists) in read-write configuration datastore (e.g.,
-   <candidate>, <running>), which merely mean making immutable nodes
-   visible/invisible in read-write configuration datastore (e.g.,
-   <candidate>, <running>).
-
-5.  "Immutable" Metadata Annotation
-
-5.1.  Definition
-
-   The "immutable" metadata annotation takes as an value which is a
-   boolean type, returned as requested by the client using a "with-
-   immutable" parameter (see Section 5.2).  If the "immutable" metadata
-   annotation for system configuration is not specified, the default
-   "immutable" value is the same as the immutability of its parent node
-   in the data tree.  The immutable metadata annotation value for a top-
-   level system-provided instance node is "false" if not specified.
+   The immutable flag which is defined as the metadata annotation takes
+   a boolean value, and it is returned as requested by the client using
+   a "with-immutable" parameter (Section 4.2).  If the "immutable"
+   metadata annotation for system configuration is not specified, the
+   default "immutable" value is the same as the immutability of its
+   parent node in the data tree (Section 6).  The immutable metadata
+   annotation value for a top-level system-provided instance node is
+   "false" if not specified.
 
    Note that "immutable" metadata annotation is used to annotate data
    node instances.  A list may have multiple entries/instances in the
-   data tree, "immutable" can annotate some of the instances as read-
-   only, while others are read-write.  The immutable flag has no bearing
-   on the order of the list/leaf-list entries, a parent container of the
-   list/leaf-list may have the "immutable" annotation, but that means
-   the same as each individual list/leaf-list entry being annotated.
+   data tree, servers can annotate some of the instances as immutable,
+   while others are mutable.
 
-5.2.  "with-immutable" Parameter
+   Servers MUST ignore any immutable metadata annotation sent from the
+   client.
 
-   The YANG model defined in this document (see Section 10) augments the
-   <get-config>, <get> operation defined in [RFC6241], and the <get-
-   data> operation defined in [RFC8526] with a new parameter named
-   "with-immutable".  When this parameter is present, it requests that
-   the server includes "immutable" metadata annotations in its response.
+4.2.  "with-immutable" Parameter
 
-   This parameter may be used for read-only configuration datastores,
-   e.g., <system> (if exists), <intended> and <operational>, but the
-   "immutable" metadata annotation returned indicates the immutability
-   towards read-write configuration datastores, e.g., <startup>,
-   <candidate> and <running>.
+   This section specifies the NETCONF and RESTCONF protocol extensions
+   to support "with-immutable" parameter.  The "immutable" metadata
+   annotations are not returned in a response unless explicitly
+   requested by the client using this parameter.
 
-   Note that "immutable" metadata annotation MUST NOT be included in a
-   response unless a client explicitly requests them with a "with-
-   immutable" parameter.
+4.2.1.  NETCONF Extensions to Support "with-immutable"
 
-6.  Use of Immutable Flag for Different Statements
+   This doument updates [RFC6241] to augment the <get-config> and <get>
+   operations with an additional parameter named "with-immutable".  The
+   <get-data> operation defined in [RFC8526] is also updated to support
+   this parameter.  If present, this parameter requests that the server
+   includes the "immutable" metadata annotations in its response.
+
+   Figure 1 provides the tree structure [RFC8340] of augmentations to
+   NETCONF operations, as defined in the "ietf-immutable" module
+   (Section 9).
+
+   module: ietf-immutable
+     augment /ncds:get-data/ncds:input:
+       +---w with-immutable?   empty {immutable}?
+     augment /nc:get-config/nc:input:
+       +---w with-immutable?   empty {immutable}?
+     augment /nc:get/nc:input:
+       +---w with-immutable?   empty {immutable}?
+
+               Figure 1: Augmentations to NETCONF Operations
+
+   Servers' support for accepting "with-immutable" parameter and
+   returning "immutable" annotations is identified with the feature
+   "immutable".
+
+4.2.2.  RESTCONF Extensions to Support "with-immutable"
+
+   This document extends sections 4.8 and 9.1.1 of [RFC8040] to add
+   query parameter named "with-immutable" to the GET operation.  If
+   present, this parameter requests that the server includes the
+   "immutable" metadata annotations in its response.  This parameter is
+   only allowed with no values carried.  If it has any unexpected value,
+   then a "404 Bad Request" status-line is returned.
+
+   To enable a RESTCONF client to discover if the "with-immutable" query
+   parameter is supported by the server, the following capability URI is
+   defined:
+
+       urn:ietf:params:restconf:capability:with-immutable:1.0
+
+5.  Use of Immutable Flag for Different Statements
 
    This section defines what the immutable flag means to the client for
    each instance of YANG data node statement.
@@ -304,62 +321,57 @@ Table of Contents
    Throughout this section, the word "change" refers to create, update,
    and delete.
 
-6.1.  The "leaf" Statement
+5.1.  The "leaf" Statement
 
    When a leaf node instance is immutable, its value cannot change.
 
-6.2.  The "leaf-list" Statement
+5.2.  The "leaf-list" Statement
 
    When a leaf-list node instance is immutable, its value cannot change.
 
    The immutable annotation attached to the individual leaf-list
-   instance provides immutability with respect to the instance itself
-   without any bearing on the leaf-list entries ordering and addition of
+   instance provides immutability with respect to the instance itself.
+   If leaf-list inherits immutability from an ancestor (e.g.,
+   container), it is identical to each individual leaf-list entry being
+   annotated without any bearing on the entry ordering and addition of
    new entries.
 
-   Note that if leaf-list inherits immutability from an ancestor (e.g.,
-   container), it means that the leaf-list as a whole cannot change:
-   entries cannot be added, removed, or reordered, in case the leaf-list
-   is "ordered-by user".
-
-6.3.  The "container" Statement
+5.3.  The "container" Statement
 
    When a container node instance is immutable, it cannot change, unless
    the immutability of its descendant node is toggled.
 
    By default, as with all interior nodes, immutability is recursively
-   applied to descendants (see Section 7).
+   applied to descendants (Section 6).
 
-6.4.  The "list" Statement
+5.4.  The "list" Statement
 
    When a list node instance is immutable, it cannot change, unless the
    immutability of its descendant node is toggled, per the description
    elsewhere in this section.
 
    By default, as with all interior nodes, immutability is recursively
-   applied to descendants (see Section 7).
+   applied to descendants (Section 6).
 
    The immutable annotation attached to the individual list instance
-   provides immutability with respect to the instance itself without any
-   bearing on the list entries ordering and addition of new entries.
-   Note that if leaf-list inherits immutability from an ancestor (e.g.,
-   a container), it means that the leaf-list as a whole cannot change:
-   entries cannot be added, removed, or reordered, in case the leaf-list
-   is "ordered-by user".
+   provides immutability with respect to the instance itself.  If list
+   inherits immutability from an ancestor (e.g., container), it is
+   identical to each individual list entry being annotated without any
+   bearing on the entry ordering and addition of new entries.
 
-6.5.  The "anydata" Statement
+5.5.  The "anydata" Statement
 
    When an anydata node instance is immutable, it cannot change.
    Additionally, as with all interior nodes, immutability is recursively
-   applied to descendants (see Section 7).
+   applied to descendants (Section 6).
 
-6.6.  The "anyxml" Statement
+5.6.  The "anyxml" Statement
 
    When an "anyxml" node instance is immutable, it cannot change.
    Additionally, as with all interior nodes, immutability is recursively
-   applied to descendants (see Section 7).
+   applied to descendants (Section 6).
 
-7.  Immutability of Interior Nodes
+6.  Immutability of Interior Nodes
 
    Immutability is a conceptual operational state value that is
    recursively applied to descendants, which may reset the immutability
@@ -373,9 +385,6 @@ Table of Contents
    Servers may suppress the annotation if it is inherited from its
    parent node or uses the default value as the top-level node, but are
    not precluded from returning the annotation on every single element.
-
-   Servers MUST ignore any immutable metadata annotation sent from the
-   client.
 
    For example, given the following application configuration XML
    snippets:
@@ -393,42 +402,35 @@ Table of Contents
    </application>
    </applications>
 
-   The "application" list entry named "ssh" is immutable="true", but its
-   child node "port-number" has the immutable="false" (thus the client
-   can override this value).  The other child node (e.g., "protocol")
-   not specifying its immutability explicitly inherits immutability from
-   its parent node thus is also immutable="true".  The "immutable"
-   metadata attribute for applications container instance is "false",
-   which is also its default value as the top-level element, and thus
-   can be omitted.  The "immutable" metadata attribute for application
-   list entry named "ssh" is explicitly set as "true", but its child
-   node "port-number" reset the immutable attribute as "false" (thus the
-   client can override this value).  The other child node (e.g.,
-   "protocol") not specifying its immutability explicitly inherits
-   immutability from its parent node thus is also immutable="true".  The
-   "immutable" metadata attribute for application list entry named "my-
-   ssh" is "false", which is also its inherited value from its parent
-   node, and thus can be omitted.
+   In this example, there are two "application" list entries inside
+   "applications" container node.  The "immutable" metadata attribute
+   for applications container instance is "false", which is also its
+   default value as the top-level element, and thus can be omitted.  The
+   "application" list entry named "ssh" is immutable with the
+   immutability of its child node "port-number" being explicitly
+   toggled.  The other child nodes inheriting immutability from their
+   parent node thus are also immutable.  The "immutable" metadata
+   attribute for application list entry named "my-ssh" is "false", which
+   is also its inherited value from its parent node, and thus can be
+   omitted.
 
-8.  System Configuration Interactions
+7.  System Configuration Datastore Interactions
 
-   The system datastore is defined to hold system configuration provided
-   by the device itself and make system configuration visible to clients
-   in order for being referenced or configurable prior to present in
-   <operational>.  However, the device may allow some system-initialized
-   node to be overridden, while others may not.  System configuration
-   exists regardless of whether <system> is implemented.
+   Immutable configuration can only be created, updated and deleted by
+   the server, thus it is present in <system>, if implemented.  That
+   said, the existence of immutable configuration is independent of
+   whether <system> is implemented or not.  Not all system configuration
+   data is immutable.  Immutable configuration does not appear in
+   <running> unless it is explicitly provided by the client or copied by
+   the server via "resolve-system" parameter defined in
+   [I-D.ietf-netmod-system-config].
 
-   This document defines a way to allow a server annotate instances of
-   non-modifiable system configuration with metadata when system
-   configuration is retrieved.  A client aware of the "immutable"
-   annotation can explicitly ask the server to return it via the "with-
-   immutable" parameter in the request, thus is able to avoid making
-   unnecessary modification attempts to immutable configuration.  Legacy
-   clients unaware of the "immutable" annotation don't see any changes
-   and encounter an error as always.
+   A client may create/delete immutable nodes with same values as found
+   in <system> (if implemented) in read-write configuration datastore
+   (e.g., <candidate>, <running>), which merely mean making immutable
+   nodes visible/invisible in the datastore.
 
-9.  NACM Interactions
+8.  NACM Interactions
 
    The server rejects an operation request due to immutability when it
    tries to perform the operation on the request data.  It happens after
@@ -439,9 +441,11 @@ Table of Contents
    to perform the requested access operation on the request data, the
    request is rejected with an "access-denied" error.
 
-10.  YANG Module
+9.  YANG Module
 
-   <CODE BEGINS> file "ietf-immutable@2024-05-24.yang"
+   This module imports definitions from [RFC6241] and [RFC8526].
+
+   <CODE BEGINS> file "ietf-immutable@2024-06-04.yang"
    module ietf-immutable {
      yang-version 1.1;
      namespace "urn:ietf:params:xml:ns:yang:ietf-immutable";
@@ -505,7 +509,7 @@ Table of Contents
         (RFC 8174) when, and only when, they appear in all
         capitals, as shown here.";
 
-     revision 2024-05-24 {
+     revision 2024-06-04 {
        description
          "Initial revision.";
        // RFC Ed.: replace XXXX and remove this comment
@@ -525,6 +529,12 @@ Table of Contents
           specified.";
      }
 
+     feature immutable {
+       description
+         "Indicates that the server supports the 'immutable' metadata
+          annotation.";
+     }
+
      grouping with-immutable-grouping {
        description
          "Grouping for the with-immutable parameter that augments the
@@ -532,26 +542,27 @@ Table of Contents
        leaf with-immutable {
          type empty;
          description
-           "If this parameter is present, the server will return the
+           "If this parameter is present, the server returns the
             'immutable' annotation for configuration that it
-            internally thinks it immutable. When present, this
-            parameter allows the server to formally document existing
-            behavior on the mutability of some configuration nodes.";
+            internally thinks immutable.";
        }
      }
      augment "/ncds:get-data/ncds:input" {
+       if-feature "immutable";
        description
          "Allows the server to include 'immutable' metadata
           annotations in its response to get-data operation.";
        uses with-immutable-grouping;
      }
      augment "/nc:get-config/nc:input" {
+       if-feature "immutable";
        description
          "Allows the server to include 'immutable' metadata
           annotations in its response to get-config operation.";
        uses with-immutable-grouping;
      }
      augment "/nc:get/nc:input" {
+       if-feature "immutable";
        description
          "Allows the server to include 'immutable' metadata
           annotations in its response to get operation.";
@@ -560,25 +571,31 @@ Table of Contents
    }
    <CODE ENDS>
 
-11.  Security Considerations
+10.  Security Considerations
 
-   The YANG module specified in this document defines a a metadata
-   Annotation.  These can be used to further restrict write access but
-   cannot be used to extend access rights.
+   The YANG module specified in this document defines a metadata
+   annotation, it also extends the base operations of the NETCONF
+   protocol in [RFC6241] and [RFC8526].
 
-   This document does not define any protocol-accessible data nodes.
-
-   Since immutable information is tied to applied configuration values,
-   it is only accessible to clients that have the permissions to read
-   the applied configuration values.
+   The Network Configuration Access Control Model (NACM) [RFC8341]
+   provides the means to restrict access for particular NETCONF or
+   RESTCONF users to a preconfigured subset of all available NETCONF or
+   RESTCONF protocol operations and content.  Since immutable flag is
+   tied to applied configuration values, it is only accessible to
+   clients that have the permissions to read the applied configuration
+   values.
 
    The security considerations for the Defining and Using Metadata with
    YANG (see Section 9 of [RFC7952]) apply to the metadata annotation
    defined in this document.
 
-12.  IANA Considerations
+   The security considerations for the NETCONF protocol operations (see
+   Section 9 of [RFC6241] and Section 6 of [RFC8526]) still apply to the
+   operations extended in this document.
 
-12.1.  The "IETF XML" Registry
+11.  IANA Considerations
+
+11.1.  The "IETF XML" Registry
 
    This document registers one XML namespace URN in the 'IETF XML
    registry', following the format defined in [RFC3688].
@@ -587,7 +604,7 @@ Table of Contents
            Registrant Contact: The IESG.
            XML: N/A, the requested URIs are XML namespaces.
 
-12.2.  The "YANG Module Names" Registry
+11.2.  The "YANG Module Names" Registry
 
    This document registers one module name in the 'YANG Module Names'
    registry, defined in [RFC6020].
@@ -597,9 +614,18 @@ Table of Contents
            namespace: urn:ietf:params:xml:ns:yang:ietf-immutable
            RFC: XXXX
 
-13.  References
+11.3.  RESTCONF Capability URN Registry
 
-13.1.  Normative References
+   This document defines the following capability identifier URNs in the
+   "RESTCONF Capability URNs" registry defined in [RFC8040]:
+
+  Index           Capability Identifier
+  ----------------------------------------------------------------------
+  :with-immutable urn:ietf:params:restconf:capability:with-immutable:1.0
+
+12.  References
+
+12.1.  Normative References
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -628,6 +654,10 @@ Table of Contents
               RFC 7952, DOI 10.17487/RFC7952, August 2016,
               <https://www.rfc-editor.org/rfc/rfc7952>.
 
+   [RFC8040]  Bierman, A., Bjorklund, M., and K. Watsen, "RESTCONF
+              Protocol", RFC 8040, DOI 10.17487/RFC8040, January 2017,
+              <https://www.rfc-editor.org/rfc/rfc8040>.
+
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
@@ -643,7 +673,7 @@ Table of Contents
               DOI 10.17487/RFC8526, March 2019,
               <https://www.rfc-editor.org/rfc/rfc8526>.
 
-13.2.  Informative References
+12.2.  Informative References
 
    [I-D.ietf-netmod-system-config]
               Ma, Q., Wu, Q., and C. Feng, "System-defined
@@ -651,6 +681,10 @@ Table of Contents
               ietf-netmod-system-config-06, 31 May 2024,
               <https://datatracker.ietf.org/doc/html/draft-ietf-netmod-
               system-config-06>.
+
+   [RFC8340]  Bjorklund, M. and L. Berger, Ed., "YANG Tree Diagrams",
+              BCP 215, RFC 8340, DOI 10.17487/RFC8340, March 2018,
+              <https://www.rfc-editor.org/rfc/rfc8340>.
 
    [RFC8343]  Bjorklund, M., "A YANG Data Model for Interface
               Management", RFC 8343, DOI 10.17487/RFC8343, March 2018,
@@ -788,10 +822,10 @@ Appendix B.  Existing Implementations
 
 Acknowledgments
 
-   Thanks to Kent Watsen, Andy Bierman, Robert Wilton, Jan Lindblad,
-   Jason Sterne, Reshad Rahman, Anthony Somerset, Lou Berger, Joe
-   Clarke, Scott Mansfield, and Juergen Schoenwaelder for reviewing, and
-   providing important inputs to, this document.
+   Thanks to Kent Watsen, Jan Lindblad, Jason Sterne, Robert Wilton,
+   Andy Bierman, Juergen Schoenwaelder, Reshad Rahman, Anthony Somerset,
+   Lou Berger, Joe Clarke, and Scott Mansfield for reviewing, and
+   providing important inputs to this document.
 
 Authors' Addresses
 
