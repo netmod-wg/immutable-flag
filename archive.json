@@ -1,7 +1,7 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-06-04T00:41:18.581505+00:00",
-  "repo": "QiufangMa/immutable-flag",
+  "timestamp": "2024-06-06T00:57:44.942534+00:00",
+  "repo": "netmod-wg/immutable-flag",
   "labels": [
     {
       "name": "bug",
@@ -50,5 +50,34 @@
     }
   ],
   "issues": [],
-  "pulls": []
+  "pulls": [
+    {
+      "number": 1,
+      "id": "PR_kwDOMEO2lc5xg6VD",
+      "title": "reflect comments received at the interim",
+      "url": "https://github.com/netmod-wg/immutable-flag/pull/1",
+      "state": "MERGED",
+      "author": "QiufangMa",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "1. Add RESTCONF support for \"with-immutable\" parameter and related capability URI\r\n2. clarify that immutable annotation has no bearing on the ordering of list/leaf-list entries\r\n3. add feature for NETCONF support of immutable annotation\r\n4. update security consideration",
+      "createdAt": "2024-06-05T07:45:40Z",
+      "updatedAt": "2024-06-05T07:50:39Z",
+      "baseRepository": "netmod-wg/immutable-flag",
+      "baseRefName": "main",
+      "baseRefOid": "3567a79066ee8ff49819b90aa5bba13ce463f881",
+      "headRepository": "QiufangMa/immutable-flag",
+      "headRefName": "main",
+      "headRefOid": "fbc05486139ba8146d1618368c57068a33eefcc3",
+      "closedAt": "2024-06-05T07:50:39Z",
+      "mergedAt": "2024-06-05T07:50:39Z",
+      "mergedBy": "QiufangMa",
+      "mergeCommit": {
+        "oid": "cf3aec19f1d3a4cdf05b4a48cc9fed5e561f3663"
+      },
+      "comments": [],
+      "reviews": []
+    }
+  ]
 }
