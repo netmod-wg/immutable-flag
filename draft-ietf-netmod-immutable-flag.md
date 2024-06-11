@@ -5,7 +5,7 @@ category: std
 updates: 6241, 8526, 8040
 
 docname: draft-ietf-netmod-immutable-flag-latest
-submissiontype: IETF  # also: "independent", "editorial", "IAB", or "IRTF"
+submissiontype: IETF
 number:
 date:
 consensus: true
