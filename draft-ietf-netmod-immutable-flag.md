@@ -2,7 +2,7 @@
 title: "YANG Metadata Annotation for Immutable Flag"
 abbrev: "immutable flag"
 category: std
-updates: 6241, 8526, 8040
+updates: 6241, 8040, 8526
 
 docname: draft-ietf-netmod-immutable-flag-latest
 submissiontype: IETF
@@ -76,7 +76,7 @@ informative:
 
    This document defines a way to formally document existing behavior,
    implemented by servers in production, on the immutability of some
-   system configuration nodes, using a YANG metadata annotation called
+   system-provided nodes, using a YANG metadata annotation called
    "immutable" to flag which nodes are immutable.
 
    Clients may use "immutable" annotations provided by the server, to
@@ -113,14 +113,14 @@ informative:
    needed by the system, while additional list entries can be created,
    modified or deleted.
 
-   If the server always rejects the client attempts to override some system
-   provided data because it internally thinks immutable, it should document
-   this towards the clients in a machine-readable way rather than writing as
-   plain text in the description statement.
+   If the server always rejects the client attempts to override some
+   system-provided data because it internally thinks immutable, it should document
+   it towards the clients in a machine-readable way rather than writing as
+   plain text in the "description" statement.
 
    This document defines a way to formally document existing behavior,
    implemented by servers in production, on the immutability of some
-   system configuration nodes, using a YANG metadata annotation {{!RFC7952}}
+   system-provided nodes, using a YANG metadata annotation {{!RFC7952}}
    called "immutable" to flag which nodes are immutable.
 
    This document does not apply to the server not having any immutable
@@ -138,6 +138,18 @@ informative:
 
    {{use-cases}} describes the use cases in detail.
 
+## Updates to RFC 6241 and RFC 8526
+
+   This document updates {{!RFC6241}} and {{!RFC8526}}. The NETCONF <get> and
+   <get-config> operations defined in {{!RFC6241}}, and <get-data> operation
+   defined in {{!RFC8526}} are augmented with an additional input parameter
+   named "with-immutable", as specified in {{NETCONF-ext}}.
+
+## Updates to RFC 8040
+
+   This document updates {{Sections 4.8 and 9.1.1 of !RFC8040}} to add an
+   additional input parameter named "with-immutable", as specified in {{RESTCONF-ext}}.
+
 ## Editorial Note (To be removed by RFC Editor)
 
   Note to the RFC Editor: This section is to be removed prior to publication.
@@ -150,7 +162,7 @@ informative:
   Please apply the following replacements:
 
   * XXXX --> the assigned RFC number for this draft
-  * 2023-06-04 --> the actual date of the publication of this document
+  * 2024-06-04 --> the actual date of the publication of this document
 
 # Conventions and Definitions
 
@@ -177,9 +189,10 @@ informative:
    * access operation
    * write access
 
-   The following terms are defined in this document:
+   This document defines the following term:
 
-   immutable flag: A read-only state value the server provides to describe
+   immutable flag:
+   : A read-only state value the server provides to describe
    immutability of the data, which is conveyed via a YANG metadata annotation
    called "immutable" with a boolean value.
 
@@ -208,14 +221,14 @@ informative:
    The immutable flag which is defined as the metadata annotation takes a boolean
    value, and it is returned as requested by the client using a "with-immutable"
    parameter ({{with-immutable}}). If the "immutable" metadata annotation for
-   system configuration is not specified, the default "immutable" value is the
+   configuration is not specified, the default "immutable" value is the
    same as the immutability of its parent node in the data tree ({{interior}}).
-   The immutable metadata annotation value for a top-level system-provided instance
+   The immutable metadata annotation value for a top-level instance
    node is "false" if not specified.
 
    Note that "immutable" metadata annotation is used to annotate data node
-   instances.  A list may have multiple entries/instances in the data tree,
-   servers can annotate some of the instances as immutable, while others are
+   instances.  A list may have multiple instances in the data tree,
+   servers can annotate some of the instances as immutable, while others as
    mutable.
 
    Servers MUST ignore any immutable metadata annotation sent from the client.
@@ -226,7 +239,7 @@ informative:
    "with-immutable" parameter. The "immutable" metadata annotations are not returned
    in a response unless explicitly requested by the client using this parameter.
 
-### NETCONF Extensions to Support "with-immutable"
+### NETCONF Extensions to Support "with-immutable" {#NETCONF-ext}
 
    This doument updates {{!RFC6241}} to augment the \<get-config\> and \<get\>
    operations with an additional parameter named "with-immutable". The
@@ -251,7 +264,7 @@ module: ietf-immutable
    Servers' support for accepting "with-immutable" parameter and returning "immutable"
    annotations is identified with the feature "immutable".
 
-### RESTCONF Extensions to Support "with-immutable"
+### RESTCONF Extensions to Support "with-immutable" {#RESTCONF-ext}
 
    This document extends sections 4.8 and 9.1.1 of {{!RFC8040}} to add query
    parameter named "with-immutable" to the GET operation. If present, this parameter
@@ -298,8 +311,7 @@ module: ietf-immutable
 ## The "list" Statement
 
    When a list node instance is immutable, it cannot change, unless the
-   immutability of its descendant node is toggled, per the description
-   elsewhere in this section.
+   immutability of its descendant node is toggled.
 
    By default, as with all interior nodes, immutability is recursively
    applied to descendants ({{interior}}).
