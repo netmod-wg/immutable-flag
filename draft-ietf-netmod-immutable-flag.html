@@ -12,7 +12,7 @@
 <meta content='
        This document defines a way to formally document existing behavior,
    implemented by servers in production, on the immutability of some
-   system configuration nodes, using a YANG metadata annotation called
+   system-provided nodes, using a YANG metadata annotation called
    "immutable" to flag which nodes are immutable. 
        Clients may use "immutable" annotations provided by the server, to
    know beforehand why certain otherwise valid configuration requests
@@ -26,17 +26,17 @@
 <meta content="draft-ietf-netmod-immutable-flag-latest" name="ietf.draft">
 <!-- Generator version information:
   xml2rfc 3.21.0
-    Python 3.11.9
+    Python 3.12.3
     ConfigArgParse 1.7
     google-i18n-address 3.1.0
     intervaltree 3.1.0
-    Jinja2 3.1.2
-    lxml 4.9.3
-    platformdirs 4.2.1
+    Jinja2 3.1.4
+    lxml 4.9.4
+    platformdirs 4.2.2
     pycountry 22.3.5
     PyYAML 6.0.1
     requests 2.31.0
-    setuptools 68.2.2
+    setuptools 69.5.1
     six 1.16.0
     wcwidth 0.2.13
 -->
@@ -1041,7 +1041,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Ma, et al.</td>
-<td class="center">Expires 7 December 2024</td>
+<td class="center">Expires 26 December 2024</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1054,15 +1054,15 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ietf-netmod-immutable-flag-latest</dd>
 <dt class="label-updates">Updates:</dt>
 <dd class="updates">
-<a href="https://www.rfc-editor.org/rfc/rfc6241" class="eref">6241</a>, <a href="https://www.rfc-editor.org/rfc/rfc8526" class="eref">8526</a>, <a href="https://www.rfc-editor.org/rfc/rfc8040" class="eref">8040</a> (if approved)</dd>
+<a href="https://www.rfc-editor.org/rfc/rfc6241" class="eref">6241</a>, <a href="https://www.rfc-editor.org/rfc/rfc8040" class="eref">8040</a>, <a href="https://www.rfc-editor.org/rfc/rfc8526" class="eref">8526</a> (if approved)</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2024-06-05" class="published">5 June 2024</time>
+<time datetime="2024-06-24" class="published">24 June 2024</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2024-12-07">7 December 2024</time></dd>
+<dd class="expires"><time datetime="2024-12-26">26 December 2024</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1091,7 +1091,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
 <p id="section-abstract-1">This document defines a way to formally document existing behavior,
    implemented by servers in production, on the immutability of some
-   system configuration nodes, using a YANG metadata annotation called
+   system-provided nodes, using a YANG metadata annotation called
    "immutable" to flag which nodes are immutable.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
 <p id="section-abstract-2">Clients may use "immutable" annotations provided by the server, to
    know beforehand why certain otherwise valid configuration requests
@@ -1108,7 +1108,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
     Network Modeling Working Group mailing list (netmod@ietf.org),
     which is archived at <span><a href="https://mailarchive.ietf.org/arch/browse/netmod/">https://mailarchive.ietf.org/arch/browse/netmod/</a></span>.<a href="#section-note.1-2" class="pilcrow">¶</a></p>
 <p id="section-note.1-3">Source for this draft and an issue tracker can be found at
-    <span><a href="https://github.com/QiufangMa/immutable-flag">https://github.com/QiufangMa/immutable-flag</a></span>.<a href="#section-note.1-3" class="pilcrow">¶</a></p>
+    <span><a href="https://github.com/netmod-wg/immutable-flag">https://github.com/netmod-wg/immutable-flag</a></span>.<a href="#section-note.1-3" class="pilcrow">¶</a></p>
 </section>
 <div id="status-of-memo">
 <section id="section-boilerplate.1">
@@ -1129,7 +1129,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 7 December 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 26 December 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1159,15 +1159,21 @@ svg :is([fill="white"], [fill^="#fff"]) {
         </h2>
 <nav class="toc"><ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.1">
-            <p id="section-toc.1-1.1.1" class="keepWithNext"><a href="#section-1" class="auto internal xref">1</a>.  <a href="#name-introduction" class="internal xref">Introduction</a></p>
+            <p id="section-toc.1-1.1.1"><a href="#section-1" class="auto internal xref">1</a>.  <a href="#name-introduction" class="internal xref">Introduction</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.1.2.1">
-                <p id="section-toc.1-1.1.2.1.1" class="keepWithNext"><a href="#section-1.1" class="auto internal xref">1.1</a>.  <a href="#name-editorial-note-to-be-remove" class="internal xref">Editorial Note (To be removed by RFC Editor)</a></p>
+                <p id="section-toc.1-1.1.2.1.1" class="keepWithNext"><a href="#section-1.1" class="auto internal xref">1.1</a>.  <a href="#name-updates-to-rfc-6241-and-rfc" class="internal xref">Updates to RFC 6241 and RFC 8526</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.1.2.2">
+                <p id="section-toc.1-1.1.2.2.1" class="keepWithNext"><a href="#section-1.2" class="auto internal xref">1.2</a>.  <a href="#name-updates-to-rfc-8040" class="internal xref">Updates to RFC 8040</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.1.2.3">
+                <p id="section-toc.1-1.1.2.3.1" class="keepWithNext"><a href="#section-1.3" class="auto internal xref">1.3</a>.  <a href="#name-editorial-note-to-be-remove" class="internal xref">Editorial Note (To be removed by RFC Editor)</a></p>
 </li>
             </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2">
-            <p id="section-toc.1-1.2.1" class="keepWithNext"><a href="#section-2" class="auto internal xref">2</a>.  <a href="#name-conventions-and-definitions" class="internal xref">Conventions and Definitions</a></p>
+            <p id="section-toc.1-1.2.1"><a href="#section-2" class="auto internal xref">2</a>.  <a href="#name-conventions-and-definitions" class="internal xref">Conventions and Definitions</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3">
             <p id="section-toc.1-1.3.1"><a href="#section-3" class="auto internal xref">3</a>.  <a href="#name-applicability" class="internal xref">Applicability</a></p>
@@ -1315,13 +1321,13 @@ svg :is([fill="white"], [fill^="#fff"]) {
    modified or deleted.<a href="#section-1-3.3.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<p id="section-1-4">If the server always rejects the client attempts to override some system
-   provided data because it internally thinks immutable, it should document
-   this towards the clients in a machine-readable way rather than writing as
-   plain text in the description statement.<a href="#section-1-4" class="pilcrow">¶</a></p>
+<p id="section-1-4">If the server always rejects the client attempts to override some
+   system-provided data because it internally thinks immutable, it should document
+   it towards the clients in a machine-readable way rather than writing as
+   plain text in the "description" statement.<a href="#section-1-4" class="pilcrow">¶</a></p>
 <p id="section-1-5">This document defines a way to formally document existing behavior,
    implemented by servers in production, on the immutability of some
-   system configuration nodes, using a YANG metadata annotation <span>[<a href="#RFC7952" class="cite xref">RFC7952</a>]</span>
+   system-provided nodes, using a YANG metadata annotation <span>[<a href="#RFC7952" class="cite xref">RFC7952</a>]</span>
    called "immutable" to flag which nodes are immutable.<a href="#section-1-5" class="pilcrow">¶</a></p>
 <p id="section-1-6">This document does not apply to the server not having any immutable
    system configuration.  While in some cases immutability may be
@@ -1344,23 +1350,43 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </li>
       </ul>
 <p id="section-1-9"><a href="#use-cases" class="auto internal xref">Appendix A</a> describes the use cases in detail.<a href="#section-1-9" class="pilcrow">¶</a></p>
-<div id="editorial-note-to-be-removed-by-rfc-editor">
+<div id="updates-to-rfc-6241-and-rfc-8526">
 <section id="section-1.1">
-        <h3 id="name-editorial-note-to-be-remove">
-<a href="#section-1.1" class="section-number selfRef">1.1. </a><a href="#name-editorial-note-to-be-remove" class="section-name selfRef">Editorial Note (To be removed by RFC Editor)</a>
+        <h3 id="name-updates-to-rfc-6241-and-rfc">
+<a href="#section-1.1" class="section-number selfRef">1.1. </a><a href="#name-updates-to-rfc-6241-and-rfc" class="section-name selfRef">Updates to RFC 6241 and RFC 8526</a>
         </h3>
-<p id="section-1.1-1">Note to the RFC Editor: This section is to be removed prior to publication.<a href="#section-1.1-1" class="pilcrow">¶</a></p>
-<p id="section-1.1-2">This document contains placeholder values that need to be replaced with finalized
+<p id="section-1.1-1">This document updates <span>[<a href="#RFC6241" class="cite xref">RFC6241</a>]</span> and <span>[<a href="#RFC8526" class="cite xref">RFC8526</a>]</span>. The NETCONF &lt;get&gt; and
+   &lt;get-config&gt; operations defined in <span>[<a href="#RFC6241" class="cite xref">RFC6241</a>]</span>, and &lt;get-data&gt; operation
+   defined in <span>[<a href="#RFC8526" class="cite xref">RFC8526</a>]</span> are augmented with an additional input parameter
+   named "with-immutable", as specified in <a href="#NETCONF-ext" class="auto internal xref">Section 4.2.1</a>.<a href="#section-1.1-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="updates-to-rfc-8040">
+<section id="section-1.2">
+        <h3 id="name-updates-to-rfc-8040">
+<a href="#section-1.2" class="section-number selfRef">1.2. </a><a href="#name-updates-to-rfc-8040" class="section-name selfRef">Updates to RFC 8040</a>
+        </h3>
+<p id="section-1.2-1">This document updates Sections <a href="https://rfc-editor.org/rfc/rfc8040#section-4.8" class="relref">4.8</a> and <a href="https://rfc-editor.org/rfc/rfc8040#section-9.1.1" class="relref">9.1.1</a> of <span>[<a href="#RFC8040" class="cite xref">RFC8040</a>]</span> to add an
+   additional input parameter named "with-immutable", as specified in <a href="#RESTCONF-ext" class="auto internal xref">Section 4.2.2</a>.<a href="#section-1.2-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="editorial-note-to-be-removed-by-rfc-editor">
+<section id="section-1.3">
+        <h3 id="name-editorial-note-to-be-remove">
+<a href="#section-1.3" class="section-number selfRef">1.3. </a><a href="#name-editorial-note-to-be-remove" class="section-name selfRef">Editorial Note (To be removed by RFC Editor)</a>
+        </h3>
+<p id="section-1.3-1">Note to the RFC Editor: This section is to be removed prior to publication.<a href="#section-1.3-1" class="pilcrow">¶</a></p>
+<p id="section-1.3-2">This document contains placeholder values that need to be replaced with finalized
   values at the time of publication.  This note summarizes all of the
   substitutions that are needed.  No other RFC Editor instructions are specified
-  elsewhere in this document.<a href="#section-1.1-2" class="pilcrow">¶</a></p>
-<p id="section-1.1-3">Please apply the following replacements:<a href="#section-1.1-3" class="pilcrow">¶</a></p>
+  elsewhere in this document.<a href="#section-1.3-2" class="pilcrow">¶</a></p>
+<p id="section-1.3-3">Please apply the following replacements:<a href="#section-1.3-3" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-1.1-4.1">
-            <p id="section-1.1-4.1.1">XXXX --&gt; the assigned RFC number for this draft<a href="#section-1.1-4.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-1.3-4.1">
+            <p id="section-1.3-4.1.1">XXXX --&gt; the assigned RFC number for this draft<a href="#section-1.3-4.1.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-1.1-4.2">
-            <p id="section-1.1-4.2.1">2023-06-04 --&gt; the actual date of the publication of this document<a href="#section-1.1-4.2.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-1.3-4.2">
+            <p id="section-1.3-4.2.1">2024-06-04 --&gt; the actual date of the publication of this document<a href="#section-1.3-4.2.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
@@ -1421,10 +1447,16 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
           <p id="section-2-7.2.1">write access<a href="#section-2-7.2.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<p id="section-2-8">The following terms are defined in this document:<a href="#section-2-8" class="pilcrow">¶</a></p>
-<p id="section-2-9">immutable flag: A read-only state value the server provides to describe
+<p id="section-2-8">This document defines the following term:<a href="#section-2-8" class="pilcrow">¶</a></p>
+<span class="break"></span><dl class="dlParallel" id="section-2-9">
+        <dt id="section-2-9.1">immutable flag:</dt>
+        <dd style="margin-left: 1.5em" id="section-2-9.2">
+          <p id="section-2-9.2.1">A read-only state value the server provides to describe
    immutability of the data, which is conveyed via a YANG metadata annotation
-   called "immutable" with a boolean value.<a href="#section-2-9" class="pilcrow">¶</a></p>
+   called "immutable" with a boolean value.<a href="#section-2-9.2.1" class="pilcrow">¶</a></p>
+</dd>
+      <dd class="break"></dd>
+</dl>
 </section>
 </div>
 <div id="applicability">
@@ -1460,13 +1492,13 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
 <p id="section-4.1-1">The immutable flag which is defined as the metadata annotation takes a boolean
    value, and it is returned as requested by the client using a "with-immutable"
    parameter (<a href="#with-immutable" class="auto internal xref">Section 4.2</a>). If the "immutable" metadata annotation for
-   system configuration is not specified, the default "immutable" value is the
+   configuration is not specified, the default "immutable" value is the
    same as the immutability of its parent node in the data tree (<a href="#interior" class="auto internal xref">Section 6</a>).
-   The immutable metadata annotation value for a top-level system-provided instance
+   The immutable metadata annotation value for a top-level instance
    node is "false" if not specified.<a href="#section-4.1-1" class="pilcrow">¶</a></p>
 <p id="section-4.1-2">Note that "immutable" metadata annotation is used to annotate data node
-   instances.  A list may have multiple entries/instances in the data tree,
-   servers can annotate some of the instances as immutable, while others are
+   instances.  A list may have multiple instances in the data tree,
+   servers can annotate some of the instances as immutable, while others as
    mutable.<a href="#section-4.1-2" class="pilcrow">¶</a></p>
 <p id="section-4.1-3">Servers <span class="bcp14">MUST</span> ignore any immutable metadata annotation sent from the client.<a href="#section-4.1-3" class="pilcrow">¶</a></p>
 </section>
@@ -1479,7 +1511,7 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
 <p id="section-4.2-1">This section specifies the NETCONF and RESTCONF protocol extensions to support
    "with-immutable" parameter. The "immutable" metadata annotations are not returned
    in a response unless explicitly requested by the client using this parameter.<a href="#section-4.2-1" class="pilcrow">¶</a></p>
-<div id="netconf-extensions-to-support-with-immutable">
+<div id="NETCONF-ext">
 <section id="section-4.2.1">
           <h4 id="name-netconf-extensions-to-suppo">
 <a href="#section-4.2.1" class="section-number selfRef">4.2.1. </a><a href="#name-netconf-extensions-to-suppo" class="section-name selfRef">NETCONF Extensions to Support "with-immutable"</a>
@@ -1512,7 +1544,7 @@ module: ietf-immutable
    annotations is identified with the feature "immutable".<a href="#section-4.2.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="restconf-extensions-to-support-with-immutable">
+<div id="RESTCONF-ext">
 <section id="section-4.2.2">
           <h4 id="name-restconf-extensions-to-supp">
 <a href="#section-4.2.2" class="section-number selfRef">4.2.2. </a><a href="#name-restconf-extensions-to-supp" class="section-name selfRef">RESTCONF Extensions to Support "with-immutable"</a>
@@ -1581,8 +1613,7 @@ module: ietf-immutable
 <a href="#section-5.4" class="section-number selfRef">5.4. </a><a href="#name-the-list-statement" class="section-name selfRef">The "list" Statement</a>
         </h3>
 <p id="section-5.4-1">When a list node instance is immutable, it cannot change, unless the
-   immutability of its descendant node is toggled, per the description
-   elsewhere in this section.<a href="#section-5.4-1" class="pilcrow">¶</a></p>
+   immutability of its descendant node is toggled.<a href="#section-5.4-1" class="pilcrow">¶</a></p>
 <p id="section-5.4-2">By default, as with all interior nodes, immutability is recursively
    applied to descendants (<a href="#interior" class="auto internal xref">Section 6</a>).<a href="#section-5.4-2" class="pilcrow">¶</a></p>
 <p id="section-5.4-3">The immutable annotation attached to the individual list instance provides
@@ -1966,7 +1997,7 @@ Index           Capability Identifier
 <dl class="references">
 <dt id="I-D.ietf-netmod-system-config">[I-D.ietf-netmod-system-config]</dt>
         <dd>
-<span class="refAuthor">Ma, Q.</span>, <span class="refAuthor">Wu, Q.</span>, and <span class="refAuthor">C. Feng</span>, <span class="refTitle">"System-defined Configuration"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-netmod-system-config-06</span>, <time datetime="2024-05-31" class="refDate">31 May 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-netmod-system-config-06">https://datatracker.ietf.org/doc/html/draft-ietf-netmod-system-config-06</a>&gt;</span>. </dd>
+<span class="refAuthor">Ma, Q.</span>, <span class="refAuthor">Wu, Q.</span>, and <span class="refAuthor">C. Feng</span>, <span class="refTitle">"System-defined Configuration"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-netmod-system-config-08</span>, <time datetime="2024-06-18" class="refDate">18 June 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-netmod-system-config-08">https://datatracker.ietf.org/doc/html/draft-ietf-netmod-system-config-08</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC8340">[RFC8340]</dt>
         <dd>
