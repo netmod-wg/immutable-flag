@@ -140,8 +140,8 @@ informative:
 
 ## Updates to RFC 6241 and RFC 8526
 
-   This document updates {{!RFC6241}} and {{!RFC8526}}. The NETCONF <get> and
-   <get-config> operations defined in {{!RFC6241}}, and <get-data> operation
+   This document updates {{!RFC6241}} and {{!RFC8526}}. The NETCONF \<get\> and
+   \<get-config\> operations defined in {{!RFC6241}}, and \<get-data\> operation
    defined in {{!RFC8526}} are augmented with an additional input parameter
    named "with-immutable", as specified in {{NETCONF-ext}}.
 
