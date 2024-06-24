@@ -266,7 +266,7 @@ module: ietf-immutable
 
 ### RESTCONF Extensions to Support "with-immutable" {#RESTCONF-ext}
 
-   This document extends sections 4.8 and 9.1.1 of {{!RFC8040}} to add query
+   This document extends {{Sections 4.8 and 9.1.1 of !RFC8040}} to add query
    parameter named "with-immutable" to the GET operation. If present, this parameter
    requests that the server includes the "immutable" metadata annotations in its
    response. This parameter is only allowed with no values carried. If it has
@@ -414,16 +414,24 @@ module: ietf-immutable
 
 # Security Considerations
 
-   The YANG module specified in this document defines a metadata annotation,
-   it also extends the base operations of the NETCONF protocol in {{!RFC6241}}
-   and {{!RFC8526}}.
+   This section uses the template described in {{Section 3.7 of ?I-D.ietf-netmod-rfc8407bis}}.
+
+   The "ietf-immutable" YANG module specified in this document defines a schema
+   for data that is designed to be accessed via network management protocols such
+   as NETCONF {{!RFC6241}} or RESTCONF {{!RFC8040}}. The lowest NETCONF layer
+   is the secure transport layer, and the mandatory-to-implement secure
+   transport is Secure Shell (SSH) {{!RFC6242}}. The lowest RESTCONF layer
+   is HTTPS, and the mandatory-to-implement secure transport is TLS
+   {{!RFC8446}}.
 
    The Network Configuration Access Control Model (NACM) {{!RFC8341}}
    provides the means to restrict access for particular NETCONF or
    RESTCONF users to a preconfigured subset of all available NETCONF or
-   RESTCONF protocol operations and content. Since immutable flag is tied
-   to applied configuration values, it is only accessible to clients that
-   have the permissions to read the applied configuration values.
+   RESTCONF protocol operations and content.
+
+   The YANG module specified in this document defines a metadata annotation,
+   it also extends the RPC operations of the NETCONF protocol in {{!RFC6241}}
+   and {{!RFC8526}}.
 
    The security considerations for the Defining and Using Metadata with
    YANG (see {{Section 9 of !RFC7952}}) apply to the metadata annotation
