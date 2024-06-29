@@ -866,7 +866,7 @@ Authors' Addresses
    Qiufang Ma (editor)
    Huawei
    101 Software Avenue, Yuhua District
-   Jiangsu
+   Nanjing, Jiangsu
    210012
    China
    Email: maqiufang1@huawei.com
@@ -875,7 +875,7 @@ Authors' Addresses
    Qin Wu
    Huawei
    101 Software Avenue, Yuhua District
-   Jiangsu
+   Nanjing, Jiangsu
    210012
    China
    Email: bill.wu@huawei.com
