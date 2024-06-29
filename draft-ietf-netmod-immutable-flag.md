@@ -22,7 +22,7 @@ author:
     organization: Huawei
     role: editor
     street: 101 Software Avenue, Yuhua District
-    city: Jiangsu
+    city: Nanjing, Jiangsu
     code: 210012
     country: China
     email: maqiufang1@huawei.com
@@ -30,7 +30,7 @@ author:
     fullname: Qin Wu
     organization: Huawei
     street: 101 Software Avenue, Yuhua District
-    city: Jiangsu
+    city: Nanjing, Jiangsu
     code: 210012
     country: China
     email: bill.wu@huawei.com
