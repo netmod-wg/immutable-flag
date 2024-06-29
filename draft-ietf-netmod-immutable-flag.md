@@ -168,11 +168,11 @@ informative:
 
 {::boilerplate bcp14-tagged}
 
-   The following terms are defined in {{!RFC6241}}:
+   The document uses the following definition in {{!RFC6241}}:
 
    * configuration data
 
-   The following terms are defined in {{!RFC7950}}:
+   The document uses the following definition in {{!RFC7950}}:
 
    * data node
    * leaf
@@ -184,10 +184,10 @@ informative:
    * interior node
    * data tree
 
-   The following terms are defined in {{!RFC8341}}:
+   The document uses the following definition in {{!RFC8341}}:
 
    * access operation
-   * write access
+
 
    This document defines the following term:
 
@@ -226,12 +226,12 @@ informative:
    The immutable metadata annotation value for a top-level instance
    node is "false" if not specified.
 
-   Note that "immutable" metadata annotation is used to annotate data node
+   Note that "immutable" metadata annotations are used to annotate data node
    instances.  A list may have multiple instances in the data tree,
-   servers can annotate some of the instances as immutable, while others as
+   servers may annotate some of the instances as immutable, while others as
    mutable.
 
-   Servers MUST ignore any immutable metadata annotation sent from the client.
+   Servers MUST ignore any immutable annotations sent from the client.
 
 ## "with-immutable" Parameter {#with-immutable}
 
@@ -266,7 +266,7 @@ module: ietf-immutable
 
 ### RESTCONF Extensions to Support "with-immutable" {#RESTCONF-ext}
 
-   This document extends {{Sections 4.8 and 9.1.1 of !RFC8040}} to add query
+   This document extends {{Sections 4.8 and 9.1.1 of !RFC8040}} to add a query
    parameter named "with-immutable" to the GET operation. If present, this parameter
    requests that the server includes the "immutable" metadata annotations in its
    response. This parameter is only allowed with no values carried. If it has
@@ -341,14 +341,15 @@ module: ietf-immutable
    state as needed, thereby affecting their descendants.  There is no limit
    to the number of times the immutability state may change in a data tree.
 
-   If the "immutable" metadata annotation for returned child nodes are omitted,
+   If the "immutable" metadata annotation for returned child node is omitted,
    it has the same immutability as its parent node. The immutability of top
    hierarchy of returned nodes is false by default. Servers may suppress the
    annotation if it is inherited from its parent node or uses the default value
    as the top-level node, but are not precluded from returning the annotation
    on every single element.
 
-   For example, given the following application configuration XML snippets:
+   For example, the following XML snippets shows applications configuration a
+   server might return:
 
 ~~~~
 <applications im:immutable="false">
@@ -365,20 +366,20 @@ module: ietf-immutable
 </applications>
 ~~~~
 
-   In this example, there are two "application" list entries inside "applications"
+   In the example, there are two "application" list entries inside "applications"
    container node. The "immutable" metadata attribute for applications container
    instance is "false", which is also its default value as the top-level element,
    and thus can be omitted. The "application" list entry named "ssh" is immutable
    with the immutability of its child node "port-number" being explicitly toggled.
-   The other child nodes inheriting immutability from their parent node thus are
-   also immutable. The "immutable" metadata attribute for application list entry
-   named "my-ssh" is "false", which is also its inherited value from its parent
-   node, and thus can be omitted.
+   The other child nodes inside "ssh" application instance inherit immutability
+   from their parent node thus are also immutable. The "immutable" metadata attribute
+   for application list entry named "my-ssh" is "false", which is also the same
+   value as its parent node, and thus can be omitted.
 
 # System Configuration Datastore Interactions
 
    Immutable configuration can only be created, updated and deleted by the server,
-   thus it is present in \<system\>, if implemented. That said, the existence of
+   and it is present in \<system\>, if implemented. That said, the existence of
    immutable configuration is independent of whether \<system\> is implemented or
    not. Not all system configuration data is immutable. Immutable configuration
    does not appear in \<running\> unless it is explicitly provided by the client
