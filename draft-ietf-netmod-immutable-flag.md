@@ -74,7 +74,7 @@ informative:
 
 --- abstract
 
-   This document defines a way to formally document existing behavior,
+   This document defines a way to formally document an existing behavior,
    implemented by servers in production, on the immutability of some
    system-provided nodes, using a YANG metadata annotation called
    "immutable" to flag which nodes are immutable.
@@ -83,15 +83,15 @@ informative:
    know beforehand why certain otherwise valid configuration requests
    will cause the server to return an error.
 
-   The immutable flag is descriptive, documenting existing behavior, not
-   proscriptive, dictating server behavior.
+   The immutable flag is descriptive, documenting an existing behavior, not
+   proscriptive, dictating server behaviors.
 
 --- middle
 
 # Introduction
 
-   This document defines a way to formally document as a YANG metadata
-   annotation an existing model handling behavior that has been used by
+   This document defines a YANG metadata annotation to formally document
+   an existing model handling behavior that has been used by
    multiple standard organizations and vendors.  It is the aim to create
    one single standard solution for documenting non-modifiable system
    data declared as configuration, instead of the multiple existing
@@ -107,18 +107,18 @@ informative:
    * allow configuration of data nodes under immutable lists or containers;
 
    * place "when", "must" and "leafref" constraints between configuration
-   and immutable data nodes;
+   and immutable nodes;
 
    * ensure the existence of specific list entries that are provided and
    needed by the system, while additional list entries can be created,
    modified or deleted.
 
-   If the server always rejects the client attempts to override some
+   If the server always rejects the clients' attempts to override some
    system-provided data because it internally thinks immutable, it should document
    it towards the clients in a machine-readable way rather than writing as
    plain text in the "description" statement.
 
-   This document defines a way to formally document existing behavior,
+   This document defines a way to formally document the existing behavior,
    implemented by servers in production, on the immutability of some
    system-provided nodes, using a YANG metadata annotation {{!RFC7952}}
    called "immutable" to flag which nodes are immutable.
@@ -132,7 +132,7 @@ informative:
    cases:
 
    * UC1  Modeling of server capabilities
-   * UC2  HW based auto-configuration
+   * UC2  Hardware based auto-configuration
    * UC3  Predefined administrator roles
    * UC4  Declaring immutable system configuration from an LNE's perspective
 
@@ -208,9 +208,9 @@ informative:
    instance node itself, but has no effect on the handling of the read-only
    datastore.
 
-   Configuration data must have the same immutability in different
-   writable datastores.  The immutability of data nodes is protocol and
-   user independent.  The immutability and configured value of an
+   An instance has the same immutability if it appears in different
+   writable datastores, the immutability of data object is also protocol and
+   user independent. The immutability and configured value of an
    existing node MUST only change via software upgrade, hardware
    resources change, or license change.
 
@@ -221,8 +221,8 @@ informative:
    The immutable flag which is defined as the metadata annotation takes a boolean
    value, and it is returned as requested by the client using a "with-immutable"
    parameter ({{with-immutable}}). If the "immutable" metadata annotation for
-   configuration is not specified, the default "immutable" value is the
-   same as the immutability of its parent node in the data tree ({{interior}}).
+   a node is not specified, the default "immutable" value is the
+   same as the value of its parent node in the data tree ({{interior}}).
    The immutable metadata annotation value for a top-level instance
    node is "false" if not specified.
 
@@ -235,9 +235,10 @@ informative:
 
 ## "with-immutable" Parameter {#with-immutable}
 
-   This section specifies the NETCONF and RESTCONF protocol extensions to support
-   "with-immutable" parameter. The "immutable" metadata annotations are not returned
-   in a response unless explicitly requested by the client using this parameter.
+   This section specifies the NETCONF {{!RFC6241}} and RESTCONF {{!RFC8040}}
+   protocol extensions to support the "with-immutable" parameter.
+   The "immutable" metadata annotations are not returned in a response unless
+   explicitly requested by the client using this parameter.
 
 ### NETCONF Extensions to Support "with-immutable" {#NETCONF-ext}
 
@@ -295,7 +296,7 @@ module: ietf-immutable
    When a leaf-list node instance is immutable, its value cannot change.
 
    The immutable annotation attached to the individual leaf-list instance
-   provides immutability with respect to the instance itself. If leaf-list
+   provides immutability with respect to the instance itself. If a leaf-list
    inherits immutability from an ancestor (e.g., container), it is identical
    to each individual leaf-list entry being annotated without any bearing on the
    entry ordering and addition of new entries.
@@ -317,7 +318,7 @@ module: ietf-immutable
    applied to descendants ({{interior}}).
 
    The immutable annotation attached to the individual list instance provides
-   immutability with respect to the instance itself. If list inherits immutability
+   immutability with respect to the instance itself. If a list inherits immutability
    from an ancestor (e.g., container), it is identical to each individual list
    entry being annotated without any bearing on the entry ordering and addition
    of new entries.
@@ -348,7 +349,7 @@ module: ietf-immutable
    as the top-level node, but are not precluded from returning the annotation
    on every single element.
 
-   For example, the following XML snippets shows applications configuration a
+   For example, the following XML snippets shows application configuration a
    server might return:
 
 ~~~~
@@ -382,9 +383,7 @@ module: ietf-immutable
    and it is present in \<system\>, if implemented. That said, the existence of
    immutable configuration is independent of whether \<system\> is implemented or
    not. Not all system configuration data is immutable. Immutable configuration
-   does not appear in \<running\> unless it is explicitly provided by the client
-   or copied by the server via "resolve-system" parameter defined in
-   {{?I-D.ietf-netmod-system-config}}.
+   does not appear in \<running\> unless it is explicitly configured.
 
    A client may create/delete immutable nodes with same values as found
    in \<system\> (if implemented) in read-write configuration datastore (e.g.,
@@ -484,8 +483,8 @@ Index           Capability Identifier
 
 ## UC1 - Modeling of server capabilities
 
-   System capabilities might be represented as system-defined data nodes in
-   the model.  Configurable data nodes might need constraints specified as
+   System capabilities might be represented as immutable configuration.
+   Configurable data nodes might need constraints specified as
    "when", "must" or "path" statements to ensure that configuration is set
    according to the system's capabilities. For example,
 
@@ -503,22 +502,22 @@ Index           Capability Identifier
 
    The solution is that the supported-timer-values data node in the YANG
    Model shall be defined as "config true" and shall also be marked with
-   the "immutable" annotation  making it unchangeable.  After this the
+   the "immutable" annotation making it unchangeable. After this the
    'interface-timer' shall be defined as a leaf-ref pointing at the
    'supported-timer-values'.
 
-## UC2 - HW based auto-configuration - Interface Example
+## UC2 - Hardware based auto-configuration - Interface Example
 
    {{?RFC8343}} defines a YANG data model for the management of network
    interfaces.  When a system-controlled interface is physically present,
    the system creates an interface entry with valid name and type
    values in \<system\> (if exists, see {{?I-D.ietf-netmod-system-config}}).
 
-   The system-generated type value is dependent on and represents the HW
+   The system-generated type value is dependent on and represents the hardware
    present, and as a consequence cannot be changed by the client.  If a
    client tries to set the type of an interface to a value that can
    never be used by the system, the request will be rejected by the
-   server.  The data is modelled as "config true" and should be annotated
+   server.  The data is modeled as "config true" and thus should be annotated
    as immutable.
 
    Seemingly an alternative would be to model the list and these leaves
@@ -542,13 +541,12 @@ Index           Capability Identifier
    A device may provide a predefined user account (e.g., a system
    administrator that is always available and has full privileges) for
    initial system set up and management of other users/groups.  It is
-   possible that clients can define a new user/group and grant it
-   particular privileges, but the predefined administrator account and
-   its granted access cannot be modified.
+   possible that a new user/group can be defined granted particular privileges,
+   but the predefined administrator account and its granted access are immutable.
 
 ## UC4 - Declaring immutable system configuration from an LNE's perspective
 
-   An LNE (logical network element) is an independently managed virtual
+   An logical network element (LNE) is an independently managed virtual
    network device made up of resources allocated to it from its host or
    parent network device {{?RFC8530}}.  The host device may allocate some
    resources to an LNE, which from an LNE's perspective is provided by
