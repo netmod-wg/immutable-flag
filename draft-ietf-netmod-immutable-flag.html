@@ -20,19 +20,19 @@
        The immutable flag is descriptive, documenting an existing behavior, not
    proscriptive, dictating server behaviors. 
     ' name="description">
-<meta content="xml2rfc 3.23.0" name="generator">
+<meta content="xml2rfc 3.23.1" name="generator">
 <meta content="immutable flag" name="keyword">
 <meta content="system configuration" name="keyword">
 <meta content="draft-ietf-netmod-immutable-flag-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.23.0
-    Python 3.12.3
+  xml2rfc 3.23.1
+    Python 3.12.6
     ConfigArgParse 1.7
-    google-i18n-address 3.1.0
+    google-i18n-address 3.1.1
     intervaltree 3.1.0
     Jinja2 3.1.4
     lxml 4.9.4
-    platformdirs 4.2.2
+    platformdirs 4.3.6
     pycountry 22.3.5
     PyYAML 6.0.1
     requests 2.32.3
@@ -1040,7 +1040,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Ma, et al.</td>
-<td class="center">Expires 8 March 2025</td>
+<td class="center">Expires 28 March 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1056,12 +1056,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <a href="https://www.rfc-editor.org/rfc/rfc6241" class="eref">6241</a>, <a href="https://www.rfc-editor.org/rfc/rfc8040" class="eref">8040</a>, <a href="https://www.rfc-editor.org/rfc/rfc8526" class="eref">8526</a> (if approved)</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2024-09-04" class="published">4 September 2024</time>
+<time datetime="2024-09-24" class="published">24 September 2024</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-03-08">8 March 2025</time></dd>
+<dd class="expires"><time datetime="2025-03-28">28 March 2025</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1128,7 +1128,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 8 March 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 28 March 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1299,8 +1299,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
    multiple standard organizations and vendors.  It is the aim to create
    one single standard solution for documenting non-modifiable system
    data declared as configuration, instead of the multiple existing
-   vendor and organization specific solutions.  See <a href="#implementations" class="auto internal xref">Appendix B</a> for
-   existing implementations.<a href="#section-1-1" class="pilcrow">¶</a></p>
+   vendor and organization specific solutions.<a href="#section-1-1" class="pilcrow">¶</a></p>
 <p id="section-1-2">YANG <span>[<a href="#RFC7950" class="cite xref">RFC7950</a>]</span> is a data modeling language used to model both state
    and configuration data, based on the "config" statement.  However,
    there exists some system configuration data that cannot be modified
@@ -1349,6 +1348,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </li>
       </ul>
 <p id="section-1-9"><a href="#use-cases" class="auto internal xref">Appendix A</a> describes the use cases in detail.<a href="#section-1-9" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-1-10">
+<pre>
+This document updates {{RFC6241}}, {{RFC8040}}, and {{RFC8526}}.
+</pre><a href="#section-1-10" class="pilcrow">¶</a>
+</div>
 <div id="updates-to-rfc-6241-and-rfc-8526">
 <section id="section-1.1">
         <h3 id="name-updates-to-rfc-6241-and-rfc">
@@ -1859,7 +1863,7 @@ module ietf-immutable {
       <h2 id="name-security-considerations">
 <a href="#section-10" class="section-number selfRef">10. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
       </h2>
-<p id="section-10-1">This section uses the template described in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-netmod-rfc8407bis-14#section-3.7" class="relref">Section 3.7</a> of [<a href="#I-D.ietf-netmod-rfc8407bis" class="cite xref">I-D.ietf-netmod-rfc8407bis</a>]</span>.<a href="#section-10-1" class="pilcrow">¶</a></p>
+<p id="section-10-1">This section uses the template described in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-netmod-rfc8407bis-16#section-3.7" class="relref">Section 3.7</a> of [<a href="#I-D.ietf-netmod-rfc8407bis" class="cite xref">I-D.ietf-netmod-rfc8407bis</a>]</span>.<a href="#section-10-1" class="pilcrow">¶</a></p>
 <p id="section-10-2">The "ietf-immutable" YANG module specified in this document defines a schema
    for data that is designed to be accessed via network management protocols such
    as NETCONF <span>[<a href="#RFC6241" class="cite xref">RFC6241</a>]</span> or RESTCONF <span>[<a href="#RFC8040" class="cite xref">RFC8040</a>]</span>. The lowest NETCONF layer
@@ -2008,7 +2012,7 @@ Index           Capability Identifier
 <dl class="references">
 <dt id="I-D.ietf-netmod-rfc8407bis">[I-D.ietf-netmod-rfc8407bis]</dt>
         <dd>
-<span class="refAuthor">Bierman, A.</span>, <span class="refAuthor">Boucadair, M.</span>, and <span class="refAuthor">Q. Wu</span>, <span class="refTitle">"Guidelines for Authors and Reviewers of Documents Containing YANG Data Models"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-netmod-rfc8407bis-14</span>, <time datetime="2024-07-05" class="refDate">5 July 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-netmod-rfc8407bis-14">https://datatracker.ietf.org/doc/html/draft-ietf-netmod-rfc8407bis-14</a>&gt;</span>. </dd>
+<span class="refAuthor">Bierman, A.</span>, <span class="refAuthor">Boucadair, M.</span>, and <span class="refAuthor">Q. Wu</span>, <span class="refTitle">"Guidelines for Authors and Reviewers of Documents Containing YANG Data Models"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-netmod-rfc8407bis-16</span>, <time datetime="2024-09-20" class="refDate">20 September 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-netmod-rfc8407bis-16">https://datatracker.ietf.org/doc/html/draft-ietf-netmod-rfc8407bis-16</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="I-D.ietf-netmod-system-config">[I-D.ietf-netmod-system-config]</dt>
         <dd>
@@ -2151,35 +2155,36 @@ Index           Capability Identifier
       <h2 id="name-existing-implementations">
 <a href="#appendix-B" class="section-number selfRef">Appendix B. </a><a href="#name-existing-implementations" class="section-name selfRef">Existing Implementations</a>
       </h2>
-<p id="appendix-B-1">There are already a number of full or partial implementations of
-   immutability:<a href="#appendix-B-1" class="pilcrow">¶</a></p>
+<p id="appendix-B-1">Note to the RFC Editor: Please remove this section prior to publication.<a href="#appendix-B-1" class="pilcrow">¶</a></p>
+<p id="appendix-B-2">There are already a number of full or partial implementations of
+   immutability:<a href="#appendix-B-2" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="appendix-B-2.1">
-          <p id="appendix-B-2.1.1">3GPP TS 32.156 <span>[<a href="#TS32.156" class="cite xref">TS32.156</a>]</span> and 28.623 <span>[<a href="#TS28.623" class="cite xref">TS28.623</a>]</span>: Requirements
-   and a partial solution<a href="#appendix-B-2.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="appendix-B-3.1">
+          <p id="appendix-B-3.1.1">3GPP TS 32.156 <span>[<a href="#TS32.156" class="cite xref">TS32.156</a>]</span> and 28.623 <span>[<a href="#TS28.623" class="cite xref">TS28.623</a>]</span>: Requirements
+   and a partial solution<a href="#appendix-B-3.1.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="appendix-B-2.2">
-          <p id="appendix-B-2.2.1">ITU-T using ONF TR-531 <span>[<a href="#TR-531" class="cite xref">TR-531</a>]</span> concept on information model level but
-   no YANG representation.<a href="#appendix-B-2.2.1" class="pilcrow">¶</a></p>
+        <li class="normal" id="appendix-B-3.2">
+          <p id="appendix-B-3.2.1">ITU-T using ONF TR-531 <span>[<a href="#TR-531" class="cite xref">TR-531</a>]</span> concept on information model level but
+   no YANG representation.<a href="#appendix-B-3.2.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="appendix-B-2.3">
-          <p id="appendix-B-2.3.1">Ericsson: requirements and solution<a href="#appendix-B-2.3.1" class="pilcrow">¶</a></p>
+        <li class="normal" id="appendix-B-3.3">
+          <p id="appendix-B-3.3.1">Ericsson: requirements and solution<a href="#appendix-B-3.3.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="appendix-B-2.4">
-          <p id="appendix-B-2.4.1">YumaPro: requirements and solution<a href="#appendix-B-2.4.1" class="pilcrow">¶</a></p>
+        <li class="normal" id="appendix-B-3.4">
+          <p id="appendix-B-3.4.1">YumaPro: requirements and solution<a href="#appendix-B-3.4.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="appendix-B-2.5">
-          <p id="appendix-B-2.5.1">Nokia: partial requirements and solution<a href="#appendix-B-2.5.1" class="pilcrow">¶</a></p>
+        <li class="normal" id="appendix-B-3.5">
+          <p id="appendix-B-3.5.1">Nokia: partial requirements and solution<a href="#appendix-B-3.5.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="appendix-B-2.6">
-          <p id="appendix-B-2.6.1">Huawei: partial requirements and solution<a href="#appendix-B-2.6.1" class="pilcrow">¶</a></p>
+        <li class="normal" id="appendix-B-3.6">
+          <p id="appendix-B-3.6.1">Huawei: partial requirements and solution<a href="#appendix-B-3.6.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="appendix-B-2.7">
-          <p id="appendix-B-2.7.1">Cisco using the concept at least in some YANG modules<a href="#appendix-B-2.7.1" class="pilcrow">¶</a></p>
+        <li class="normal" id="appendix-B-3.7">
+          <p id="appendix-B-3.7.1">Cisco using the concept at least in some YANG modules<a href="#appendix-B-3.7.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="appendix-B-2.8">
-          <p id="appendix-B-2.8.1">Junos OS provides a hidden and immutable configuration group
-   called junos-defaults<a href="#appendix-B-2.8.1" class="pilcrow">¶</a></p>
+        <li class="normal" id="appendix-B-3.8">
+          <p id="appendix-B-3.8.1">Junos OS provides a hidden and immutable configuration group
+   called junos-defaults<a href="#appendix-B-3.8.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
 </section>

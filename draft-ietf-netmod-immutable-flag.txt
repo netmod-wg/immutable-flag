@@ -6,10 +6,10 @@ netmod                                                        Q. Ma, Ed.
 Internet-Draft                                                     Q. Wu
 Updates: 6241, 8040, 8526 (if approved)                           Huawei
 Intended status: Standards Track                         B. Lengyel, Ed.
-Expires: 8 March 2025                                           Ericsson
+Expires: 28 March 2025                                          Ericsson
                                                                    H. Li
                                                                      HPE
-                                                        4 September 2024
+                                                       24 September 2024
 
 
               YANG Metadata Annotation for Immutable Flag
@@ -55,7 +55,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 8 March 2025.
+   This Internet-Draft will expire on 28 March 2025.
 
 Copyright Notice
 
@@ -120,8 +120,7 @@ Table of Contents
    standard organizations and vendors.  It is the aim to create one
    single standard solution for documenting non-modifiable system data
    declared as configuration, instead of the multiple existing vendor
-   and organization specific solutions.  See Appendix B for existing
-   implementations.
+   and organization specific solutions.
 
    YANG [RFC7950] is a data modeling language used to model both state
    and configuration data, based on the "config" statement.  However,
@@ -167,6 +166,8 @@ Table of Contents
       perspective
 
    Appendix A describes the use cases in detail.
+
+   This document updates {{RFC6241}}, {{RFC8040}}, and {{RFC8526}}.
 
 1.1.  Updates to RFC 6241 and RFC 8526
 
@@ -703,9 +704,9 @@ Table of Contents
               Bierman, A., Boucadair, M., and Q. Wu, "Guidelines for
               Authors and Reviewers of Documents Containing YANG Data
               Models", Work in Progress, Internet-Draft, draft-ietf-
-              netmod-rfc8407bis-14, 5 July 2024,
+              netmod-rfc8407bis-16, 20 September 2024,
               <https://datatracker.ietf.org/doc/html/draft-ietf-netmod-
-              rfc8407bis-14>.
+              rfc8407bis-16>.
 
    [I-D.ietf-netmod-system-config]
               Ma, Q., Wu, Q., and C. Feng, "System-defined
@@ -828,6 +829,9 @@ A.4.  UC4 - Declaring immutable system configuration from an LNE's
    immutable from the context of the LNE.
 
 Appendix B.  Existing Implementations
+
+   Note to the RFC Editor: Please remove this section prior to
+   publication.
 
    There are already a number of full or partial implementations of
    immutability:
