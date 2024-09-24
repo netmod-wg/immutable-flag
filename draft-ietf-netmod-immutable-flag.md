@@ -95,8 +95,7 @@ informative:
    multiple standard organizations and vendors.  It is the aim to create
    one single standard solution for documenting non-modifiable system
    data declared as configuration, instead of the multiple existing
-   vendor and organization specific solutions.  See {{implementations}} for
-   existing implementations.
+   vendor and organization specific solutions.
 
    YANG {{!RFC7950}} is a data modeling language used to model both state
    and configuration data, based on the "config" statement.  However,
@@ -137,6 +136,8 @@ informative:
    * UC4  Declaring immutable system configuration from an LNE's perspective
 
    {{use-cases}} describes the use cases in detail.
+
+    This document updates {{!RFC6241}}, {{!RFC8040}}, and {{!RFC8526}}.
 
 ## Updates to RFC 6241 and RFC 8526
 
@@ -559,6 +560,8 @@ Index           Capability Identifier
    immutable from the context of the LNE.
 
 # Existing Implementations {#implementations}
+
+   Note to the RFC Editor: Please remove this section prior to publication.
 
    There are already a number of full or partial implementations of
    immutability:
