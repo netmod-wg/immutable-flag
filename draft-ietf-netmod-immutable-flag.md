@@ -137,7 +137,7 @@ informative:
 
    {{use-cases}} describes the use cases in detail.
 
-    This document updates {{!RFC6241}}, {{!RFC8040}} and {{!RFC8526}}.
+    This document updates {{!RFC6241}}, {{!RFC8040}}, and {{!RFC8526}}.
 
 ## Updates to RFC 6241 and RFC 8526
 
