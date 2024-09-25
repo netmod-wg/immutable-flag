@@ -112,7 +112,7 @@ informative:
    needed by the system, while additional list entries can be created,
    modified or deleted.
 
-   If the server always rejects the clients' attempts to override some
+   If the server always rejects a client's attempt to override some
    system-provided data because it internally thinks immutable, it should document
    it towards the clients in a machine-readable way rather than writing as
    plain text in the "description" statement.
@@ -194,7 +194,7 @@ informative:
 
    immutable flag:
    : A read-only state value the server provides to describe
-   immutability of the data, which is conveyed via a YANG metadata annotation
+   immutability of the configuration, which is conveyed via a YANG metadata annotation
    called "immutable" with a boolean value.
 
 # Applicability
@@ -222,7 +222,7 @@ informative:
    The immutable flag which is defined as the metadata annotation takes a boolean
    value, and it is returned as requested by the client using a "with-immutable"
    parameter ({{with-immutable}}). If the "immutable" metadata annotation for
-   a node is not specified, the default "immutable" value is the
+   a configuration node is not specified, the default "immutable" value is the
    same as the value of its parent node in the data tree ({{interior}}).
    The immutable metadata annotation value for a top-level instance
    node is "false" if not specified.
