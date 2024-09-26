@@ -6,10 +6,10 @@ netmod                                                        Q. Ma, Ed.
 Internet-Draft                                                     Q. Wu
 Updates: 6241, 8040, 8526 (if approved)                           Huawei
 Intended status: Standards Track                         B. Lengyel, Ed.
-Expires: 28 March 2025                                          Ericsson
+Expires: 30 March 2025                                          Ericsson
                                                                    H. Li
                                                                      HPE
-                                                       24 September 2024
+                                                       26 September 2024
 
 
               YANG Metadata Annotation for Immutable Flag
@@ -55,7 +55,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 28 March 2025.
+   This Internet-Draft will expire on 30 March 2025.
 
 Copyright Notice
 
@@ -115,12 +115,12 @@ Table of Contents
 
 1.  Introduction
 
-   This document defines a YANG metadata annotation to formally document
-   an existing model handling behavior that has been used by multiple
-   standard organizations and vendors.  It is the aim to create one
-   single standard solution for documenting non-modifiable system data
-   declared as configuration, instead of the multiple existing vendor
-   and organization specific solutions.
+   This document defines a YANG metadata annotation [RFC7952] to
+   formally document an existing model handling behavior that has been
+   used by multiple standard organizations and vendors.  It is the aim
+   to create one single standard solution for documenting non-modifiable
+   system data declared as configuration, instead of the multiple
+   existing vendor and organization specific solutions.
 
    YANG [RFC7950] is a data modeling language used to model both state
    and configuration data, based on the "config" statement.  However,
@@ -138,7 +138,7 @@ Table of Contents
       and needed by the system, while additional list entries can be
       created, modified or deleted.
 
-   If the server always rejects the clients' attempts to override some
+   If the server always rejects a client's attempt to override some
    system-provided data because it internally thinks immutable, it
    should document it towards the clients in a machine-readable way
    rather than writing as plain text in the "description" statement.
@@ -237,8 +237,9 @@ Table of Contents
    This document defines the following term:
 
    immutable flag:  A read-only state value the server provides to
-      describe immutability of the data, which is conveyed via a YANG
-      metadata annotation called "immutable" with a boolean value.
+      describe immutability of the configuration, which is conveyed via
+      a YANG metadata annotation called "immutable" with a boolean
+      value.
 
 3.  Applicability
 
@@ -265,10 +266,10 @@ Table of Contents
    The immutable flag which is defined as the metadata annotation takes
    a boolean value, and it is returned as requested by the client using
    a "with-immutable" parameter (Section 4.2).  If the "immutable"
-   metadata annotation for a node is not specified, the default
-   "immutable" value is the same as the value of its parent node in the
-   data tree (Section 6).  The immutable metadata annotation value for a
-   top-level instance node is "false" if not specified.
+   metadata annotation for a configuration node is not specified, the
+   default "immutable" value is the same as the value of its parent node
+   in the data tree (Section 6).  The immutable metadata annotation
+   value for a top-level instance node is "false" if not specified.
 
    Note that "immutable" metadata annotations are used to annotate data
    node instances.  A list may have multiple instances in the data tree,
@@ -582,16 +583,14 @@ Table of Contents
 
 10.  Security Considerations
 
-   This section uses the template described in Section 3.7 of
-   [I-D.ietf-netmod-rfc8407bis].
+   This section is modeled after the template described in Section 3.7
+   of [I-D.ietf-netmod-rfc8407bis].
 
-   The "ietf-immutable" YANG module specified in this document defines a
-   schema for data that is designed to be accessed via network
-   management protocols such as NETCONF [RFC6241] or RESTCONF [RFC8040].
-   The lowest NETCONF layer is the secure transport layer, and the
-   mandatory-to-implement secure transport is Secure Shell (SSH)
-   [RFC6242].  The lowest RESTCONF layer is HTTPS, and the mandatory-to-
-   implement secure transport is TLS [RFC8446].
+   The "ietf-immutable" YANG module defines a data model that is
+   designed to be accessed via YANG-based management protocols, such as
+   NETCONF [RFC6241] or RESTCONF [RFC8040].  These protocols have to use
+   a secure transport layer (e.g., SSH [RFC4252], TLS [RFC8446], and
+   QUIC [RFC9000]) and have to use mutual authentication.
 
    The Network Configuration Access Control Model (NACM) [RFC8341]
    provides the means to restrict access for particular NETCONF or
@@ -644,6 +643,14 @@ Table of Contents
 
 12.1.  Normative References
 
+   [I-D.ietf-netmod-rfc8407bis]
+              Bierman, A., Boucadair, M., and Q. Wu, "Guidelines for
+              Authors and Reviewers of Documents Containing YANG Data
+              Models", Work in Progress, Internet-Draft, draft-ietf-
+              netmod-rfc8407bis-16, 20 September 2024,
+              <https://datatracker.ietf.org/doc/html/draft-ietf-netmod-
+              rfc8407bis-16>.
+
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
               DOI 10.17487/RFC2119, March 1997,
@@ -662,10 +669,6 @@ Table of Contents
               and A. Bierman, Ed., "Network Configuration Protocol
               (NETCONF)", RFC 6241, DOI 10.17487/RFC6241, June 2011,
               <https://www.rfc-editor.org/rfc/rfc6241>.
-
-   [RFC6242]  Wasserman, M., "Using the NETCONF Protocol over Secure
-              Shell (SSH)", RFC 6242, DOI 10.17487/RFC6242, June 2011,
-              <https://www.rfc-editor.org/rfc/rfc6242>.
 
    [RFC7950]  Bjorklund, M., Ed., "The YANG 1.1 Data Modeling Language",
               RFC 7950, DOI 10.17487/RFC7950, August 2016,
@@ -688,10 +691,6 @@ Table of Contents
               DOI 10.17487/RFC8341, March 2018,
               <https://www.rfc-editor.org/rfc/rfc8341>.
 
-   [RFC8446]  Rescorla, E., "The Transport Layer Security (TLS) Protocol
-              Version 1.3", RFC 8446, DOI 10.17487/RFC8446, August 2018,
-              <https://www.rfc-editor.org/rfc/rfc8446>.
-
    [RFC8526]  Bjorklund, M., Schoenwaelder, J., Shafer, P., Watsen, K.,
               and R. Wilton, "NETCONF Extensions to Support the Network
               Management Datastore Architecture", RFC 8526,
@@ -700,20 +699,16 @@ Table of Contents
 
 12.2.  Informative References
 
-   [I-D.ietf-netmod-rfc8407bis]
-              Bierman, A., Boucadair, M., and Q. Wu, "Guidelines for
-              Authors and Reviewers of Documents Containing YANG Data
-              Models", Work in Progress, Internet-Draft, draft-ietf-
-              netmod-rfc8407bis-16, 20 September 2024,
-              <https://datatracker.ietf.org/doc/html/draft-ietf-netmod-
-              rfc8407bis-16>.
-
    [I-D.ietf-netmod-system-config]
               Ma, Q., Wu, Q., and C. Feng, "System-defined
               Configuration", Work in Progress, Internet-Draft, draft-
               ietf-netmod-system-config-08, 18 June 2024,
               <https://datatracker.ietf.org/doc/html/draft-ietf-netmod-
               system-config-08>.
+
+   [RFC4252]  Ylonen, T. and C. Lonvick, Ed., "The Secure Shell (SSH)
+              Authentication Protocol", RFC 4252, DOI 10.17487/RFC4252,
+              January 2006, <https://www.rfc-editor.org/rfc/rfc4252>.
 
    [RFC8340]  Bjorklund, M. and L. Berger, Ed., "YANG Tree Diagrams",
               BCP 215, RFC 8340, DOI 10.17487/RFC8340, March 2018,
@@ -723,10 +718,19 @@ Table of Contents
               Management", RFC 8343, DOI 10.17487/RFC8343, March 2018,
               <https://www.rfc-editor.org/rfc/rfc8343>.
 
+   [RFC8446]  Rescorla, E., "The Transport Layer Security (TLS) Protocol
+              Version 1.3", RFC 8446, DOI 10.17487/RFC8446, August 2018,
+              <https://www.rfc-editor.org/rfc/rfc8446>.
+
    [RFC8530]  Berger, L., Hopps, C., Lindem, A., Bogdanovic, D., and X.
               Liu, "YANG Model for Logical Network Elements", RFC 8530,
               DOI 10.17487/RFC8530, March 2019,
               <https://www.rfc-editor.org/rfc/rfc8530>.
+
+   [RFC9000]  Iyengar, J., Ed. and M. Thomson, Ed., "QUIC: A UDP-Based
+              Multiplexed and Secure Transport", RFC 9000,
+              DOI 10.17487/RFC9000, May 2021,
+              <https://www.rfc-editor.org/rfc/rfc9000>.
 
    [TR-531]   ONF, "UML to YANG Mapping Guidelines", February 2023,
               <https://wiki.opennetworking.org/download/
