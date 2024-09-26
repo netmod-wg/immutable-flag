@@ -90,7 +90,7 @@ informative:
 
 # Introduction
 
-   This document defines a YANG metadata annotation to formally document
+   This document defines a YANG metadata annotation {{!RFC7952}} to formally document
    an existing model handling behavior that has been used by
    multiple standard organizations and vendors.  It is the aim to create
    one single standard solution for documenting non-modifiable system
@@ -112,7 +112,7 @@ informative:
    needed by the system, while additional list entries can be created,
    modified or deleted.
 
-   If the server always rejects the clients' attempts to override some
+   If the server always rejects a client's attempt to override some
    system-provided data because it internally thinks immutable, it should document
    it towards the clients in a machine-readable way rather than writing as
    plain text in the "description" statement.
@@ -194,7 +194,7 @@ informative:
 
    immutable flag:
    : A read-only state value the server provides to describe
-   immutability of the data, which is conveyed via a YANG metadata annotation
+   immutability of the configuration, which is conveyed via a YANG metadata annotation
    called "immutable" with a boolean value.
 
 # Applicability
@@ -222,7 +222,7 @@ informative:
    The immutable flag which is defined as the metadata annotation takes a boolean
    value, and it is returned as requested by the client using a "with-immutable"
    parameter ({{with-immutable}}). If the "immutable" metadata annotation for
-   a node is not specified, the default "immutable" value is the
+   a configuration node is not specified, the default "immutable" value is the
    same as the value of its parent node in the data tree ({{interior}}).
    The immutable metadata annotation value for a top-level instance
    node is "false" if not specified.
@@ -415,15 +415,13 @@ module: ietf-immutable
 
 # Security Considerations
 
-   This section uses the template described in {{Section 3.7 of ?I-D.ietf-netmod-rfc8407bis}}.
+   This section is modeled after the template described in {{Section 3.7 of !I-D.ietf-netmod-rfc8407bis}}.
 
-   The "ietf-immutable" YANG module specified in this document defines a schema
-   for data that is designed to be accessed via network management protocols such
-   as NETCONF {{!RFC6241}} or RESTCONF {{!RFC8040}}. The lowest NETCONF layer
-   is the secure transport layer, and the mandatory-to-implement secure
-   transport is Secure Shell (SSH) {{!RFC6242}}. The lowest RESTCONF layer
-   is HTTPS, and the mandatory-to-implement secure transport is TLS
-   {{!RFC8446}}.
+   The "ietf-immutable" YANG module defines a data model that is
+   designed to be accessed via YANG-based management protocols, such
+   as NETCONF {{!RFC6241}} or RESTCONF {{!RFC8040}}. These protocols have to
+   use a secure transport layer (e.g., SSH {{?RFC4252}}, TLS {{?RFC8446}}, and
+   QUIC {{?RFC9000}}) and have to use mutual authentication.
 
    The Network Configuration Access Control Model (NACM) {{!RFC8341}}
    provides the means to restrict access for particular NETCONF or
