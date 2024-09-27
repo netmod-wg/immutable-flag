@@ -86,6 +86,8 @@ informative:
    The immutable flag is descriptive, documenting an existing behavior, not
    proscriptive, dictating server behaviors.
 
+   This document updates {{!RFC6241}}, {{!RFC8040}}, and {{!RFC8526}}.
+
 --- middle
 
 # Introduction
@@ -137,7 +139,6 @@ informative:
 
    {{use-cases}} describes the use cases in detail.
 
-  This document updates {{!RFC6241}}, {{!RFC8040}}, and {{!RFC8526}}.
 
 
 ## Updates to RFC 6241 and RFC 8526
@@ -416,7 +417,7 @@ module: ietf-immutable
 
 # Security Considerations
 
-   This section is modeled after the template described in {{Section 3.7 of !I-D.ietf-netmod-rfc8407bis}}.
+   This section is modeled after the template described in {{Section 3.7 of ?I-D.ietf-netmod-rfc8407bis}}.
 
    The "ietf-immutable" YANG module defines a data model that is
    designed to be accessed via YANG-based management protocols, such
