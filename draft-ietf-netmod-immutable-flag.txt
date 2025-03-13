@@ -6,10 +6,10 @@ netmod                                                        Q. Ma, Ed.
 Internet-Draft                                                     Q. Wu
 Updates: 6241, 8040, 8526 (if approved)                           Huawei
 Intended status: Standards Track                         B. Lengyel, Ed.
-Expires: 31 March 2025                                          Ericsson
+Expires: 14 September 2025                                      Ericsson
                                                                    H. Li
                                                                      HPE
-                                                       27 September 2024
+                                                           13 March 2025
 
 
               YANG Metadata Annotation for Immutable Flag
@@ -57,11 +57,11 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 31 March 2025.
+   This Internet-Draft will expire on 14 September 2025.
 
 Copyright Notice
 
-   Copyright (c) 2024 IETF Trust and the persons identified as the
+   Copyright (c) 2025 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -83,9 +83,9 @@ Table of Contents
    3.  Applicability
    4.  "Immutable" Metadata Annotation
      4.1.  Definition
-     4.2.  "with-immutable" Parameter
-       4.2.1.  NETCONF Extensions to Support "with-immutable"
-       4.2.2.  RESTCONF Extensions to Support "with-immutable"
+     4.2.  "with-immutability" Parameter
+       4.2.1.  NETCONF Extensions to Support "with-immutability"
+       4.2.2.  RESTCONF Extensions to Support "with-immutability"
    5.  Use of Immutable Flag for Different Statements
      5.1.  The "leaf" Statement
      5.2.  The "leaf-list" Statement
@@ -109,8 +109,8 @@ Table of Contents
      A.1.  UC1 - Modeling of server capabilities
      A.2.  UC2 - Hardware based auto-configuration - Interface Example
      A.3.  UC3 - Predefined Administrator Roles
-     A.4.  UC4 - Declaring immutable system configuration from an
-           LNE's perspective
+     A.4.  UC4 - Declaring immutable system configuration from the
+           perspective of a logical network element (LNE)
    Appendix B.  Existing Implementations
    Acknowledgments
    Authors' Addresses
@@ -164,8 +164,8 @@ Table of Contents
 
    *  UC3 Predefined administrator roles
 
-   *  UC4 Declaring immutable system configuration from an LNE's
-      perspective
+   *  UC4 Declaring immutable system configuration from the perspective
+      of a logical network element (LNE)
 
    Appendix A describes the use cases in detail.
 
@@ -174,12 +174,12 @@ Table of Contents
    This document updates [RFC6241] and [RFC8526].  The NETCONF <get> and
    <get-config> operations defined in [RFC6241], and <get-data>
    operation defined in [RFC8526] are augmented with an additional input
-   parameter named "with-immutable", as specified in Section 4.2.1.
+   parameter named "with-immutability", as specified in Section 4.2.1.
 
 1.2.  Updates to RFC 8040
 
    This document updates Sections 4.8 and 9.1.1 of [RFC8040] to add an
-   additional input parameter named "with-immutable", as specified in
+   additional input parameter named "with-immutability", as specified in
    Section 4.2.2.
 
 1.3.  Editorial Note (To be removed by RFC Editor)
@@ -196,7 +196,7 @@ Table of Contents
 
    *  XXXX --> the assigned RFC number for this draft
 
-   *  2024-06-04 --> the actual date of the publication of this document
+   *  2025-03-13 --> the actual date of the publication of this document
 
 2.  Conventions and Definitions
 
@@ -234,6 +234,11 @@ Table of Contents
 
    *  access operation
 
+   The document uses the following definition in
+   [I-D.ietf-netmod-system-config]:
+
+   *  system configuration
+
    This document defines the following term:
 
    immutable flag:  A read-only state value the server provides to
@@ -248,16 +253,16 @@ Table of Contents
 
    The immutable flag is also visible in read-only datastores like
    <system> (if implemented, see [I-D.ietf-netmod-system-config]),
-   <intended> and <operational> when a "with-immutable" parameter is
+   <intended> and <operational> when a "with-immutability" parameter is
    carried (Section 4.2), however this only serves as descriptive
    information about the instance node itself, but has no effect on the
    handling of the read-only datastore.
 
    An instance has the same immutability if it appears in different
    writable datastores, the immutability of data object is also protocol
-   and user independent.  The immutability and configured value of an
-   existing node MUST only change via software upgrade, hardware
-   resources change, or license change.
+   and user independent.  The immutability of any configuration data,
+   and the value of any immutable configured data node, MUST only change
+   via software upgrade, hardware resources change, or license change.
 
 4.  "Immutable" Metadata Annotation
 
@@ -265,7 +270,7 @@ Table of Contents
 
    The immutable flag which is defined as the metadata annotation takes
    a boolean value, and it is returned as requested by the client using
-   a "with-immutable" parameter (Section 4.2).  If the "immutable"
+   a "with-immutability" parameter (Section 4.2).  If the "immutable"
    metadata annotation for a configuration node is not specified, the
    default "immutable" value is the same as the value of its parent node
    in the data tree (Section 6).  The immutable metadata annotation
@@ -278,53 +283,49 @@ Table of Contents
 
    Servers MUST ignore any immutable annotations sent from the client.
 
-4.2.  "with-immutable" Parameter
+4.2.  "with-immutability" Parameter
 
    This section specifies the NETCONF [RFC6241] and RESTCONF [RFC8040]
-   protocol extensions to support the "with-immutable" parameter.  The
-   "immutable" metadata annotations are not returned in a response
+   protocol extensions to support the "with-immutability" parameter.
+   The "immutable" metadata annotations are not returned in a response
    unless explicitly requested by the client using this parameter.
 
-4.2.1.  NETCONF Extensions to Support "with-immutable"
+4.2.1.  NETCONF Extensions to Support "with-immutability"
 
    This doument updates [RFC6241] to augment the <get-config> and <get>
-   operations with an additional parameter named "with-immutable".  The
-   <get-data> operation defined in [RFC8526] is also updated to support
-   this parameter.  If present, this parameter requests that the server
-   includes the "immutable" metadata annotations in its response.
+   operations with an additional parameter named "with-immutability".
+   The <get-data> operation defined in [RFC8526] is also updated to
+   support this parameter.  If present, this parameter requests that the
+   server includes the "immutable" metadata annotations in its response.
 
    Figure 1 provides the tree structure [RFC8340] of augmentations to
-   NETCONF operations, as defined in the "ietf-immutable" module
-   (Section 9).
+   NETCONF operations, as defined in the "ietf-immutable-annotation"
+   module (Section 9).
 
-   module: ietf-immutable
+   module: ietf-immutable-annotation
      augment /ncds:get-data/ncds:input:
-       +---w with-immutable?   empty {immutable}?
+       +---w with-immutability?   empty
      augment /nc:get-config/nc:input:
-       +---w with-immutable?   empty {immutable}?
+       +---w with-immutability?   empty
      augment /nc:get/nc:input:
-       +---w with-immutable?   empty {immutable}?
+       +---w with-immutability?   empty
 
                Figure 1: Augmentations to NETCONF Operations
 
-   Servers' support for accepting "with-immutable" parameter and
-   returning "immutable" annotations is identified with the feature
-   "immutable".
-
-4.2.2.  RESTCONF Extensions to Support "with-immutable"
+4.2.2.  RESTCONF Extensions to Support "with-immutability"
 
    This document extends Sections 4.8 and 9.1.1 of [RFC8040] to add a
-   query parameter named "with-immutable" to the GET operation.  If
+   query parameter named "with-immutability" to the GET operation.  If
    present, this parameter requests that the server includes the
    "immutable" metadata annotations in its response.  This parameter is
    only allowed with no values carried.  If it has any unexpected value,
    then a "404 Bad Request" status-line is returned.
 
-   To enable a RESTCONF client to discover if the "with-immutable" query
-   parameter is supported by the server, the following capability URI is
-   defined:
+   To enable a RESTCONF client to discover if the "with-immutability"
+   query parameter is supported by the server, the following capability
+   URI is defined:
 
-       urn:ietf:params:restconf:capability:with-immutable:1.0
+       urn:ietf:params:restconf:capability:with-immutability:1.0
 
 5.  Use of Immutable Flag for Different Statements
 
@@ -340,7 +341,9 @@ Table of Contents
 
 5.2.  The "leaf-list" Statement
 
-   When a leaf-list node instance is immutable, its value cannot change.
+   Metadata annotations cannot be attached to a whole leaf-list, only to
+   individual leaf-list entries as per [RFC7952].  When a leaf-list node
+   instance is immutable, its value cannot change.
 
    The immutable annotation attached to the individual leaf-list
    instance provides immutability with respect to the instance itself.
@@ -351,16 +354,21 @@ Table of Contents
 
 5.3.  The "container" Statement
 
-   When a container node instance is immutable, it cannot change, unless
-   the immutability of its descendant node is toggled.
+   When a container node instance is immutable, it cannot change (i.e.,
+   any descendant node instances and the presence for "presence
+   container" cannot change), unless the immutability of its descendant
+   node is toggled.
 
    By default, as with all interior nodes, immutability is recursively
    applied to descendants (Section 6).
 
 5.4.  The "list" Statement
 
-   When a list node instance is immutable, it cannot change, unless the
-   immutability of its descendant node is toggled.
+   Metadata annotations cannot be attached to a whole list, only to
+   individual list entries as per [RFC7952].  When a list node instance
+   is immutable, it cannot change ( i.e., any descendant node instances
+   cannot change), unless the immutability of its descendant node is
+   toggled.
 
    By default, as with all interior nodes, immutability is recursively
    applied to descendants (Section 6).
@@ -401,13 +409,13 @@ Table of Contents
    For example, the following XML snippets shows application
    configuration a server might return:
 
-   <applications im:immutable="false">
-   <application im:immutable="true">
+   <applications imma:immutable="false">
+   <application imma:immutable="true">
      <name>ssh</name>
      <protocol>tcp</protocol>
-     <port-number im:immutable="false">22</port-number>
+     <port-number imma:immutable="false">22</port-number>
    </application>
-   <application im:immutable="false">
+   <application imma:immutable="false">
      <name>my-ssh</name>
      <protocol>tcp</protocol>
      <port-number>10022</port-number>
@@ -455,11 +463,11 @@ Table of Contents
 
    This module imports definitions from [RFC6241] and [RFC8526].
 
-   <CODE BEGINS> file "ietf-immutable@2024-06-04.yang"
-   module ietf-immutable {
+   <CODE BEGINS> file "ietf-immutable-annotation@2025-03-13.yang"
+   module ietf-immutable-annotation {
      yang-version 1.1;
-     namespace "urn:ietf:params:xml:ns:yang:ietf-immutable";
-     prefix im;
+     namespace "urn:ietf:params:xml:ns:yang:ietf-immutable-annotation";
+     prefix imma;
 
      import ietf-yang-metadata {
        prefix md;
@@ -498,7 +506,7 @@ Table of Contents
         beforehand why certain otherwise valid configuration requests
         will cause the server to return an error.
 
-        Copyright (c) 2024 IETF Trust and the persons identified
+        Copyright (c) 2025 IETF Trust and the persons identified
         as authors of the code. All rights reserved.
 
         Redistribution and use in source and binary forms, with
@@ -519,7 +527,7 @@ Table of Contents
         (RFC 8174) when, and only when, they appear in all
         capitals, as shown here.";
 
-     revision 2024-06-04 {
+     revision 2025-03-13 {
        description
          "Initial revision.";
        // RFC Ed.: replace XXXX and remove this comment
@@ -539,17 +547,11 @@ Table of Contents
           specified.";
      }
 
-     feature immutable {
-       description
-         "Indicates that the server supports the 'immutable' metadata
-          annotation.";
-     }
-
      grouping with-immutable-grouping {
        description
          "Grouping for the with-immutable parameter that augments the
           RPC operations.";
-       leaf with-immutable {
+       leaf with-immutability {
          type empty;
          description
            "If this parameter is present, the server returns the
@@ -558,21 +560,18 @@ Table of Contents
        }
      }
      augment "/ncds:get-data/ncds:input" {
-       if-feature "immutable";
        description
          "Allows the server to include 'immutable' metadata
           annotations in its response to get-data operation.";
        uses with-immutable-grouping;
      }
      augment "/nc:get-config/nc:input" {
-       if-feature "immutable";
        description
          "Allows the server to include 'immutable' metadata
           annotations in its response to get-config operation.";
        uses with-immutable-grouping;
      }
      augment "/nc:get/nc:input" {
-       if-feature "immutable";
        description
          "Allows the server to include 'immutable' metadata
           annotations in its response to get operation.";
@@ -586,10 +585,10 @@ Table of Contents
    This section is modeled after the template described in Section 3.7
    of [I-D.ietf-netmod-rfc8407bis].
 
-   The "ietf-immutable" YANG module defines a data model that is
-   designed to be accessed via YANG-based management protocols, such as
-   NETCONF [RFC6241] or RESTCONF [RFC8040].  These protocols have to use
-   a secure transport layer (e.g., SSH [RFC4252], TLS [RFC8446], and
+   The "ietf-immutable-annotation" YANG module defines a data model that
+   is designed to be accessed via YANG-based management protocols, such
+   as NETCONF [RFC6241] or RESTCONF [RFC8040].  These protocols have to
+   use a secure transport layer (e.g., SSH [RFC4252], TLS [RFC8446], and
    QUIC [RFC9000]) and have to use mutual authentication.
 
    The Network Configuration Access Control Model (NACM) [RFC8341]
@@ -601,12 +600,16 @@ Table of Contents
    annotation, it also extends the RPC operations of the NETCONF
    protocol in [RFC6241] and [RFC8526].
 
-   The security considerations for the Defining and Using Metadata with
-   YANG (see Section 9 of [RFC7952]) apply to the metadata annotation
-   defined in this document.
+   The immutable metadata annotation exposes the immutability of
+   configuration data, which may provide hints for attackers to find
+   vulnerabilities in the network, e.g., to leverage the immutability of
+   some configuration to better craft an attack.  Since immutable
+   annotations are attached to the instances of configuration data
+   nodes, it is only accessible to clients that have the permissions to
+   read the annotated configuration nodes.
 
    The security considerations for the NETCONF protocol operations (see
-   Section 9 of [RFC6241] and Section 6 of [RFC8526]) still apply to the
+   Section 9 of [RFC6241] and Section 6 of [RFC8526]) also apply to the
    operations extended in this document.
 
 11.  IANA Considerations
@@ -616,7 +619,7 @@ Table of Contents
    This document registers one XML namespace URN in the 'IETF XML
    registry', following the format defined in [RFC3688].
 
-           URI: urn:ietf:params:xml:ns:yang:ietf-immutable
+           URI: urn:ietf:params:xml:ns:yang:ietf-immutable-annotation
            Registrant Contact: The IESG.
            XML: N/A, the requested URIs are XML namespaces.
 
@@ -625,19 +628,19 @@ Table of Contents
    This document registers one module name in the 'YANG Module Names'
    registry, defined in [RFC6020].
 
-           name: ietf-immutable
-           prefix: im
-           namespace: urn:ietf:params:xml:ns:yang:ietf-immutable
-           RFC: XXXX
+        name: ietf-immutable-annotation
+        prefix: imma
+        namespace: urn:ietf:params:xml:ns:yang:ietf-immutable-annotation
+        RFC: XXXX
 
 11.3.  RESTCONF Capability URN Registry
 
    This document defines the following capability identifier URNs in the
    "RESTCONF Capability URNs" registry defined in [RFC8040]:
 
-  Index           Capability Identifier
-  ----------------------------------------------------------------------
-  :with-immutable urn:ietf:params:restconf:capability:with-immutable:1.0
+Index           Capability Identifier
+----------------------------------------------------------------------------
+:with-immutability urn:ietf:params:restconf:capability:with-immutability:1.0
 
 12.  References
 
@@ -695,16 +698,16 @@ Table of Contents
               Bierman, A., Boucadair, M., and Q. Wu, "Guidelines for
               Authors and Reviewers of Documents Containing YANG Data
               Models", Work in Progress, Internet-Draft, draft-ietf-
-              netmod-rfc8407bis-16, 20 September 2024,
+              netmod-rfc8407bis-22, 14 January 2025,
               <https://datatracker.ietf.org/doc/html/draft-ietf-netmod-
-              rfc8407bis-16>.
+              rfc8407bis-22>.
 
    [I-D.ietf-netmod-system-config]
               Ma, Q., Wu, Q., and C. Feng, "System-defined
               Configuration", Work in Progress, Internet-Draft, draft-
-              ietf-netmod-system-config-08, 18 June 2024,
+              ietf-netmod-system-config-12, 12 February 2025,
               <https://datatracker.ietf.org/doc/html/draft-ietf-netmod-
-              system-config-08>.
+              system-config-12>.
 
    [RFC4252]  Ylonen, T. and C. Lonvick, Ed., "The Secure Shell (SSH)
               Authentication Protocol", RFC 4252, DOI 10.17487/RFC4252,
@@ -817,10 +820,10 @@ A.3.  UC3 - Predefined Administrator Roles
    privileges, but the predefined administrator account and its granted
    access are immutable.
 
-A.4.  UC4 - Declaring immutable system configuration from an LNE's
-      perspective
+A.4.  UC4 - Declaring immutable system configuration from the
+      perspective of a logical network element (LNE)
 
-   An logical network element (LNE) is an independently managed virtual
+   A logical network element (LNE) is an independently managed virtual
    network device made up of resources allocated to it from its host or
    parent network device [RFC8530].  The host device may allocate some
    resources to an LNE, which from an LNE's perspective is provided by
