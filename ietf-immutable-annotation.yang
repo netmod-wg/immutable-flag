@@ -1,7 +1,7 @@
-module ietf-immutable {
+module ietf-immutable-annotation {
   yang-version 1.1;
-  namespace "urn:ietf:params:xml:ns:yang:ietf-immutable";
-  prefix im;
+  namespace "urn:ietf:params:xml:ns:yang:ietf-immutable-annotation";
+  prefix imma;
 
   import ietf-yang-metadata {
     prefix md;
@@ -40,7 +40,7 @@ module ietf-immutable {
      beforehand why certain otherwise valid configuration requests
      will cause the server to return an error.
 
-     Copyright (c) 2024 IETF Trust and the persons identified
+     Copyright (c) 2025 IETF Trust and the persons identified
      as authors of the code. All rights reserved.
 
      Redistribution and use in source and binary forms, with
@@ -61,7 +61,7 @@ module ietf-immutable {
      (RFC 8174) when, and only when, they appear in all
      capitals, as shown here.";
 
-  revision 2024-06-04 {
+  revision 2025-03-13 {
     description
       "Initial revision.";
     // RFC Ed.: replace XXXX and remove this comment
@@ -80,18 +80,12 @@ module ietf-immutable {
        default value for a top-level instance node is false if not
        specified.";
   }
-
-  feature immutable {
-    description
-      "Indicates that the server supports the 'immutable' metadata
-       annotation.";
-  }
   
   grouping with-immutable-grouping {
     description
       "Grouping for the with-immutable parameter that augments the
        RPC operations.";
-    leaf with-immutable {
+    leaf with-immutability {
       type empty;
       description
         "If this parameter is present, the server returns the
@@ -100,21 +94,18 @@ module ietf-immutable {
     }
   }
   augment "/ncds:get-data/ncds:input" {
-    if-feature "immutable";
     description
       "Allows the server to include 'immutable' metadata
        annotations in its response to get-data operation.";
     uses with-immutable-grouping;
   }
   augment "/nc:get-config/nc:input" {
-    if-feature "immutable";
     description
       "Allows the server to include 'immutable' metadata
        annotations in its response to get-config operation.";
     uses with-immutable-grouping;
   }
   augment "/nc:get/nc:input" {
-    if-feature "immutable";
     description
       "Allows the server to include 'immutable' metadata
        annotations in its response to get operation.";
