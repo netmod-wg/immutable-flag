@@ -6,17 +6,24 @@ module ietf-immutable-annotation {
   import ietf-yang-metadata {
     prefix md;
   }
-  import ietf-netconf {
-    prefix nc;
-    reference
-      "RFC 6241: Network Configuration Protocol (NETCONF)";
-  }
   import ietf-netconf-nmda {
     prefix ncds;
     reference
       "RFC 8526: NETCONF Extensions to Support the Network
        Management Datastore Architecture";
   }
+  import ietf-system-datastore {
+    prefix sysds;
+    reference
+      "RFC YYYY: System-defined Configuration";
+  }
+  import ietf-datastores {
+    prefix ds;
+    reference
+      "RFC 8342: Network Management Datastore Architecture
+                 (NMDA)";
+  }
+
   organization
     "IETF Network Modeling (NETMOD) Working Group";
 
@@ -61,7 +68,7 @@ module ietf-immutable-annotation {
      (RFC 8174) when, and only when, they appear in all
      capitals, as shown here.";
 
-  revision 2025-03-13 {
+  revision 2025-03-21 {
     description
       "Initial revision.";
     // RFC Ed.: replace XXXX and remove this comment
@@ -80,35 +87,26 @@ module ietf-immutable-annotation {
        default value for a top-level instance node is false if not
        specified.";
   }
-  
-  grouping with-immutable-grouping {
-    description
-      "Grouping for the with-immutable parameter that augments the
-       RPC operations.";
-    leaf with-immutability {
-      type empty;
-      description
-        "If this parameter is present, the server returns the
-         'immutable' annotation for configuration that it
-         internally thinks immutable.";
-    }
-  }
+
   augment "/ncds:get-data/ncds:input" {
     description
       "Allows the server to include 'immutable' metadata
        annotations in its response to get-data operation.";
-    uses with-immutable-grouping;
-  }
-  augment "/nc:get-config/nc:input" {
-    description
-      "Allows the server to include 'immutable' metadata
-       annotations in its response to get-config operation.";
-    uses with-immutable-grouping;
-  }
-  augment "/nc:get/nc:input" {
-    description
-      "Allows the server to include 'immutable' metadata
-       annotations in its response to get operation.";
-    uses with-immutable-grouping;
+    leaf with-immutability {
+      when "derived-from-or-self(../ncds:datastore, 'sysds:system') "
+       + "or derived-from-or-self(../ncds:datastore, 'ds:intended') "
+       + "or derived-from-or-self(../ncds:datastore, 'ds:operational')";
+      type empty;
+      description
+        "If this parameter is present, the server returns the
+         'immutable' annotation for configuration that it
+         internally thinks immutable.
+         
+         The 'with-immutability' parameter is only valid for a
+         system, intended, or operational datastore. If 
+         'with-immutability' is used with an invalid datastore,
+         then the server MUST return an <rpc-error> element
+         with an <error-tag> value of 'invalid-value'.";
+    }
   }
 }
