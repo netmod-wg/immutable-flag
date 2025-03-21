@@ -162,6 +162,7 @@ informative:
   Please apply the following replacements:
 
   * XXXX --> the assigned RFC number for this draft
+  * YYYY --> the assigned RFC number for {{!I-D.ietf-netmod-system-config}}
   * 2025-03-21 --> the actual date of the publication of this document
 
 # Conventions and Definitions
@@ -477,10 +478,12 @@ This document defines the following capability identifier URNs in the
 "RESTCONF Capability URNs" registry defined in {{!RFC8040}}:
 
 ~~~~
-Index               Capability Identifier
-----------------------------------------------------------
-:with-immutability  urn:ietf:params:restconf:capability\
-:with-immutability:1.0
+Index
+Capability Identifier
+---------------------
+
+:with-immutability
+urn:ietf:params:restconf:capability:with-immutability:1.0
 ~~~~
 
 --- back
