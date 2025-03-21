@@ -19,7 +19,7 @@
    will cause the server to return an error. 
        The immutable flag is descriptive, documenting an existing behavior, not
    proscriptive, dictating server behaviors. 
-       This document updates   and  . 
+       This document updates RFC 8040 and RFC 8526. 
     ' name="description">
 <meta content="xml2rfc 3.28.0" name="generator">
 <meta content="immutable flag" name="keyword">
@@ -1118,7 +1118,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
    will cause the server to return an error.<a href="#section-abstract-2" class="pilcrow">¶</a></p>
 <p id="section-abstract-3">The immutable flag is descriptive, documenting an existing behavior, not
    proscriptive, dictating server behaviors.<a href="#section-abstract-3" class="pilcrow">¶</a></p>
-<p id="section-abstract-4">This document updates <span>[<a href="#RFC8040" class="cite xref">RFC8040</a>]</span> and <span>[<a href="#RFC8526" class="cite xref">RFC8526</a>]</span>.<a href="#section-abstract-4" class="pilcrow">¶</a></p>
+<p id="section-abstract-4">This document updates RFC 8040 and RFC 8526.<a href="#section-abstract-4" class="pilcrow">¶</a></p>
 </section>
 <section class="note rfcEditorRemove" id="section-note.1">
       <h2 id="name-discussion-venues">
@@ -1846,9 +1846,9 @@ module ietf-immutable-annotation {
       "Allows the server to include 'immutable' metadata
        annotations in its response to get-data operation.";
     leaf with-immutability {
-      when "derived-from-or-self(../ncds:datastore, 'sysds:system') "
-       + "or derived-from-or-self(../ncds:datastore, 'ds:intended') "
-       + "or derived-from-or-self(../ncds:datastore, 'ds:operational')";
+      when "derived-from-or-self(../ncds:datastore,'sysds:system') "
+      +"or derived-from-or-self(../ncds:datastore,'ds:intended') "
+      +"or derived-from-or-self(../ncds:datastore,'ds:operational')";
       type empty;
       description
         "If this parameter is present, the server returns the
@@ -1943,9 +1943,10 @@ registry, defined in <span>[<a href="#RFC6020" class="cite xref">RFC6020</a>]</s
 "RESTCONF Capability URNs" registry defined in <span>[<a href="#RFC8040" class="cite xref">RFC8040</a>]</span>:<a href="#section-11.3-1" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-11.3-2">
 <pre>
-Index           Capability Identifier
-----------------------------------------------------------------------------
-:with-immutability urn:ietf:params:restconf:capability:with-immutability:1.0
+Index                Capability Identifier
+----------------------------------------------------------
+:with-immutability   urn:ietf:params:restconf:capability\
+:with-immutability:1.0
 </pre><a href="#section-11.3-2" class="pilcrow">¶</a>
 </div>
 </section>
