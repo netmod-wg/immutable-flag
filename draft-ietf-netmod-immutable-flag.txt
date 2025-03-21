@@ -195,6 +195,9 @@ Table of Contents
 
    *  XXXX --> the assigned RFC number for this draft
 
+   *  YYYY --> the assigned RFC number for
+      [I-D.ietf-netmod-system-config]
+
    *  2025-03-21 --> the actual date of the publication of this document
 
 2.  Conventions and Definitions
@@ -633,14 +636,23 @@ Table of Contents
    This document defines the following capability identifier URNs in the
    "RESTCONF Capability URNs" registry defined in [RFC8040]:
 
-   Index                Capability Identifier
-   ----------------------------------------------------------
-   :with-immutability   urn:ietf:params:restconf:capability\
-   :with-immutability:1.0
+   Index
+   Capability Identifier
+   ---------------------
+
+   :with-immutability
+   urn:ietf:params:restconf:capability:with-immutability:1.0
 
 12.  References
 
 12.1.  Normative References
+
+   [I-D.ietf-netmod-system-config]
+              Ma, Q., Wu, Q., and C. Feng, "System-defined
+              Configuration", Work in Progress, Internet-Draft, draft-
+              ietf-netmod-system-config-12, 12 February 2025,
+              <https://datatracker.ietf.org/doc/html/draft-ietf-netmod-
+              system-config-12>.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -697,13 +709,6 @@ Table of Contents
               netmod-rfc8407bis-22, 14 January 2025,
               <https://datatracker.ietf.org/doc/html/draft-ietf-netmod-
               rfc8407bis-22>.
-
-   [I-D.ietf-netmod-system-config]
-              Ma, Q., Wu, Q., and C. Feng, "System-defined
-              Configuration", Work in Progress, Internet-Draft, draft-
-              ietf-netmod-system-config-12, 12 February 2025,
-              <https://datatracker.ietf.org/doc/html/draft-ietf-netmod-
-              system-config-12>.
 
    [RFC4252]  Ylonen, T. and C. Lonvick, Ed., "The Secure Shell (SSH)
               Authentication Protocol", RFC 4252, DOI 10.17487/RFC4252,
