@@ -86,7 +86,7 @@ informative:
    The immutable flag is descriptive, documenting an existing behavior, not
    proscriptive, dictating server behaviors.
 
-   This document updates {{!RFC8040}} and {{!RFC8526}}.
+   This document updates RFC 8040 and RFC 8526.
 
 --- middle
 
@@ -477,9 +477,10 @@ This document defines the following capability identifier URNs in the
 "RESTCONF Capability URNs" registry defined in {{!RFC8040}}:
 
 ~~~~
-Index           Capability Identifier
-----------------------------------------------------------------------------
-:with-immutability urn:ietf:params:restconf:capability:with-immutability:1.0
+Index                Capability Identifier
+----------------------------------------------------------
+:with-immutability   urn:ietf:params:restconf:capability\
+:with-immutability:1.0
 ~~~~
 
 --- back
