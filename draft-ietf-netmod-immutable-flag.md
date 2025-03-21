@@ -477,9 +477,9 @@ This document defines the following capability identifier URNs in the
 "RESTCONF Capability URNs" registry defined in {{!RFC8040}}:
 
 ~~~~
-Index                Capability Identifier
+Index               Capability Identifier
 ----------------------------------------------------------
-:with-immutability   urn:ietf:params:restconf:capability\
+:with-immutability  urn:ietf:params:restconf:capability\
 :with-immutability:1.0
 ~~~~
 
