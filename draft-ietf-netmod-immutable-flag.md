@@ -2,7 +2,7 @@
 title: "YANG Metadata Annotation for Immutable Flag"
 abbrev: "immutable flag"
 category: std
-updates: 6241, 8040, 8526
+updates: 8040, 8526
 
 docname: draft-ietf-netmod-immutable-flag-latest
 submissiontype: IETF
@@ -86,7 +86,7 @@ informative:
    The immutable flag is descriptive, documenting an existing behavior, not
    proscriptive, dictating server behaviors.
 
-   This document updates {{!RFC6241}}, {{!RFC8040}}, and {{!RFC8526}}.
+   This document updates {{!RFC8040}} and {{!RFC8526}}.
 
 --- middle
 
@@ -139,19 +139,16 @@ informative:
 
    {{use-cases}} describes the use cases in detail.
 
-
-
-## Updates to RFC 6241 and RFC 8526
-
-   This document updates {{!RFC6241}} and {{!RFC8526}}. The NETCONF \<get\> and
-   \<get-config\> operations defined in {{!RFC6241}}, and \<get-data\> operation
-   defined in {{!RFC8526}} are augmented with an additional input parameter
-   named "with-immutability", as specified in {{NETCONF-ext}}.
-
 ## Updates to RFC 8040
 
-   This document updates {{Sections 4.8 and 9.1.1 of !RFC8040}} to add an
-   additional input parameter named "with-immutability", as specified in {{RESTCONF-ext}}.
+  This document updates {{Sections 4.8 and 9.1.1 of !RFC8040}} to add an
+  additional input parameter named "with-immutability", as specified in {{RESTCONF-ext}}.
+
+## Updates to RFC 8526
+
+   This document updates {{Section 3.1.1 of !RFC8526}} to add an additional input parameter
+   named "with-immutability" for the \<get-data\> operation, as specified in {{NETCONF-ext}}.
+
 
 ## Editorial Note (To be removed by RFC Editor)
 
@@ -165,7 +162,7 @@ informative:
   Please apply the following replacements:
 
   * XXXX --> the assigned RFC number for this draft
-  * 2025-03-13 --> the actual date of the publication of this document
+  * 2025-03-21 --> the actual date of the publication of this document
 
 # Conventions and Definitions
 
@@ -207,15 +204,15 @@ informative:
    While immutable flag applies to all configuration nodes, its value "true"
    can only be used for system configuration.
 
-   The immutable flag is also visible in read-only datastores like \<system\>
-   (if implemented, see {{?I-D.ietf-netmod-system-config}}), \<intended\>
-   and \<operational\> when a "with-immutability" parameter is carried ({{with-immutability}}),
+   The immutable flag is only visible in read-only datastores (i.e., \<system\>
+   {{?I-D.ietf-netmod-system-config}}, \<intended\>, and \<operational\>)
+   when a "with-immutability" parameter is carried ({{with-immutability}}),
    however this only serves as descriptive information about the
    instance node itself, but has no effect on the handling of the read-only
    datastore.
 
-   An instance has the same immutability if it appears in different
-   writable datastores, the immutability of data object is also protocol and
+   An instance has the same immutability if it appears in different datastores,
+   the immutability of configuration data is also protocol and
    user independent. The immutability of any configuration data, and the value
    of any immutable configured data node, MUST only change via software
    upgrade, hardware resources change, or license change.
@@ -241,17 +238,16 @@ informative:
 
 ## "with-immutability" Parameter {#with-immutability}
 
-   This section specifies the NETCONF {{!RFC6241}} and RESTCONF {{!RFC8040}}
+   This section specifies the NETCONF {{!RFC6241}} {{!RFC8526}} and RESTCONF {{!RFC8040}}
    protocol extensions to support the "with-immutability" parameter.
    The "immutable" metadata annotations are not returned in a response unless
    explicitly requested by the client using this parameter.
 
 ### NETCONF Extensions to Support "with-immutability" {#NETCONF-ext}
 
-   This doument updates {{!RFC6241}} to augment the \<get-config\> and \<get\>
-   operations with an additional parameter named "with-immutability". The
-   \<get-data\> operation defined in {{!RFC8526}} is also updated to support
-   this parameter. If present, this parameter requests that the server includes
+   This doument updates {{!RFC8526}} to augment the \<get-data\>
+   operation with an additional parameter named "with-immutability".
+   If present, this parameter requests that the server includes
    the "immutable" metadata annotations in its response.
 
    {{tree}} provides the tree structure {{?RFC8340}} of augmentations to NETCONF
@@ -260,10 +256,6 @@ informative:
 ~~~~
 module: ietf-immutable-annotation
   augment /ncds:get-data/ncds:input:
-    +---w with-immutability?   empty
-  augment /nc:get-config/nc:input:
-    +---w with-immutability?   empty
-  augment /nc:get/nc:input:
     +---w with-immutability?   empty
 ~~~~
 {: #tree title="Augmentations to NETCONF Operations" artwork-align="center}
@@ -289,47 +281,52 @@ module: ietf-immutable-annotation
    This section defines what the immutable flag means to the client for
    each instance of YANG data node statement.
 
-   Throughout this section, the word "change" refers to create, update, and delete.
+   Throughout this section, the word "change" refers to creating, or deleting
+   a node, along with, where applicable, changing its value.
 
 ## The "leaf" Statement
 
-   When a leaf node instance is immutable, its value cannot change.
+   When a leaf node instance is immutable, it cannot change.
 
 
 ## The "leaf-list" Statement
 
-  Metadata annotations cannot be attached to a whole leaf-list, only to individual
-  leaf-list entries as per {{!RFC7952}}. When a leaf-list node instance is immutable, its value cannot change.
+  When a leaf-list node instance is immutable, it cannot change.
 
    The immutable annotation attached to the individual leaf-list instance
-   provides immutability with respect to the instance itself. If a leaf-list
-   inherits immutability from an ancestor (e.g., container), it is identical
-   to each individual leaf-list entry being annotated without any bearing on the
-   entry ordering and addition of new entries.
+   provides immutability with respect to the instance itself. A leaf-list as a whole
+   can only inherit immutability from a parent node (e.g., container), but that is
+   identical to each individual leaf-list entry being annotated and has no bearing
+   on the entry ordering and addition of new entries. Mechanisms for declaring
+   the immutability of leaf-list entry ordering and addition of new leaf-list
+   entries may be defined in future documents.
+
 
 ## The "container" Statement
 
-   When a container node instance is immutable, it cannot change (i.e., any descendant
-   node instances and the presence for "presence container" cannot change), unless
-   the immutability of its descendant node is toggled.
+   When a container node instance is immutable, it cannot change. Descendant
+   nodes of the container recursively inherit the immutability of the container, unless
+   the immutability is overridden by an immutable="false" annotation on a descendant node.
 
    By default, as with all interior nodes, immutability is recursively
    applied to descendants ({{interior}}).
 
 ## The "list" Statement
 
-  Metadata annotations cannot be attached to a whole list, only to individual list
-  entries as per {{!RFC7952}}. When a list node instance is immutable, it cannot change (
-  i.e., any descendant node instances cannot change), unless the immutability of its descendant node is toggled.
+  When a list node instance is immutable, it cannot change. Descendant
+  nodes of the list recursively inherit the immutability of the list node instance, unless
+  the immutability is overridden by an immutable="false" annotation on a descendant node.
 
    By default, as with all interior nodes, immutability is recursively
    applied to descendants ({{interior}}).
 
    The immutable annotation attached to the individual list instance provides
-   immutability with respect to the instance itself. If a list inherits immutability
-   from an ancestor (e.g., container), it is identical to each individual list
-   entry being annotated without any bearing on the entry ordering and addition
-   of new entries.
+   immutability with respect to the instance itself. A list as a whole
+   can only inherit immutability from a parent node (e.g., container), but that is
+   identical to each individual list entry being annotated and has no bearing
+   on the entry ordering and addition of new entries. Mechanisms for declaring
+   the immutability of list entry ordering and addition of new list entries may be defined in future
+   documents.
 
 ## The "anydata" Statement
 
@@ -415,7 +412,7 @@ module: ietf-immutable-annotation
    This module imports definitions from {{!RFC6241}} and {{!RFC8526}}.
 
 ~~~~
-<CODE BEGINS> file "ietf-immutable-annotation@2025-03-13.yang"
+<CODE BEGINS> file "ietf-immutable-annotation@2025-03-21.yang"
 {::include ietf-immutable-annotation.yang}
 <CODE ENDS>
 ~~~~
