@@ -111,7 +111,7 @@ Table of Contents
      A.3.  UC3 - Predefined Administrator Roles
      A.4.  UC4 - Declaring immutable system configuration from the
            perspective of a logical network element (LNE)
-   Appendix B.  Example of Server Immutable behavior
+   Appendix B.  Example of Server's Immutable Behavior
      B.1.  The Inheritance of Immutability
      B.2.  Immutability of the list
      B.3.  Immutability of the leaf-list
@@ -153,7 +153,7 @@ Table of Contents
    behavior, implemented by servers in production, on the immutability
    of some system-provided nodes, using a YANG metadata annotation
    [RFC7952] called "immutable" to flag which nodes are immutable.  This
-   document does not regulate server behavior.  That said, it is
+   document does not regulate server behaviors.  That said, it is
    expected that a server will return an error with an error-tag
    containing "invalid-value" when immutability is attempted to be
    violated.
@@ -294,9 +294,9 @@ Table of Contents
    combined configuration (as described in
    [I-D.ietf-netmod-system-config]).  The node MAY be explicitly
    configured by a client in <running> with the same value and that
-   configuration in <running> may subsequently be removed again, but
-   neither of these edits will change the configuration in <intended> of
-   the device.
+   configuration in <running> may subsequently be removed, but neither
+   of these edits will change the configuration in <intended> (if
+   implemented) on the device.
 
    Note that "immutable" metadata annotations are used to annotate data
    node instances.  A list may have multiple instances in the data tree,
@@ -417,7 +417,7 @@ Table of Contents
    immutability is overridden by an "immutable" annotation on a list
    entry.
 
-   Refer to Appendix B.3 for an example of immutability of lists.
+   Refer to Appendix B.2 for an example of immutability of lists.
 
 5.5.  The "anydata" Statement
 
@@ -464,15 +464,10 @@ Table of Contents
    data is immutable.  Immutable configuration does not appear in
    <running> unless it is explicitly configured.
 
-   A node that is annotated as immutable in <system> (if implemented)
-   cannot be changed via configuring a different value in <running>, nor
-   is there any way to delete the node from the combined configuration
-   in <intended> (as described in [I-D.ietf-netmod-system-config]).  A
-   client MAY create/delete immutable nodes with same values as found in
-   <system> (if implemented) in read-write configuration datastore
-   (e.g., <candidate>, <running>), which merely mean making immutable
-   nodes visible/invisible in the datastore.  Neither of these edits
-   will change the <intended> configuration of the device.
+   As specified in Section 4.1, a client MAY create/delete immutable
+   nodes with same values as defined by server in read-write
+   configuration datastore (e.g., <candidate>, <running>), which merely
+   mean making immutable nodes visible/invisible in the datastore.
 
 8.  NACM Interactions
 
@@ -859,7 +854,7 @@ A.4.  UC4 - Declaring immutable system configuration from the
    the interface model.  The assigned MTU value is system-created and
    immutable from the context of the LNE.
 
-Appendix B.  Example of Server Immutable behavior
+Appendix B.  Example of Server's Immutable Behavior
 
    This section provides some examples to illustrate the server's
    behavior with immutable flag.  The following fictional module is used
@@ -912,7 +907,7 @@ Appendix B.  Example of Server Immutable behavior
    }
 
    Figure 2 shows an example of "user-groups" configuration in <system>
-   a server might return, XML snippets are used only for illustration
+   a server might return.  XML snippets are used only for illustration
    purposes.
 
    =============== NOTE: '\' line wrapping per RFC 8792 ================
@@ -953,11 +948,11 @@ Appendix B.  Example of Server Immutable behavior
 
 B.1.  The Inheritance of Immutability
 
-   In the above example in Figure 2, there are two "user-group" list
-   entries inside "user-groups" container node.  The "immutable"
-   metadata attribute for "user-groups" container instance is "false",
-   which is also its default value as the top-level element, and thus
-   can be omitted.  The "administrator" list entry is immutable with the
+   In the example in Figure 2, there are two "user-group" list entries
+   inside "user-groups" container node.  The "immutable" metadata
+   attribute for "user-groups" container instance is "false", which is
+   also its default value as the top-level element, and thus can be
+   omitted.  The "administrator" list entry is immutable with the
    immutability of its descendant nodes "description" and "user" list
    entry of "Bob" being explicitly toggled.  Other descendant nodes
    inside "administrator" list entry inherit the immutability of the
@@ -971,7 +966,7 @@ B.1.  The Inheritance of Immutability
 
 B.2.  Immutability of the list
 
-   In the example of Figure 2, the "user-group" list as a whole inherits
+   In the example in Figure 2, the "user-group" list as a whole inherits
    immutability from the container "user-groups", which is mutable.  One
    of the list entry named "administrator" is immutable, and the other
    entry named "power-user" is mutable.  The client is able to copy the
@@ -999,12 +994,12 @@ B.2.  Immutability of the list
 
 B.3.  Immutability of the leaf-list
 
-   The user-ordered "tag" leaf-list node inside the "administrator"
-   user-group entry as a whole inherits immutability from the list
-   entry, which is immutable.  Thus the client cannot add, modify, or
-   reorder entries, the client may copy or subsequently delete any of
-   the two leaf-list entries in <running>, but there is no way to delete
-   the nodes from <intended>.
+   In the example in Figure 2, the user-ordered "tag" leaf-list node
+   inside the "administrator" user-group entry as a whole inherits
+   immutability from the list entry, which is immutable.  Thus the
+   client cannot add, modify, or reorder entries, the client may copy or
+   subsequently delete any of the two leaf-list entries in <running>,
+   but there is no way to delete the nodes from <intended>.
 
    The leaf-list node instance inside the "power-users" user-group entry
    as a whole inherits immutability from the list entry, which is
