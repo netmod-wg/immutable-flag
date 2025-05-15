@@ -122,7 +122,10 @@ informative:
    This document defines a way to formally document the existing behavior,
    implemented by servers in production, on the immutability of some
    system-provided nodes, using a YANG metadata annotation {{!RFC7952}}
-   called "immutable" to flag which nodes are immutable.
+   called "immutable" to flag which nodes are immutable. This document does not
+   regulate server behavior. That said, it is expected that a server will return
+   an error with an error-tag containing "invalid-value" when immutability
+   is attempted to be violated.
 
    This document does not apply to the server not having any immutable
    system configuration.  While in some cases immutability may be
@@ -163,7 +166,7 @@ informative:
 
   * XXXX --> the assigned RFC number for this draft
   * YYYY --> the assigned RFC number for {{!I-D.ietf-netmod-system-config}}
-  * 2025-03-24 --> the actual date of the publication of this document
+  * 2025-05-15 --> the actual date of the publication of this document
 
 # Conventions and Definitions
 
@@ -210,7 +213,9 @@ informative:
    when a "with-immutability" parameter is carried ({{with-immutability}}),
    however this only serves as descriptive information about the
    instance node itself, but has no effect on the handling of the read-only
-   datastore.
+   datastore. If the immutable flag is requested to be returned for an invalid
+   datastore, then the server MUST return an \<rpc-error\> element with an \<error-tag\>
+   value of "invalid-value".
 
    An instance has the same immutability if it appears in different datastores,
    the immutability of configuration data is also protocol and
@@ -220,7 +225,7 @@ informative:
 
 # "Immutable" Metadata Annotation
 
-## Definition
+## Definition {#immutable-def}
 
    The immutable flag which is defined as the metadata annotation takes a boolean
    value, and it is returned as requested by the client using a "with-immutability"
@@ -229,6 +234,12 @@ informative:
    same as the value of its parent node in the data tree ({{interior}}).
    The immutable metadata annotation value for a top-level instance
    node is "false" if not specified.
+
+   A node that is annotated as immutable cannot be changed via configuring
+   a different value in read-write configuration datastores (e.g., \<running\>),
+   nor is there any way to delete the node from the combined configuration (as described in {{?I-D.ietf-netmod-system-config}}). The node MAY be explicitly configured by a client in \<running\> with the
+   same value and that configuration in \<running\> may subsequently be removed again,
+   but neither of these edits will change the configuration in \<intended\> of the device.
 
    Note that "immutable" metadata annotations are used to annotate data node
    instances.  A list may have multiple instances in the data tree,
@@ -282,63 +293,83 @@ module: ietf-immutable-annotation
    This section defines what the immutable flag means to the client for
    each instance of YANG data node statement.
 
-   Throughout this section, the word "change" refers to creating, or deleting
-   a node, along with, where applicable, changing its value.
-
 ## The "leaf" Statement
 
-   When a leaf node instance is immutable, it cannot change.
-
+   When a leaf node instance is immutable, it cannot be configured with a
+   different value in read-write configuration datastores (e.g., \<running\>) or
+   removed from \<intended\> (if implemented). Though it can be created/deleted
+   in read-write configuration datastores (see Sections {{<immutable-def}} and {{<system-interact}}).
 
 ## The "leaf-list" Statement
 
-  When a leaf-list node instance is immutable, it cannot change.
+  When a leaf-list entry is immutable, it cannot be configured with a
+  different value in read-write configuration datastore (e.g., \<running\>) or
+  removed from \<intended\> (if implemented). Though it can be created/deleted
+  in read-write configuration datastores (see Sections {{<immutable-def}} and {{<system-interact}}).
 
-   The immutable annotation attached to the individual leaf-list instance
-   provides immutability with respect to the instance itself. A leaf-list as a whole
-   can only inherit immutability from a parent node (e.g., container), but that is
-   identical to each individual leaf-list entry being annotated and has no bearing
-   on the entry ordering and addition of new entries. Mechanisms for declaring
-   the immutability of leaf-list entry ordering and addition of new leaf-list
-   entries may be defined in future documents.
+   The immutable annotation attached to the individual leaf-list entry
+   provides immutability with respect to the entry itself. As per the restrictions in {{!RFC7952}},
+   annotations cannot be attached to an entire leaf-list instance and only
+   to individual leaf-list entries, which implies a leaf-list as a whole
+   can only inherit immutability from a parent node (e.g., container).
 
+   If a leaf-list as a whole is immutable, any leaf-list entries cannot be added,
+   modified, or reordered (if it is ordered-by user).
+
+   Refer to {{imm-leaf-list}} for an example of immutability of leaf-lists.
 
 ## The "container" Statement
 
-   When a container node instance is immutable, it cannot change. Descendant
-   nodes of the container recursively inherit the immutability of the container, unless
-   the immutability is overridden by an immutable="false" annotation on a descendant node.
+   When a container node instance is immutable, it cannot be removed from \<intended\> (if implemented).
+   Though it can be created/deleted in read-write configuration datastores
+   (see Sections {{<immutable-def}} and {{<system-interact}}).
+
+   Descendant nodes of the container recursively inherit the immutability of the container, unless
+   the immutability is overridden by an "immutable" annotation on a descendant node.
 
    By default, as with all interior nodes, immutability is recursively
    applied to descendants ({{interior}}).
 
 ## The "list" Statement
 
-  When a list node instance is immutable, it cannot change. Descendant
-  nodes of the list recursively inherit the immutability of the list node instance, unless
-  the immutability is overridden by an immutable="false" annotation on a descendant node.
+  When a list entry is immutable, it cannot be removed from \<intended\> (if implemented).
+  Though it can be created/deleted in read-write configuration datastores
+  (see Sections {{<immutable-def}} and {{<system-interact}}).
+
+  Descendant nodes of the list entry recursively inherit the immutability of the list entry, unless
+  the immutability is overridden by an "immutable" annotation on a descendant node.
 
    By default, as with all interior nodes, immutability is recursively
    applied to descendants ({{interior}}).
 
-   The immutable annotation attached to the individual list instance provides
-   immutability with respect to the instance itself. A list as a whole
-   can only inherit immutability from a parent node (e.g., container), but that is
-   identical to each individual list entry being annotated and has no bearing
-   on the entry ordering and addition of new entries. Mechanisms for declaring
-   the immutability of list entry ordering and addition of new list entries may be defined in future
-   documents.
+   The immutable annotation attached to the individual list entry provides
+   immutability with respect to the entry itself. As per the restrictions in {{!RFC7952}},
+   annotations cannot be attached to an entire list instance and only
+   to individual list entries, which implies a list as a whole
+   can only inherit immutability from a parent node (e.g., container).
+
+   If a list as a whole is immutable, any list entries cannot be added, removed, or reordered (if it is ordered-by user).
+   Each list entry inherits the immutability of the list by default, unless the immutability is
+   overridden by an "immutable" annotation on a list entry.
+
+  Refer to {{imm-leaf-list}} for an example of immutability of lists.
 
 ## The "anydata" Statement
 
-   When an anydata node instance is immutable, it cannot change. Additionally,
-   as with all interior nodes, immutability is recursively applied to
+   When an "anydata" node instance is immutable, it cannot be removed from \<intended\> (if implemented).
+   Though it can be created/deleted in read-write configuration datastores
+   (see Sections {{<immutable-def}} and {{<system-interact}}).
+
+   Additionally, as with all interior nodes, immutability is recursively applied to
    descendants ({{interior}}).
 
 ## The "anyxml" Statement
 
-   When an "anyxml" node instance is immutable, it cannot change. Additionally,
-   as with all interior nodes, immutability is recursively applied to
+   When an "anyxml" node instance is immutable, it cannot be removed from \<intended\> (if implemented).
+   Though it can be created/deleted in read-write configuration datastores
+   (see Sections {{<immutable-def}} and {{<system-interact}}).
+
+   Additionally, as with all interior nodes, immutability is recursively applied to
    descendants ({{interior}}).
 
 # Immutability of Interior Nodes {#interior}
@@ -355,35 +386,10 @@ module: ietf-immutable-annotation
    as the top-level node, but are not precluded from returning the annotation
    on every single element.
 
-   For example, the following XML snippets shows application configuration a
-   server might return:
+   Refer to {{inherit}} for an example of how immutability is recursively
+   inherited or explicitly reset by descendants.
 
-~~~~
-<applications imma:immutable="false">
-<application imma:immutable="true">
-  <name>ssh</name>
-  <protocol>tcp</protocol>
-  <port-number imma:immutable="false">22</port-number>
-</application>
-<application imma:immutable="false">
-  <name>my-ssh</name>
-  <protocol>tcp</protocol>
-  <port-number>10022</port-number>
-</application>
-</applications>
-~~~~
-
-   In the example, there are two "application" list entries inside "applications"
-   container node. The "immutable" metadata attribute for applications container
-   instance is "false", which is also its default value as the top-level element,
-   and thus can be omitted. The "application" list entry named "ssh" is immutable
-   with the immutability of its child node "port-number" being explicitly toggled.
-   The other child nodes inside "ssh" application instance inherit immutability
-   from their parent node thus are also immutable. The "immutable" metadata attribute
-   for application list entry named "my-ssh" is "false", which is also the same
-   value as its parent node, and thus can be omitted.
-
-# System Configuration Datastore Interactions
+# System Configuration Datastore Interactions {#system-interact}
 
    Immutable configuration can only be created, updated and deleted by the server,
    and it is present in \<system\>, if implemented. That said, the existence of
@@ -391,10 +397,14 @@ module: ietf-immutable-annotation
    not. Not all system configuration data is immutable. Immutable configuration
    does not appear in \<running\> unless it is explicitly configured.
 
-   A client may create/delete immutable nodes with same values as found
+   A node that is annotated as immutable in \<system\> (if implemented) cannot be changed via
+   configuring a different value in \<running\>, nor is there any way to delete
+   the node from the combined configuration in \<intended\> (as described in {{?I-D.ietf-netmod-system-config}}).
+   A client MAY create/delete immutable nodes with same values as found
    in \<system\> (if implemented) in read-write configuration datastore (e.g.,
    \<candidate\>, \<running\>), which merely mean making immutable nodes
-   visible/invisible in the datastore.
+   visible/invisible in the datastore. Neither of these edits will change the
+   \<intended\> configuration of the device.
 
 
 # NACM Interactions
@@ -413,7 +423,7 @@ module: ietf-immutable-annotation
    This module imports definitions from {{!RFC6241}} and {{!RFC8526}}.
 
 ~~~~
-<CODE BEGINS> file "ietf-immutable-annotation@2025-03-24.yang"
+<CODE BEGINS> file "ietf-immutable-annotation@2025-05-15.yang"
 {::include ietf-immutable-annotation.yang}
 <CODE ENDS>
 ~~~~
@@ -555,9 +565,9 @@ urn:ietf:params:restconf:capability:with-immutability:1.0
 
 ## UC4 - Declaring immutable system configuration from the perspective of a logical network element (LNE)
 
-   A logical network element (LNE) is an independently managed virtual
+   A logical network element (LNE), as described in {{?RFC8530}}, is an independently managed virtual
    network device made up of resources allocated to it from its host or
-   parent network device {{?RFC8530}}.  The host device may allocate some
+   parent network device.  The host device may allocate some
    resources to an LNE, which from an LNE's perspective is provided by
    the system and may not be modifiable.
 
@@ -566,6 +576,70 @@ urn:ietf:params:restconf:capability:with-immutability:1.0
    interface should then be accessible as the LNE-specific instance of
    the interface model.  The assigned MTU value is system-created and
    immutable from the context of the LNE.
+
+# Example of Server Immutable behavior
+
+  This section provides some examples to illustrate the server's behavior with
+  immutable flag. The following fictional module is used throughout this section:
+
+~~~~
+{::include example-user-group.yang}
+~~~~
+
+{{example}} shows an example of "user-groups" configuration in \<system\> a
+server might return, XML snippets are used only for illustration purposes.
+
+~~~~
+{::include-fold example-urp.xml}
+~~~~
+{: #example title="An Example of System-defined 'user-groups' Configuration"}
+
+## The Inheritance of Immutability {#inherit}
+
+In the above example in {{example}}, there are two "user-group" list entries inside "user-groups"
+container node. The "immutable" metadata attribute for "user-groups" container
+instance is "false", which is also its default value as the top-level element,
+and thus can be omitted. The "administrator" list entry is immutable
+with the immutability of its descendant nodes "description" and "user" list entry of "Bob" being explicitly toggled.
+Other descendant nodes inside "administrator" list entry inherit the immutability of the list entry thus are also immutable.
+
+The "immutable" metadata attribute
+for "power-users" list entry is "false", which is also the same
+value as its parent node (i.e., the "user-groups" container), and thus can be omitted.
+Other descendant nodes inside "power-users" user-group inherit the immutability of the list entry thus are also mutable.
+
+## Immutability of the list {#imm-list}
+
+ In the example of {{example}}, the "user-group" list as a whole inherits immutability from the
+ container "user-groups", which is mutable. One of the list entry named "administrator" is immutable,
+ and the other entry named "power-user" is mutable. The client is able to copy the entire "user-groups"
+ container in \<running\>, add new user-group entries, modify the values of descendant nodes of "power-users" list entry,
+ but the values of descendant nodes of "administrator" list entry cannot be overridden with different values expect
+ for the "description" and "Bob" user list entry nodes, which is explicitly reset to be mutable. The client
+ may also subsequently delete any copied "user-group" entries or the entire
+ "user-groups" container, but this will not prevent the
+ configuration as shown in {{example}} being present in \<intended\> (if implemented).
+
+ The "user" list inside the "administrator" user-group list entry as a whole inherits immutability from the
+ list entry, which is immutable. Thus the client cannot add new user entries inside "administrator" user-group.
+ As one of the user entry named "Andy" is immutable through inheritance,
+ and the other "Bob" user entry is explicitly set to be mutable. The client cannot
+ modify the "password" parameter, or add a "full-name" value for user "Andy".
+ but is allowed to update (e.g., modify the "password" value, or add a "full-name" value)
+ the list entry for user "Bob". The client may copy or subsequently delete any of the two list entries in \<running\>,
+ but there is no way to delete the nodes from \<intended\> (if implemented).
+
+## Immutability of the leaf-list {#imm-leaf-list}
+
+The user-ordered "tag" leaf-list node inside the "administrator" user-group entry as a whole inherits
+immutability from the list entry, which is immutable. Thus the client cannot add, modify, or reorder
+entries, the client may copy or subsequently delete any of the two leaf-list entries in \<running\>,
+but there is no way to delete the nodes from \<intended\>.
+
+The leaf-list node instance inside the "power-users" user-group entry as a whole inherits
+immutability from the list entry, which is mutable. Thus the client can add or reorder
+entries, the client may copy or subsequently delete any of the two leaf-list entries in \<running\>,
+but there is no way to delete the nodes from \<intended\>.
 
 # Existing Implementations {#implementations}
 

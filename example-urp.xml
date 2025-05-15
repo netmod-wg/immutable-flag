@@ -1,0 +1,30 @@
+<user-groups xmlns="urn:example:user-group"
+  xmlns:imma="urn:ietf:params:xml:ns:yang:ietf-immutable-annotation"
+  imma:immutable="false">
+  <user-group imma:immutable="true">
+    <name>administrator</name>
+    <description imma:immutable="false">administrator group</description>
+    <access-right>admin</access-right>
+    <user>
+      <user-name>Andy</user-name>
+      <password>$0$423423423</password>
+    </user>
+    <user imma:immutable="false">
+      <user-name>Bob</user-name>
+      <password>$1$/h1234q$abcdef1234567890abcdef</password>
+    </user>    
+    <tag>system</tag>
+    <tag>non-editable</tag>
+  </user-group>
+  <user-group imma:immutable="false">
+    <name>power-users</name>
+    <description>Power user group</description>
+    <access-right>power</access-right>
+    <user>
+      <user-name>Cindy</user-name>
+      <password>$1$/h4567q$abcdef2345678901abcdef</password>
+    </user>
+    <tag>system</tag>
+    <tag>editable</tag>
+  </user-group>
+</user-groups>
