@@ -586,7 +586,7 @@ urn:ietf:params:restconf:capability:with-immutability:1.0
 {::include example-user-group.yang}
 ~~~~
 
-{{example}} shows the example of "user-groups" configuration in \<system\> a
+{{example}} shows an example of "user-groups" configuration in \<system\> a
 server might return, XML snippets are used only for illustration purposes.
 
 ~~~~
@@ -618,7 +618,7 @@ Other descendant nodes inside "power-users" user-group inherit the immutability 
  for the "description" and "Bob" user list entry nodes, which is explicitly reset to be mutable. The client
  may also subsequently delete any copied "user-group" entries or the entire
  "user-groups" container, but this will not prevent the
- configuration as shown in {{#example}} being present in \<intended\> (if implemented).
+ configuration as shown in {{example}} being present in \<intended\> (if implemented).
 
  The "user" list inside the "administrator" user-group list entry as a whole inherits immutability from the
  list entry, which is immutable. Thus the client cannot add new user entries inside "administrator" user-group.
