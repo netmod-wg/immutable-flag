@@ -68,7 +68,7 @@ module ietf-immutable-annotation {
      (RFC 8174) when, and only when, they appear in all
      capitals, as shown here.";
 
-  revision 2025-05-14 {
+  revision 2025-05-15 {
     description
       "Initial revision.";
     // RFC Ed.: replace XXXX and remove this comment

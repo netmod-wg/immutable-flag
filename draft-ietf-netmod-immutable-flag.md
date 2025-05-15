@@ -166,7 +166,7 @@ informative:
 
   * XXXX --> the assigned RFC number for this draft
   * YYYY --> the assigned RFC number for {{!I-D.ietf-netmod-system-config}}
-  * 2025-05-14 --> the actual date of the publication of this document
+  * 2025-05-15 --> the actual date of the publication of this document
 
 # Conventions and Definitions
 
@@ -423,7 +423,7 @@ module: ietf-immutable-annotation
    This module imports definitions from {{!RFC6241}} and {{!RFC8526}}.
 
 ~~~~
-<CODE BEGINS> file "ietf-immutable-annotation@2025-05-14.yang"
+<CODE BEGINS> file "ietf-immutable-annotation@2025-05-15.yang"
 {::include ietf-immutable-annotation.yang}
 <CODE ENDS>
 ~~~~
