@@ -583,14 +583,14 @@ urn:ietf:params:restconf:capability:with-immutability:1.0
   immutable flag. The following fictional module is used throughout this section:
 
 ~~~~
-{::include-fold .example-user-group.yang}
+{::include example-user-group.yang}
 ~~~~
 
 {{example}} shows the example of "user-groups" configuration in \<system\> a
 server might return, XML snippets are used only for illustration purposes.
 
 ~~~~
-{::include-fold .example-urp.xml}
+{::include-fold example-urp.xml}
 ~~~~
 {: #example title="An Example of System-defined 'user-groups' Configuration"}
 
