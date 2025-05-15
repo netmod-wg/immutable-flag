@@ -399,7 +399,7 @@ module: ietf-immutable-annotation
 
    A node that is annotated as immutable in \<system\> (if implemented) cannot be changed via
    configuring a different value in \<running\>, nor is there any way to delete
-   the node from the combined configuration in \<intended\> (as described in {{?I-D.ietf.netmod-system-config}}).
+   the node from the combined configuration in \<intended\> (as described in {{?I-D.ietf-netmod-system-config}}).
    A client MAY create/delete immutable nodes with same values as found
    in \<system\> (if implemented) in read-write configuration datastore (e.g.,
    \<candidate\>, \<running\>), which merely mean making immutable nodes
