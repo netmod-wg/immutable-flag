@@ -68,7 +68,7 @@ module ietf-immutable-annotation {
      (RFC 8174) when, and only when, they appear in all
      capitals, as shown here.";
 
-  revision 2025-03-24 {
+  revision 2025-05-14 {
     description
       "Initial revision.";
     // RFC Ed.: replace XXXX and remove this comment
@@ -79,13 +79,16 @@ module ietf-immutable-annotation {
   md:annotation immutable {
     type boolean;
     description
-      "The 'immutable' metadata annotation indicates the
+      "The 'immutable' metadata annotation indicates the 
        immutability of an instantiated data node. It takes as a
-       value 'true' or 'false'. If the 'immutable' metadata
-       annotation is not specified, the default value is the
+       value 'true' or 'false'. An immutable node cannot be changed 
+       via configuring a different value in read-write configuration 
+       datastores (e.g., <running>), though it can be created/deleted
+       in read-write configuration datastores. If not specified for 
+       a given configuration data node, the immutability is the
        same as the value of its parent node in the data tree. The
-       default value for a top-level instance node is false if not
-       specified.";
+       default value of 'immutable' annotation for a top-level 
+       instance node is false if not specified.";
   }
 
   augment "/ncds:get-data/ncds:input" {
@@ -100,13 +103,7 @@ module ietf-immutable-annotation {
       description
         "If this parameter is present, the server returns the
          'immutable' annotation for configuration that it
-         internally thinks immutable.
-         
-         The 'with-immutability' parameter is only valid for a
-         system, intended, or operational datastore. If 
-         'with-immutability' is used with an invalid datastore,
-         then the server MUST return an <rpc-error> element
-         with an <error-tag> value of 'invalid-value'.";
+         internally thinks immutable.";
     }
   }
 }

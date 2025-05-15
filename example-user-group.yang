@@ -1,0 +1,45 @@
+module example-user-group {
+  yang-version 1.1;
+  namespace "urn:example:user-group";
+  prefix "ex-urp";
+
+  import iana-crypt-hash {
+    prefix ianach;
+  }
+
+  container user-groups {
+    list user-group {
+      key "name";
+      leaf name {
+        type string;
+      }
+      leaf description {
+        type string;
+      }      
+      leaf access-right {
+        type enumeration {
+          enum admin;
+          enum power;          
+          enum normal;
+          enum guest;
+        }
+      }
+      list user {
+        key "user-name";
+        leaf user-name {
+          type string;
+        }
+        leaf password {
+          type ianach:crypt-hash;
+        }
+        leaf full-name {
+          type string;
+        }
+      }
+      leaf-list tag {
+        type string;
+        ordered-by user;
+      }
+    }
+  }
+}
