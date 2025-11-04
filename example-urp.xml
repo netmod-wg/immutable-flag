@@ -7,7 +7,7 @@
     <access-right>admin</access-right>
     <user>
       <user-name>Andy</user-name>
-      <password>$0$423423423</password>
+      <password>$5$salt$42x6N3voGLL5rV7qU5qK6L8jF9eD2aB3c</password>
     </user>
     <user imma:immutable="false">
       <user-name>Bob</user-name>
