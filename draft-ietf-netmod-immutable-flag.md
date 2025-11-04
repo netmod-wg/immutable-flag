@@ -573,10 +573,11 @@ urn:ietf:params:restconf:capability:with-immutability:1.0
    the interface model.  The assigned MTU value is system-created and
    immutable from the context of the LNE.
 
-# Example of Server's Immutable Behavior
+# Examples of Server's Immutable Behavior
 
   This section provides some examples to illustrate the server's behavior with
-  immutable flag. The following fictional module is used throughout this section:
+  immutable flag. These examples are not intended as recommendations for
+  real-world deployments. The following fictional module is used throughout this section:
 
 ~~~~
 {::include example-user-group.yang}
