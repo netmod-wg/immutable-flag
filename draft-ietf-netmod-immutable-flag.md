@@ -237,7 +237,7 @@ informative:
 
    A node that is annotated as immutable cannot be changed via configuring
    a different value in read-write configuration datastores (e.g., \<running\>),
-   nor is there any way to delete the node from the combined configuration in the intended datastore (as described in {{section 4 of ?I-D.ietf-netmod-system-config}}). The node MAY be explicitly configured by a client in \<running\> with the
+   nor is there any way to delete the node from the combined configuration in the intended datastore (as described in {{Section 4 of ?I-D.ietf-netmod-system-config}}). The node MAY be explicitly configured by a client in \<running\> with the
    same value and that configuration in \<running\> may subsequently be removed,
    but neither of these edits will change the configuration in \<intended\> (if implemented) on the device.
 
