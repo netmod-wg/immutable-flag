@@ -612,10 +612,10 @@ Other descendant nodes inside "power-users" user-group inherit the immutability 
  and the other entry named "power-user" is mutable. The client is able to copy the entire "user-groups"
  container in \<running\>, add new user-group entries, modify the values of descendant nodes of "power-users" list entry,
  but the values of descendant nodes of "administrator" list entry cannot be overridden with different values expect
- for the "description" and "ex-username-2" user list entry nodes, which is explicitly reset to be mutable. The client
- may also subsequently delete any copied "user-group" entries or the entire
- "user-groups" container, but this will not prevent the
- configuration as shown in {{example}} being present in \<intended\> (if implemented).
+ for the "description" and "ex-username-2" user list entry nodes, which is explicitly reset to be mutable.
+ The client may also subsequently delete any copied "user-group" entries or the entire
+ "user-groups" container, which will not prevent the deleted data being present in \<intended\> (if implemented) assuming it
+ is still contained in \<system\>.
 
  The "user" list inside the "administrator" user-group list entry as a whole inherits immutability from the
  list entry, which is immutable. Thus the client cannot add new user entries inside "administrator" user-group.
@@ -630,12 +630,12 @@ Other descendant nodes inside "power-users" user-group inherit the immutability 
 
 In the example in {{example}}, the user-ordered "tag" leaf-list node inside the "administrator" user-group entry as a whole inherits immutability from the list entry, which is immutable. Thus the client cannot add, modify, or reorder
 entries, the client may copy or subsequently delete any of the two leaf-list entries in \<running\>,
-but there is no way to delete the nodes from \<intended\>.
+but there is no way to delete the nodes from \<intended\> if those entries still appear in \<system\>.
 
 The leaf-list node instance inside the "power-users" user-group entry as a whole inherits
 immutability from the list entry, which is mutable. Thus the client can add or reorder
 entries, the client may copy or subsequently delete any of the two leaf-list entries in \<running\>,
-but there is no way to delete the nodes from \<intended\>.
+but there is no way to delete the nodes from \<intended\> if those entries still appear in \<system\>.
 
 # Existing Implementations {#implementations}
 
