@@ -237,7 +237,7 @@ informative:
 
    A node that is annotated as immutable cannot be changed via configuring
    a different value in read-write configuration datastores (e.g., \<running\>),
-   nor is there any way to delete the node from the combined configuration (as described in {{?I-D.ietf-netmod-system-config}}). The node MAY be explicitly configured by a client in \<running\> with the
+   nor is there any way to delete the node from the combined configuration in the intended datastore (as described in {{Section 4 of ?I-D.ietf-netmod-system-config}}). The node MAY be explicitly configured by a client in \<running\> with the
    same value and that configuration in \<running\> may subsequently be removed,
    but neither of these edits will change the configuration in \<intended\> (if implemented) on the device.
 
@@ -573,10 +573,11 @@ urn:ietf:params:restconf:capability:with-immutability:1.0
    the interface model.  The assigned MTU value is system-created and
    immutable from the context of the LNE.
 
-# Example of Server's Immutable Behavior
+# Examples of Server's Immutable Behavior
 
   This section provides some examples to illustrate the server's behavior with
-  immutable flag. The following fictional module is used throughout this section:
+  immutable flag. These examples are not intended as recommendations for
+  real-world deployments. The following fictional module is used throughout this section:
 
 ~~~~
 {::include example-user-group.yang}
@@ -596,7 +597,7 @@ In the example in {{example}}, there are two "user-group" list entries inside "u
 container node. The "immutable" metadata attribute for "user-groups" container
 instance is "false", which is also its default value as the top-level element,
 and thus can be omitted. The "administrator" list entry is immutable
-with the immutability of its descendant nodes "description" and "user" list entry of "Bob" being explicitly toggled.
+with the immutability of its descendant nodes "description" and "user" list entry of "ex-username-2" being explicitly toggled.
 Other descendant nodes inside "administrator" list entry inherit the immutability of the list entry thus are also immutable.
 
 The "immutable" metadata attribute
@@ -611,30 +612,30 @@ Other descendant nodes inside "power-users" user-group inherit the immutability 
  and the other entry named "power-user" is mutable. The client is able to copy the entire "user-groups"
  container in \<running\>, add new user-group entries, modify the values of descendant nodes of "power-users" list entry,
  but the values of descendant nodes of "administrator" list entry cannot be overridden with different values expect
- for the "description" and "Bob" user list entry nodes, which is explicitly reset to be mutable. The client
- may also subsequently delete any copied "user-group" entries or the entire
- "user-groups" container, but this will not prevent the
- configuration as shown in {{example}} being present in \<intended\> (if implemented).
+ for the "description" and "ex-username-2" user list entry nodes, which is explicitly reset to be mutable.
+ The client may also subsequently delete any copied "user-group" entries or the entire
+ "user-groups" container, which will not prevent the deleted data being present in \<intended\> (if implemented) assuming it
+ is still contained in \<system\>.
 
  The "user" list inside the "administrator" user-group list entry as a whole inherits immutability from the
  list entry, which is immutable. Thus the client cannot add new user entries inside "administrator" user-group.
- As one of the user entry named "Andy" is immutable through inheritance,
- and the other "Bob" user entry is explicitly set to be mutable. The client cannot
- modify the "password" parameter, or add a "full-name" value for user "Andy".
+ As one of the user entry named "ex-username-1" is immutable through inheritance,
+ and the other "ex-username-2" user entry is explicitly set to be mutable. The client cannot
+ modify the "password" parameter, or add a "full-name" value for user "ex-username-1".
  but is allowed to update (e.g., modify the "password" value, or add a "full-name" value)
- the list entry for user "Bob". The client may copy or subsequently delete any of the two list entries in \<running\>,
+ the list entry for user "ex-username-2". The client may copy or subsequently delete any of the two list entries in \<running\>,
  but there is no way to delete the nodes from \<intended\> (if implemented).
 
 ## Immutability of the leaf-list {#imm-leaf-list}
 
 In the example in {{example}}, the user-ordered "tag" leaf-list node inside the "administrator" user-group entry as a whole inherits immutability from the list entry, which is immutable. Thus the client cannot add, modify, or reorder
 entries, the client may copy or subsequently delete any of the two leaf-list entries in \<running\>,
-but there is no way to delete the nodes from \<intended\>.
+but there is no way to delete the nodes from \<intended\> if those entries still appear in \<system\>.
 
 The leaf-list node instance inside the "power-users" user-group entry as a whole inherits
 immutability from the list entry, which is mutable. Thus the client can add or reorder
 entries, the client may copy or subsequently delete any of the two leaf-list entries in \<running\>,
-but there is no way to delete the nodes from \<intended\>.
+but there is no way to delete the nodes from \<intended\> if those entries still appear in \<system\>.
 
 # Existing Implementations {#implementations}
 
