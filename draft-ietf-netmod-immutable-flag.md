@@ -419,7 +419,7 @@ module: ietf-immutable-annotation
    This module imports definitions from {{!RFC6241}} and {{!RFC8526}}.
 
 ~~~~
-<CODE BEGINS> file "ietf-immutable-annotation@2025-05-15.yang"
+<CODE BEGINS> file "ietf-immutable-annotation@2025-11-28.yang"
 {::include ietf-immutable-annotation.yang}
 <CODE ENDS>
 ~~~~
@@ -630,12 +630,12 @@ Other descendant nodes inside "power-users" user-group inherit the immutability 
 
 In the example in {{example}}, the user-ordered "tag" leaf-list node inside the "administrator" user-group entry as a whole inherits immutability from the list entry, which is immutable. Thus the client cannot add, modify, or reorder
 entries, the client may copy or subsequently delete any of the two leaf-list entries in \<running\>,
-but there is no way to delete the nodes from \<intended\> if those entries still appear in \<system\>.
+but there is no way to delete the nodes from \<intended\> if those entries appear in \<system\>.
 
 The leaf-list node instance inside the "power-users" user-group entry as a whole inherits
 immutability from the list entry, which is mutable. Thus the client can add or reorder
 entries, the client may copy or subsequently delete any of the two leaf-list entries in \<running\>,
-but there is no way to delete the nodes from \<intended\> if those entries still appear in \<system\>.
+but there is no way to delete the nodes from \<intended\> if those entries appear in \<system\>.
 
 # Existing Implementations {#implementations}
 
