@@ -6,10 +6,10 @@ netmod                                                        Q. Ma, Ed.
 Internet-Draft                                                     Q. Wu
 Updates: 8040, 8526 (if approved)                                 Huawei
 Intended status: Standards Track                         B. Lengyel, Ed.
-Expires: 22 May 2026                                            Ericsson
+Expires: 1 June 2026                                            Ericsson
                                                                    H. Li
                                                                      HPE
-                                                        18 November 2025
+                                                        28 November 2025
 
 
               YANG Metadata Annotation for Immutable Flag
@@ -57,7 +57,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 22 May 2026.
+   This Internet-Draft will expire on 1 June 2026.
 
 Copyright Notice
 
@@ -484,7 +484,7 @@ Table of Contents
 
    This module imports definitions from [RFC6241] and [RFC8526].
 
-   <CODE BEGINS> file "ietf-immutable-annotation@2025-05-15.yang"
+   <CODE BEGINS> file "ietf-immutable-annotation@2025-11-28.yang"
    module ietf-immutable-annotation {
      yang-version 1.1;
      namespace "urn:ietf:params:xml:ns:yang:ietf-immutable-annotation";
@@ -513,7 +513,6 @@ Table of Contents
 
      organization
        "IETF Network Modeling (NETMOD) Working Group";
-
      contact
        "WG Web: <https://datatracker.ietf.org/wg/netmod/>
         WG List: <mailto:netmod@ietf.org>
@@ -525,7 +524,6 @@ Table of Contents
                 <mailto:balazs.lengyel@ericsson.com>
         Author: Hongwei Li
                 <mailto:flycoolman@gmail.com>";
-
      description
        "This module defines a metadata annotation called 'immutable'
         to allow the server to formally document existing behavior on
@@ -555,14 +553,13 @@ Table of Contents
         (RFC 8174) when, and only when, they appear in all
         capitals, as shown here.";
 
-     revision 2025-05-15 {
+     revision 2025-11-28 {
        description
          "Initial revision.";
        // RFC Ed.: replace XXXX and remove this comment
        reference
          "RFC XXXX: YANG Metadata Annotation for Immutable Flag";
      }
-
      md:annotation immutable {
        type boolean;
        description
@@ -583,9 +580,10 @@ Table of Contents
          "Allows the server to include 'immutable' metadata
           annotations in its response to get-data operation.";
        leaf with-immutability {
-         when "derived-from-or-self(../ncds:datastore,'sysds:system') "
-         +"or derived-from-or-self(../ncds:datastore,'ds:intended') "
-         +"or derived-from-or-self(../ncds:datastore,'ds:operational')";
+         when
+           "derived-from-or-self(../ncds:datastore,'sysds:system') "
+         + "or derived-from-or-self(../ncds:datastore,'ds:intended') "
+         + "or derived-from-or-self(../ncds:datastore,'ds:operational')";
          type empty;
          description
            "If this parameter is present, the server returns the
@@ -668,9 +666,9 @@ Table of Contents
    [I-D.ietf-netmod-system-config]
               Ma, Q., Wu, Q., and C. Feng, "System-defined
               Configuration", Work in Progress, Internet-Draft, draft-
-              ietf-netmod-system-config-12, 12 February 2025,
+              ietf-netmod-system-config-14, 27 November 2025,
               <https://datatracker.ietf.org/doc/html/draft-ietf-netmod-
-              system-config-12>.
+              system-config-14>.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -1003,14 +1001,14 @@ B.3.  Immutability of the leaf-list
    client cannot add, modify, or reorder entries, the client may copy or
    subsequently delete any of the two leaf-list entries in <running>,
    but there is no way to delete the nodes from <intended> if those
-   entries still appear in <system>.
+   entries appear in <system>.
 
    The leaf-list node instance inside the "power-users" user-group entry
    as a whole inherits immutability from the list entry, which is
    mutable.  Thus the client can add or reorder entries, the client may
    copy or subsequently delete any of the two leaf-list entries in
    <running>, but there is no way to delete the nodes from <intended> if
-   those entries still appear in <system>.
+   those entries appear in <system>.
 
 Appendix C.  Existing Implementations
 
