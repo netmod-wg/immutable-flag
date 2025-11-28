@@ -419,7 +419,7 @@ module: ietf-immutable-annotation
    This module imports definitions from {{!RFC6241}} and {{!RFC8526}}.
 
 ~~~~
-<CODE BEGINS> file "ietf-immutable-annotation@2025-05-15.yang"
+<CODE BEGINS> file "ietf-immutable-annotation@2025-11-28.yang"
 {::include ietf-immutable-annotation.yang}
 <CODE ENDS>
 ~~~~

@@ -26,7 +26,6 @@ module ietf-immutable-annotation {
 
   organization
     "IETF Network Modeling (NETMOD) Working Group";
-
   contact
     "WG Web: <https://datatracker.ietf.org/wg/netmod/>
      WG List: <mailto:netmod@ietf.org>
@@ -38,7 +37,6 @@ module ietf-immutable-annotation {
              <mailto:balazs.lengyel@ericsson.com>
      Author: Hongwei Li
              <mailto:flycoolman@gmail.com>";
-
   description
     "This module defines a metadata annotation called 'immutable'
      to allow the server to formally document existing behavior on
@@ -68,26 +66,25 @@ module ietf-immutable-annotation {
      (RFC 8174) when, and only when, they appear in all
      capitals, as shown here.";
 
-  revision 2025-05-15 {
+  revision 2025-11-28 {
     description
       "Initial revision.";
     // RFC Ed.: replace XXXX and remove this comment
     reference
       "RFC XXXX: YANG Metadata Annotation for Immutable Flag";
   }
-
   md:annotation immutable {
     type boolean;
     description
-      "The 'immutable' metadata annotation indicates the 
+      "The 'immutable' metadata annotation indicates the
        immutability of an instantiated data node. It takes as a
-       value 'true' or 'false'. An immutable node cannot be changed 
-       via configuring a different value in read-write configuration 
+       value 'true' or 'false'. An immutable node cannot be changed
+       via configuring a different value in read-write configuration
        datastores (e.g., <running>), though it can be created/deleted
-       in read-write configuration datastores. If not specified for 
+       in read-write configuration datastores. If not specified for
        a given configuration data node, the immutability is the
        same as the value of its parent node in the data tree. The
-       default value of 'immutable' annotation for a top-level 
+       default value of 'immutable' annotation for a top-level
        instance node is false if not specified.";
   }
 
@@ -96,9 +93,10 @@ module ietf-immutable-annotation {
       "Allows the server to include 'immutable' metadata
        annotations in its response to get-data operation.";
     leaf with-immutability {
-      when "derived-from-or-self(../ncds:datastore,'sysds:system') "
-      +"or derived-from-or-self(../ncds:datastore,'ds:intended') "
-      +"or derived-from-or-self(../ncds:datastore,'ds:operational')";
+      when
+        "derived-from-or-self(../ncds:datastore,'sysds:system') "
+      + "or derived-from-or-self(../ncds:datastore,'ds:intended') "
+      + "or derived-from-or-self(../ncds:datastore,'ds:operational')";
       type empty;
       description
         "If this parameter is present, the server returns the
