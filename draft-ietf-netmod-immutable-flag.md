@@ -585,8 +585,8 @@ urn:ietf:params:restconf:capability:with-immutability:1.0
 
 ## NETCONF Example to Retrieve Immutable Flag
 
-{{NETCONF-with-immutability}} illustrates an NETCONF example to retrieve "user-groups"
-configuration in <system> with immutable flag and the response a server might return.
+   {{NETCONF-with-immutability}} illustrates an NETCONF example to retrieve "user-groups"
+   configuration in \<system\> with immutable flag and the response a server might return.
 
 ~~~~
 <rpc message-id="101"
@@ -642,8 +642,8 @@ configuration in <system> with immutable flag and the response a server might re
 
 ## RESTCONF Example to Retrieve Immutable Flag
 
-{{RESTCONF-with-immutability}} illustrates an RESTCONF example to retrieve "user-groups"
-configuration in <system> with immutable flag and the response a server might return.
+  {{RESTCONF-with-immutability}} illustrates an RESTCONF example to retrieve "user-groups"
+  configuration in \<system\> with immutable flag and the response a server might return.
 
 ~~~~
 GET /restconf/ds/ietf-system-datastore:system/example-user-group:user-groups/with-immutability HTTP/1.1
