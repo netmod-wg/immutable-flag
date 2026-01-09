@@ -713,7 +713,7 @@ Last-Modified: Mon, 5 Jan 2026 14:02:14 GMT
 
 ## The Inheritance of Immutability {#inherit}
 
-In the example in {{example}}, there are two "user-group" list entries inside "user-groups"
+In the example in {{NETCONF-with-immutability}} and {{RESTCONF-with-immutability}}, there are two "user-group" list entries inside "user-groups"
 container node. The "immutable" metadata attribute for "user-groups" container
 instance is "false", which is also its default value as the top-level element,
 and thus can be omitted. The "administrator" list entry is immutable
@@ -727,7 +727,7 @@ Other descendant nodes inside "power-users" user-group inherit the immutability 
 
 ## Immutability of the list {#imm-list}
 
- In the example in {{example}}, the "user-group" list as a whole inherits immutability from the
+ In the example in {{NETCONF-with-immutability}} and {{RESTCONF-with-immutability}}, the "user-group" list as a whole inherits immutability from the
  container "user-groups", which is mutable. One of the list entry named "administrator" is immutable,
  and the other entry named "power-user" is mutable. The client is able to copy the entire "user-groups"
  container in \<running\>, add new user-group entries, modify the values of descendant nodes of "power-users" list entry,
@@ -748,7 +748,7 @@ Other descendant nodes inside "power-users" user-group inherit the immutability 
 
 ## Immutability of the leaf-list {#imm-leaf-list}
 
-In the example in {{example}}, the user-ordered "tag" leaf-list node inside the "administrator" user-group entry as a whole inherits immutability from the list entry, which is immutable. Thus the client cannot add, modify, or reorder
+In the example in {{NETCONF-with-immutability}} and {{RESTCONF-with-immutability}}, the user-ordered "tag" leaf-list node inside the "administrator" user-group entry as a whole inherits immutability from the list entry, which is immutable. Thus the client cannot add, modify, or reorder
 entries, the client may copy or subsequently delete any of the two leaf-list entries in \<running\>,
 but there is no way to delete the nodes from \<intended\> if those entries appear in \<system\>.
 
