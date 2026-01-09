@@ -711,6 +711,7 @@ Last-Modified: Mon, 5 Jan 2026 14:02:14 GMT
 ~~~~
 {: #RESTCONF-with-immutability title="An RESTCONF Example to Retrieve Immutable Configuration"}
 
+
 ## The Inheritance of Immutability {#inherit}
 
 In the example in {{NETCONF-with-immutability}} and {{RESTCONF-with-immutability}}, there are two "user-group" list entries inside "user-groups"
