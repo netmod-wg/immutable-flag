@@ -258,7 +258,7 @@ informative:
 ### NETCONF Extensions to Support "with-immutability" {#NETCONF-ext}
 
    This doument updates {{!RFC8526}} to augment the \<get-data\>
-   operation with an additional parameter named "with-immutability".
+   operation with an additional parameter named "with-immutability" when interacting with read-only datastores.
    If present, this parameter requests that the server includes
    the "immutable" metadata annotations in its response.
 
@@ -272,14 +272,16 @@ module: ietf-immutable-annotation
 ~~~~
 {: #tree title="Augmentations to NETCONF Operations" artwork-align="center}
 
+Refer to {{NETCONF-example}} for an example of NETCONF operation with "with-immutability" input parameter.
 
 ### RESTCONF Extensions to Support "with-immutability" {#RESTCONF-ext}
 
    This document extends {{Sections 4.8 and 9.1.1 of !RFC8040}} to add a query
    parameter named "with-immutability" to the GET operation. If present, this parameter
    requests that the server includes the "immutable" metadata annotations in its
-   response. This parameter is only allowed with no values carried. If it has
-   any unexpected value, then a "400 Bad Request" status-line is returned.
+   response. This parameter is only allowed with no values carried when interacting with read-only datastores.
+   If it has any unexpected value, then a "400 Bad Request" status-line is returned.
+   RESTCONF protocol operations for the datastore resources are defined in {{!RFC8527}}.
 
    To enable a RESTCONF client to discover if the "with-immutability" query parameter
    is supported by the server, the following capability URI is defined:
@@ -287,6 +289,9 @@ module: ietf-immutable-annotation
 ~~~~
     urn:ietf:params:restconf:capability:with-immutability:1.0
 ~~~~
+
+Refer to {{RESTCONF-example}} for an example of RESTCONF operation with "with-immutability" query parameter.
+
 
 # Use of Immutable Flag for Different Statements
 
@@ -583,10 +588,10 @@ urn:ietf:params:restconf:capability:with-immutability:1.0
 {::include example-user-group.yang}
 ~~~~
 
-## NETCONF Example to Retrieve Immutable Flag
+## NETCONF Example to Retrieve Immutable Configuration {{NETCONF-example}}
 
    {{NETCONF-with-immutability}} illustrates an NETCONF example to retrieve "user-groups"
-   configuration in \<system\> with immutable flag and the response a server might return.
+   configuration in \<system\> with "with-immutability" parameter and the response a server might return.
 
 ~~~~
 <rpc message-id="101"
@@ -640,10 +645,10 @@ urn:ietf:params:restconf:capability:with-immutability:1.0
 {: #NETCONF-with-immutability title="An NETCONF Example to Retrieve Immutable Configuration"}
 
 
-## RESTCONF Example to Retrieve Immutable Flag
+## RESTCONF Example to Retrieve Immutable Configuration {{RESTCONF-example}}
 
   {{RESTCONF-with-immutability}} illustrates an RESTCONF example to retrieve "user-groups"
-  configuration in \<system\> with immutable flag and the response a server might return.
+  configuration in \<system\> with "with-immutability" query parameter and the response a server might return.
 
 ~~~~
 GET /restconf/ds/ietf-system-datastore:system/example-user-group:user-groups/with-immutability HTTP/1.1
