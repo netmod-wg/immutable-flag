@@ -588,7 +588,7 @@ urn:ietf:params:restconf:capability:with-immutability:1.0
 {::include example-user-group.yang}
 ~~~~
 
-## NETCONF Example to Retrieve Immutable Configuration {{NETCONF-example}}
+## NETCONF Example to Retrieve Immutable Configuration {#NETCONF-example}
 
    {{NETCONF-with-immutability}} illustrates an NETCONF example to retrieve "user-groups"
    configuration in \<system\> with "with-immutability" parameter and the response a server might return.
@@ -645,7 +645,7 @@ urn:ietf:params:restconf:capability:with-immutability:1.0
 {: #NETCONF-with-immutability title="An NETCONF Example to Retrieve Immutable Configuration"}
 
 
-## RESTCONF Example to Retrieve Immutable Configuration {{RESTCONF-example}}
+## RESTCONF Example to Retrieve Immutable Configuration {#RESTCONF-example}
 
   {{RESTCONF-with-immutability}} illustrates an RESTCONF example to retrieve "user-groups"
   configuration in \<system\> with "with-immutability" query parameter and the response a server might return.
