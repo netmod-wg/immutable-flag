@@ -924,7 +924,7 @@ Appendix B.  Examples of Server's Immutable Behavior
 
 B.1.  NETCONF Example to Retrieve Immutable Configuration
 
-   Figure 2 illustrates an NETCONF request example to retrieve "user-
+   Figure 2 illustrates a NETCONF request example to retrieve "user-
    groups" configuration in <system> with "with-immutability" parameter
    and the response a server might return.
 
@@ -982,11 +982,11 @@ B.1.  NETCONF Example to Retrieve Immutable Configuration
      </data>
    </rpc-reply>
 
-      Figure 2: An NETCONF Example to Retrieve Immutable Configuration
+      Figure 2: A NETCONF Example to Retrieve Immutable Configuration
 
 B.2.  RESTCONF Example to Retrieve Immutable Configuration
 
-   Figure 3 illustrates an RESTCONF request example to retrieve "user-
+   Figure 3 illustrates a RESTCONF request example to retrieve "user-
    groups" configuration in <system> with "with-immutability" query
    parameter and the response a server might return.
 
@@ -1057,7 +1057,7 @@ B.2.  RESTCONF Example to Retrieve Immutable Configuration
      }
    }
 
-     Figure 3: An RESTCONF Example to Retrieve Immutable Configuration
+      Figure 3: A RESTCONF Example to Retrieve Immutable Configuration
 
 B.3.  The Inheritance of Immutability
 
