@@ -1,0 +1,47 @@
+<rpc message-id="101"
+     xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <get-data xmlns="urn:ietf:params:xml:ns:yang:ietf-netconf-nmda"
+            xmlns:sysds="urn:ietf:params:xml:ns:yang:ietf-system-datastore">
+    <datastore>sysds:system</datastore>
+    <subtree-filter>
+      <user-groups xmlns="urn:example:user-group"/>
+    </subtree-filter>
+    <with-immutability/>
+  </get-data>
+</rpc>
+
+<rpc-reply message-id="101"
+       xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <data xmlns="urn:ietf:params:xml:ns:yang:ietf-netconf-nmda">
+    <user-groups xmlns="urn:example:user-group"
+      xmlns:imma="urn:ietf:params:xml:ns:yang:ietf-immutable-annotation"
+      imma:immutable="false">
+      <group imma:immutable="true">
+        <name>administrator</name>
+        <description imma:immutable="false">administrator group</description>
+        <access-level>admin</access-level>
+        <user>
+          <name>ex-username-1</name>
+          <password>$5$rounds=10000$mysalt123456789$l4BjA1p/8q.qCYJ.2pLqjR5mCJf2bP7cLpYWmnC7Hq8</password>
+        </user>
+        <user imma:immutable="false">
+          <name>ex-username-2</name>
+          <password>$1$/h1234q$abcdef1234567890abcdef</password>
+        </user>
+        <tag>system</tag>
+        <tag>non-editable</tag>
+      </group>
+      <group imma:immutable="false">
+        <name>power-users</name>
+        <description>Power user group</description>
+        <access-level>power</access-level>
+        <user>
+          <name>ex-username-3</name>
+          <password>$1$/h4567q$abcdef2345678901abcdef</password>
+        </user>
+        <tag>system</tag>
+        <tag>editable</tag>
+      </group>
+    </user-groups>
+  </data>
+</rpc-reply>
