@@ -8,25 +8,25 @@ module example-user-group {
   }
 
   container user-groups {
-    list user-group {
+    list group {
       key "name";
       leaf name {
         type string;
       }
       leaf description {
         type string;
-      }      
-      leaf access-right {
+      }
+      leaf access-level {
         type enumeration {
           enum admin;
-          enum power;          
+          enum power;
           enum normal;
           enum guest;
         }
       }
       list user {
-        key "user-name";
-        leaf user-name {
+        key "name";
+        leaf name {
           type string;
         }
         leaf password {
