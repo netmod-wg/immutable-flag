@@ -589,24 +589,24 @@ urn:ietf:params:restconf:capability:with-immutability:1.0
 
 ## NETCONF Example to Retrieve Immutable Configuration {#NETCONF-example}
 
-   {{NETCONF-with-immutability}} illustrates an NETCONF request example to retrieve "user-groups"
+   {{NETCONF-with-immutability}} illustrates a NETCONF request example to retrieve "user-groups"
    configuration in \<system\> with "with-immutability" parameter and the response a server might return.
 
 ~~~~
 {::include-fold NETCONF-example.xml}
 ~~~~
-{: #NETCONF-with-immutability title="An NETCONF Example to Retrieve Immutable Configuration"}
+{: #NETCONF-with-immutability title="A NETCONF Example to Retrieve Immutable Configuration"}
 
 
 ## RESTCONF Example to Retrieve Immutable Configuration {#RESTCONF-example}
 
-  {{RESTCONF-with-immutability}} illustrates an RESTCONF request example to retrieve "user-groups"
+  {{RESTCONF-with-immutability}} illustrates a RESTCONF request example to retrieve "user-groups"
   configuration in \<system\> with "with-immutability" query parameter and the response a server might return.
 
 ~~~~
 {::include-fold RESTCONF-example.json}
 ~~~~
-{: #RESTCONF-with-immutability title="An RESTCONF Example to Retrieve Immutable Configuration"}
+{: #RESTCONF-with-immutability title="A RESTCONF Example to Retrieve Immutable Configuration"}
 
 
 ## The Inheritance of Immutability {#inherit}
