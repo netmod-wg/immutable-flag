@@ -117,7 +117,8 @@ Table of Contents
      B.3.  The Inheritance of Immutability
      B.4.  Immutability of the list
      B.5.  Immutability of the leaf-list
-     B.6.  Error Response to Clients Updating Immutable Configuration
+     B.6.  Error Response to Clients Overriding Immutable
+           Configuration
    Appendix C.  Existing Implementations
    Acknowledgments
    Authors' Addresses
@@ -1123,9 +1124,9 @@ B.5.  Immutability of the leaf-list
    but there is no way to delete the nodes from <intended> if those
    entries appear in <system>.
 
-B.6.  Error Response to Clients Updating Immutable Configuration
+B.6.  Error Response to Clients Overriding Immutable Configuration
 
-   Figure 4 provides examples of an attempt to update immutable
+   Figure 4 provides examples of an attempt to override immutable
    configuration and the error response that the server might return.
 
    =============== NOTE: '\' line wrapping per RFC 8792 ================
