@@ -1060,7 +1060,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Ma, et al.</td>
-<td class="center">Expires 13 July 2026</td>
+<td class="center">Expires 16 July 2026</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1076,12 +1076,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <a href="https://www.rfc-editor.org/rfc/rfc8040" class="eref">8040</a>, <a href="https://www.rfc-editor.org/rfc/rfc8526" class="eref">8526</a> (if approved)</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2026-01-09" class="published">9 January 2026</time>
+<time datetime="2026-01-12" class="published">12 January 2026</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2026-07-13">13 July 2026</time></dd>
+<dd class="expires"><time datetime="2026-07-16">16 July 2026</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1149,7 +1149,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 13 July 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 16 July 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1301,10 +1301,10 @@ svg :is([fill="white"], [fill^="#fff"]) {
             <p id="section-toc.1-1.14.1"><a href="#appendix-B" class="auto internal xref">Appendix B</a>.  <a href="#name-examples-of-servers-immutab" class="internal xref">Examples of Server's Immutable Behavior</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.14.2.1">
-                <p id="section-toc.1-1.14.2.1.1"><a href="#appendix-B.1" class="auto internal xref">B.1</a>.  <a href="#name-netconf-example-to-retrieve" class="internal xref">NETCONF Example to Retrieve Immutable Flag</a></p>
+                <p id="section-toc.1-1.14.2.1.1"><a href="#appendix-B.1" class="auto internal xref">B.1</a>.  <a href="#name-netconf-example-to-retrieve" class="internal xref">NETCONF Example to Retrieve Immutable Configuration</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.14.2.2">
-                <p id="section-toc.1-1.14.2.2.1"><a href="#appendix-B.2" class="auto internal xref">B.2</a>.  <a href="#name-restconf-example-to-retriev" class="internal xref">RESTCONF Example to Retrieve Immutable Flag</a></p>
+                <p id="section-toc.1-1.14.2.2.1"><a href="#appendix-B.2" class="auto internal xref">B.2</a>.  <a href="#name-restconf-example-to-retriev" class="internal xref">RESTCONF Example to Retrieve Immutable Configuration</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.14.2.3">
                 <p id="section-toc.1-1.14.2.3.1"><a href="#appendix-B.3" class="auto internal xref">B.3</a>.  <a href="#name-the-inheritance-of-immutabi" class="internal xref">The Inheritance of Immutability</a></p>
@@ -1429,10 +1429,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
             <p id="section-1.3-4.1.1">XXXX --&gt; the assigned RFC number for this draft<a href="#section-1.3-4.1.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-1.3-4.2">
-            <p id="section-1.3-4.2.1">YYYY --&gt; the assigned RFC number for <span>[<a href="#I-D.ietf-netmod-system-config" class="cite xref">I-D.ietf-netmod-system-config</a>]</span><a href="#section-1.3-4.2.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="section-1.3-4.3">
-            <p id="section-1.3-4.3.1">2025-05-15 --&gt; the actual date of the publication of this document<a href="#section-1.3-4.3.1" class="pilcrow">¶</a></p>
+            <p id="section-1.3-4.2.1">2026-01-12 --&gt; the actual date of the publication of this document<a href="#section-1.3-4.2.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
@@ -1573,8 +1570,8 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
           <h4 id="name-netconf-extensions-to-suppo">
 <a href="#section-4.2.1" class="section-number selfRef">4.2.1. </a><a href="#name-netconf-extensions-to-suppo" class="section-name selfRef">NETCONF Extensions to Support "with-immutability"</a>
           </h4>
-<p id="section-4.2.1-1">This doument updates <span>[<a href="#RFC8526" class="cite xref">RFC8526</a>]</span> to augment the &lt;get-data&gt;
-   operation with an additional parameter named "with-immutability".
+<p id="section-4.2.1-1">This document updates <span>[<a href="#RFC8526" class="cite xref">RFC8526</a>]</span> to augment the &lt;get-data&gt;
+   operation with an additional parameter named "with-immutability" when interacting with read-only datastores.
    If present, this parameter requests that the server includes
    the "immutable" metadata annotations in its response.<a href="#section-4.2.1-1" class="pilcrow">¶</a></p>
 <p id="section-4.2.1-2"><a href="#tree" class="auto internal xref">Figure 1</a> provides the tree structure <span>[<a href="#RFC8340" class="cite xref">RFC8340</a>]</span> of augmentations to NETCONF
@@ -1592,6 +1589,7 @@ module: ietf-immutable-annotation
 <a href="#name-augmentations-to-netconf-op" class="selfRef">Augmentations to NETCONF Operations</a>
             </figcaption></figure>
 </div>
+<p id="section-4.2.1-4">Refer to <a href="#NETCONF-example" class="auto internal xref">Appendix B.1</a> for an example of NETCONF operation with "with-immutability" input parameter.<a href="#section-4.2.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="RESTCONF-ext">
@@ -1602,8 +1600,9 @@ module: ietf-immutable-annotation
 <p id="section-4.2.2-1">This document extends Sections <a href="https://rfc-editor.org/rfc/rfc8040#section-4.8" class="relref">4.8</a> and <a href="https://rfc-editor.org/rfc/rfc8040#section-9.1.1" class="relref">9.1.1</a> of <span>[<a href="#RFC8040" class="cite xref">RFC8040</a>]</span> to add a query
    parameter named "with-immutability" to the GET operation. If present, this parameter
    requests that the server includes the "immutable" metadata annotations in its
-   response. This parameter is only allowed with no values carried. If it has
-   any unexpected value, then a "400 Bad Request" status-line is returned.<a href="#section-4.2.2-1" class="pilcrow">¶</a></p>
+   response. This parameter is only allowed with no values carried when interacting with read-only datastores.
+   If it has any unexpected value, then a "400 Bad Request" status-line is returned.
+   RESTCONF protocol operations for the datastore resources are defined in <span>[<a href="#RFC8527" class="cite xref">RFC8527</a>]</span>.<a href="#section-4.2.2-1" class="pilcrow">¶</a></p>
 <p id="section-4.2.2-2">To enable a RESTCONF client to discover if the "with-immutability" query parameter
    is supported by the server, the following capability URI is defined:<a href="#section-4.2.2-2" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-4.2.2-3">
@@ -1611,6 +1610,7 @@ module: ietf-immutable-annotation
     urn:ietf:params:restconf:capability:with-immutability:1.0
 </pre><a href="#section-4.2.2-3" class="pilcrow">¶</a>
 </div>
+<p id="section-4.2.2-4">Refer to <a href="#RESTCONF-example" class="auto internal xref">Appendix B.2</a> for an example of RESTCONF operation with "with-immutability" query parameter.<a href="#section-4.2.2-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1772,7 +1772,7 @@ module: ietf-immutable-annotation
       <h2 id="name-yang-module">
 <a href="#section-9" class="section-number selfRef">9. </a><a href="#name-yang-module" class="section-name selfRef">YANG Module</a>
       </h2>
-<p id="section-9-1">This module imports definitions from <span>[<a href="#RFC6241" class="cite xref">RFC6241</a>]</span> and <span>[<a href="#RFC8526" class="cite xref">RFC8526</a>]</span>.<a href="#section-9-1" class="pilcrow">¶</a></p>
+<p id="section-9-1">This module imports definitions from <span>[<a href="#RFC7952" class="cite xref">RFC7952</a>]</span>, <span>[<a href="#RFC8342" class="cite xref">RFC8342</a>]</span>, <span>[<a href="#RFC8526" class="cite xref">RFC8526</a>]</span>, and <span>[<a href="#I-D.ietf-netmod-system-config" class="cite xref">I-D.ietf-netmod-system-config</a>]</span>.<a href="#section-9-1" class="pilcrow">¶</a></p>
 <div class="breakable sourcecode" id="section-9-2">
 <pre>&lt;CODE BEGINS&gt; file "ietf-immutable-annotation@2025-11-28.yang"
 
@@ -1783,6 +1783,8 @@ module ietf-immutable-annotation {
 
   import ietf-yang-metadata {
     prefix md;
+    reference
+      "RFC 7952: Defining and Using Metadata with YANG";
   }
   import ietf-netconf-nmda {
     prefix ncds;
@@ -1823,7 +1825,7 @@ module ietf-immutable-annotation {
      beforehand why certain otherwise valid configuration requests
      will cause the server to return an error.
 
-     Copyright (c) 2025 IETF Trust and the persons identified
+     Copyright (c) 2026 IETF Trust and the persons identified
      as authors of the code. All rights reserved.
 
      Redistribution and use in source and binary forms, with
@@ -1833,18 +1835,11 @@ module ietf-immutable-annotation {
      Legal Provisions Relating to IETF Documents
      (https://trustee.ietf.org/license-info).
 
-     This version of this YANG module is part of RFC HHHH
-     (https://www.rfc-editor.org/info/rfcHHHH); see the RFC
-     itself for full legal notices.
+     This version of this YANG module is part of RFC XXXX
+     (https://www.rfc-editor.org/info/rfcXXXX); see the RFC
+     itself for full legal notices.";
 
-     The key words 'MUST', 'MUST NOT', 'REQUIRED', 'SHALL',
-     'SHALL NOT', 'SHOULD', 'SHOULD NOT', 'RECOMMENDED',
-     'NOT RECOMMENDED', 'MAY', and 'OPTIONAL' in this document
-     are to be interpreted as described in BCP 14 (RFC 2119)
-     (RFC 8174) when, and only when, they appear in all
-     capitals, as shown here.";
-
-  revision 2025-11-28 {
+  revision 2026-01-12 {
     description
       "Initial revision.";
     // RFC Ed.: replace XXXX and remove this comment
@@ -2026,9 +2021,17 @@ urn:ietf:params:restconf:capability:with-immutability:1.0
         <dd>
 <span class="refAuthor">Bierman, A.</span> and <span class="refAuthor">M. Bjorklund</span>, <span class="refTitle">"Network Configuration Access Control Model"</span>, <span class="seriesInfo">STD 91</span>, <span class="seriesInfo">RFC 8341</span>, <span class="seriesInfo">DOI 10.17487/RFC8341</span>, <time datetime="2018-03" class="refDate">March 2018</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8341">https://www.rfc-editor.org/rfc/rfc8341</a>&gt;</span>. </dd>
 <dd class="break"></dd>
+<dt id="RFC8342">[RFC8342]</dt>
+        <dd>
+<span class="refAuthor">Bjorklund, M.</span>, <span class="refAuthor">Schoenwaelder, J.</span>, <span class="refAuthor">Shafer, P.</span>, <span class="refAuthor">Watsen, K.</span>, and <span class="refAuthor">R. Wilton</span>, <span class="refTitle">"Network Management Datastore Architecture (NMDA)"</span>, <span class="seriesInfo">RFC 8342</span>, <span class="seriesInfo">DOI 10.17487/RFC8342</span>, <time datetime="2018-03" class="refDate">March 2018</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8342">https://www.rfc-editor.org/rfc/rfc8342</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC8526">[RFC8526]</dt>
-      <dd>
+        <dd>
 <span class="refAuthor">Bjorklund, M.</span>, <span class="refAuthor">Schoenwaelder, J.</span>, <span class="refAuthor">Shafer, P.</span>, <span class="refAuthor">Watsen, K.</span>, and <span class="refAuthor">R. Wilton</span>, <span class="refTitle">"NETCONF Extensions to Support the Network Management Datastore Architecture"</span>, <span class="seriesInfo">RFC 8526</span>, <span class="seriesInfo">DOI 10.17487/RFC8526</span>, <time datetime="2019-03" class="refDate">March 2019</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8526">https://www.rfc-editor.org/rfc/rfc8526</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC8527">[RFC8527]</dt>
+      <dd>
+<span class="refAuthor">Bjorklund, M.</span>, <span class="refAuthor">Schoenwaelder, J.</span>, <span class="refAuthor">Shafer, P.</span>, <span class="refAuthor">Watsen, K.</span>, and <span class="refAuthor">R. Wilton</span>, <span class="refTitle">"RESTCONF Extensions to Support the Network Management Datastore Architecture"</span>, <span class="seriesInfo">RFC 8527</span>, <span class="seriesInfo">DOI 10.17487/RFC8527</span>, <time datetime="2019-03" class="refDate">March 2019</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8527">https://www.rfc-editor.org/rfc/rfc8527</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 </dl>
 </section>
@@ -2135,12 +2138,12 @@ urn:ietf:params:restconf:capability:with-immutability:1.0
    never be used by the system, the request will be rejected by the
    server.  The data is modeled as "config true" and thus should be annotated
    as immutable.<a href="#appendix-A.2-2" class="pilcrow">¶</a></p>
-<p id="appendix-A.2-3">Seemingly an alternative would be to model the list and these leaves
+<p id="appendix-A.2-3">Seemingly an alternative would be to model the list and these leafs
    as "config false", but that does not work because:<a href="#appendix-A.2-3" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="appendix-A.2-4.1">
             <p id="appendix-A.2-4.1.1">The list cannot be marked as "config false", because it needs to contain
-  configurable child nodes, e.g., ip-address or enabled;<a href="#appendix-A.2-4.1.1" class="pilcrow">¶</a></p>
+  configurable child nodes, e.g., IP address or enabled;<a href="#appendix-A.2-4.1.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="appendix-A.2-4.2">
             <p id="appendix-A.2-4.2.1">The key leaf (name) cannot be marked as "config false" as the list
@@ -2207,7 +2210,7 @@ module example-user-group {
   }
 
   container user-groups {
-    list user-group {
+    list group {
       key "name";
       leaf name {
         type string;
@@ -2215,7 +2218,7 @@ module example-user-group {
       leaf description {
         type string;
       }
-      leaf access-right {
+      leaf access-level {
         type enumeration {
           enum admin;
           enum power;
@@ -2224,8 +2227,8 @@ module example-user-group {
         }
       }
       list user {
-        key "user-name";
-        leaf user-name {
+        key "name";
+        leaf name {
           type string;
         }
         leaf password {
@@ -2244,13 +2247,13 @@ module example-user-group {
 }
 </pre><a href="#appendix-B-2" class="pilcrow">¶</a>
 </div>
-<div id="netconf-example-to-retrieve-immutable-flag">
+<div id="NETCONF-example">
 <section id="appendix-B.1">
         <h3 id="name-netconf-example-to-retrieve">
-<a href="#appendix-B.1" class="section-number selfRef">B.1. </a><a href="#name-netconf-example-to-retrieve" class="section-name selfRef">NETCONF Example to Retrieve Immutable Flag</a>
+<a href="#appendix-B.1" class="section-number selfRef">B.1. </a><a href="#name-netconf-example-to-retrieve" class="section-name selfRef">NETCONF Example to Retrieve Immutable Configuration</a>
         </h3>
-<p id="appendix-B.1-1"><a href="#NETCONF-with-immutability" class="auto internal xref">Figure 2</a> illustrates an NETCONF example to retrieve "user-groups"
-   configuration in &lt;system&gt; with immutable flag and the response a server might return.<a href="#appendix-B.1-1" class="pilcrow">¶</a></p>
+<p id="appendix-B.1-1"><a href="#NETCONF-with-immutability" class="auto internal xref">Figure 2</a> illustrates an NETCONF request example to retrieve "user-groups"
+   configuration in &lt;system&gt; with "with-immutability" parameter and the response a server might return.<a href="#appendix-B.1-1" class="pilcrow">¶</a></p>
 <span id="name-an-netconf-example-to-retri"></span><div id="NETCONF-with-immutability">
 <figure id="figure-2">
           <div class="alignLeft art-text artwork" id="appendix-B.1-2.1">
@@ -2273,32 +2276,32 @@ module example-user-group {
     &lt;user-groups xmlns="urn:example:user-group"
       xmlns:imma="urn:ietf:params:xml:ns:yang:ietf-immutable-annotation"
       imma:immutable="false"&gt;
-      &lt;user-group imma:immutable="true"&gt;
+      &lt;group imma:immutable="true"&gt;
         &lt;name&gt;administrator&lt;/name&gt;
         &lt;description imma:immutable="false"&gt;administrator group&lt;/description&gt;
-        &lt;access-right&gt;admin&lt;/access-right&gt;
+        &lt;access-level&gt;admin&lt;/access-level&gt;
         &lt;user&gt;
-          &lt;user-name&gt;ex-username-1&lt;/user-name&gt;
+          &lt;name&gt;ex-username-1&lt;/name&gt;
           &lt;password&gt;$5$salt$42x6N3voGLL5rV7qU5qK6L8jF9eD2aB3c&lt;/password&gt;
         &lt;/user&gt;
         &lt;user imma:immutable="false"&gt;
-          &lt;user-name&gt;ex-username-2&lt;/user-name&gt;
+          &lt;name&gt;ex-username-2&lt;/name&gt;
           &lt;password&gt;$1$/h1234q$abcdef1234567890abcdef&lt;/password&gt;
         &lt;/user&gt;
         &lt;tag&gt;system&lt;/tag&gt;
         &lt;tag&gt;non-editable&lt;/tag&gt;
-      &lt;/user-group&gt;
-      &lt;user-group imma:immutable="false"&gt;
+      &lt;/group&gt;
+      &lt;group imma:immutable="false"&gt;
         &lt;name&gt;power-users&lt;/name&gt;
         &lt;description&gt;Power user group&lt;/description&gt;
-        &lt;access-right&gt;power&lt;/access-right&gt;
+        &lt;access-level&gt;power&lt;/access-level&gt;
         &lt;user&gt;
-          &lt;user-name&gt;ex-username-3&lt;/user-name&gt;
+          &lt;name&gt;ex-username-3&lt;/name&gt;
           &lt;password&gt;$1$/h4567q$abcdef2345678901abcdef&lt;/password&gt;
         &lt;/user&gt;
         &lt;tag&gt;system&lt;/tag&gt;
         &lt;tag&gt;editable&lt;/tag&gt;
-      &lt;/user-group&gt;
+      &lt;/group&gt;
     &lt;/user-groups&gt;
   &lt;/data&gt;
 &lt;/rpc-reply&gt;
@@ -2310,13 +2313,13 @@ module example-user-group {
 </div>
 </section>
 </div>
-<div id="restconf-example-to-retrieve-immutable-flag">
+<div id="RESTCONF-example">
 <section id="appendix-B.2">
         <h3 id="name-restconf-example-to-retriev">
-<a href="#appendix-B.2" class="section-number selfRef">B.2. </a><a href="#name-restconf-example-to-retriev" class="section-name selfRef">RESTCONF Example to Retrieve Immutable Flag</a>
+<a href="#appendix-B.2" class="section-number selfRef">B.2. </a><a href="#name-restconf-example-to-retriev" class="section-name selfRef">RESTCONF Example to Retrieve Immutable Configuration</a>
         </h3>
-<p id="appendix-B.2-1"><a href="#RESTCONF-with-immutability" class="auto internal xref">Figure 3</a> illustrates an RESTCONF example to retrieve "user-groups"
-  configuration in &lt;system&gt; with immutable flag and the response a server might return.<a href="#appendix-B.2-1" class="pilcrow">¶</a></p>
+<p id="appendix-B.2-1"><a href="#RESTCONF-with-immutability" class="auto internal xref">Figure 3</a> illustrates an RESTCONF request example to retrieve "user-groups"
+  configuration in &lt;system&gt; with "with-immutability" query parameter and the response a server might return.<a href="#appendix-B.2-1" class="pilcrow">¶</a></p>
 <span id="name-an-restconf-example-to-retr"></span><div id="RESTCONF-with-immutability">
 <figure id="figure-3">
           <div class="alignLeft art-text artwork" id="appendix-B.2-2.1">
@@ -2339,7 +2342,7 @@ Last-Modified: Mon, 5 Jan 2026 14:02:14 GMT
     "@": {
       "ietf-immutable-annotation:immutable": false
     },
-    "user-group": [
+    "group": [
       {
         "@": {
           "ietf-immutable-annotation:immutable": true
@@ -2349,17 +2352,17 @@ Last-Modified: Mon, 5 Jan 2026 14:02:14 GMT
         "@description": {
           "ietf-immutable-annotation:immutable": false
         },
-        "access-right": "admin",
+        "access-level": "admin",
         "user": [
           {
-            "user-name": "ex-username-1",
+            "name": "ex-username-1",
             "password": "$5$salt$42x6N3voGLL5rV7qU5qK6L8jF9eD2aB3c"
           },
           {
             "@": {
               "ietf-immutable-annotation:immutable": false
             },
-            "user-name": "ex-username-2",
+            "name": "ex-username-2",
             "password": "$1$/h1234q$abcdef1234567890abcdef"
           }
         ],
@@ -2371,10 +2374,10 @@ Last-Modified: Mon, 5 Jan 2026 14:02:14 GMT
         },
         "name": "power-users",
         "description": "Power user group",
-        "access-right": "power",
+        "access-level": "power",
         "user": [
           {
-            "user-name": "ex-username-3",
+            "name": "ex-username-3",
             "password": "$1$/h4567q$abcdef2345678901abcdef"
           }
         ],
@@ -2451,37 +2454,37 @@ but there is no way to delete the nodes from &lt;intended&gt; if those entries a
         <h3 id="name-error-response-to-clients-u">
 <a href="#appendix-B.6" class="section-number selfRef">B.6. </a><a href="#name-error-response-to-clients-u" class="section-name selfRef">Error Response to Clients Updating Immutable Configuration</a>
         </h3>
-<p id="appendix-B.6-1"><a href="#NETCONF-error" class="auto internal xref">Figure 4</a> provides examples of error responses when a client attempts to modify immutable configuration, addressing the use case where configuration changes are rejected by the server due to immutability.<a href="#appendix-B.6-1" class="pilcrow">¶</a></p>
+<p id="appendix-B.6-1"><a href="#NETCONF-error" class="auto internal xref">Figure 4</a> provides examples of an attempt to update immutable configuration and the error response that the server might return.<a href="#appendix-B.6-1" class="pilcrow">¶</a></p>
 <span id="name-an-example-to-override-immu"></span><div id="NETCONF-error">
 <figure id="figure-4">
           <div class="alignLeft art-text artwork" id="appendix-B.6-2.1">
 <pre>
-&lt;rpc message-id="101" xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"&gt;
+&lt;rpc message-id="102" xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"&gt;
   &lt;edit-config&gt;
     &lt;target&gt;
       &lt;running/&gt;
     &lt;/target&gt;
     &lt;config&gt;
       &lt;user-groups xmlns="urn:example:user-group"&gt;
-        &lt;user-group&gt;
+        &lt;group&gt;
           &lt;name&gt;administrator&lt;/name&gt;
-          &lt;access-right&gt;guest&lt;/access-right&gt;
-        &lt;/user-group&gt;
+          &lt;access-level&gt;guest&lt;/access-level&gt;
+        &lt;/group&gt;
       &lt;/user-groups&gt;
     &lt;/config&gt;
   &lt;/edit-config&gt;
 &lt;/rpc&gt;
 
-&lt;rpc-reply message-id="101" xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"&gt;
+&lt;rpc-reply message-id="102" xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"&gt;
   &lt;rpc-error&gt;
     &lt;error-type&gt;application&lt;/error-type&gt;
     &lt;error-tag&gt;invalid-value&lt;/error-tag&gt;
     &lt;error-severity&gt;error&lt;/error-severity&gt;
-    &lt;error-path xmlns:t="http://example.com/schema/1.2/config"&gt;
-      /interfaces/interface[name="eth0"]/type
+    &lt;error-path xmlns="urn:example:user-group"&gt;
+      /user-groups/group[name="administrator"]/access-level
     &lt;/error-path&gt;
     &lt;error-message xml:lang="en"&gt;
-      Invalid type for interface eth0, marked as immutable
+      Invalid access-level value due to the target node is marked as immutable
     &lt;/error-message&gt;
   &lt;/rpc-error&gt;
 &lt;/rpc-reply&gt;
