@@ -1774,7 +1774,7 @@ module: ietf-immutable-annotation
       </h2>
 <p id="section-9-1">This module imports definitions from <span>[<a href="#RFC7952" class="cite xref">RFC7952</a>]</span>, <span>[<a href="#RFC8342" class="cite xref">RFC8342</a>]</span>, <span>[<a href="#RFC8526" class="cite xref">RFC8526</a>]</span>, and <span>[<a href="#I-D.ietf-netmod-system-config" class="cite xref">I-D.ietf-netmod-system-config</a>]</span>.<a href="#section-9-1" class="pilcrow">¶</a></p>
 <div class="breakable sourcecode" id="section-9-2">
-<pre>&lt;CODE BEGINS&gt; file "ietf-immutable-annotation@2025-11-28.yang"
+<pre>&lt;CODE BEGINS&gt; file "ietf-immutable-annotation@2026-01-12.yang"
 
 module ietf-immutable-annotation {
   yang-version 1.1;
@@ -1925,9 +1925,9 @@ module ietf-immutable-annotation {
    following the format defined in <span>[<a href="#RFC3688" class="cite xref">RFC3688</a>]</span>.<a href="#section-11.1-1" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-11.1-2">
 <pre>
-        URI: urn:ietf:params:xml:ns:yang:ietf-immutable-annotation
-        Registrant Contact: The IESG.
-        XML: N/A, the requested URIs are XML namespaces.
+URI: urn:ietf:params:xml:ns:yang:ietf-immutable-annotation
+Registrant Contact: The IESG.
+XML: N/A, the requested URIs are XML namespaces.
 </pre><a href="#section-11.1-2" class="pilcrow">¶</a>
 </div>
 </section>
@@ -1941,10 +1941,10 @@ module ietf-immutable-annotation {
 registry, defined in <span>[<a href="#RFC6020" class="cite xref">RFC6020</a>]</span>.<a href="#section-11.2-1" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-11.2-2">
 <pre>
-        name: ietf-immutable-annotation
-        prefix: imma
-        namespace: urn:ietf:params:xml:ns:yang:ietf-immutable-annotation
-        RFC: XXXX
+name: ietf-immutable-annotation
+prefix: imma
+namespace: urn:ietf:params:xml:ns:yang:ietf-immutable-annotation
+RFC: XXXX
 </pre><a href="#section-11.2-2" class="pilcrow">¶</a>
 </div>
 </section>
@@ -2258,10 +2258,13 @@ module example-user-group {
 <figure id="figure-2">
           <div class="alignLeft art-text artwork" id="appendix-B.1-2.1">
 <pre>
+=============== NOTE: '\' line wrapping per RFC 8792 ================
+
 &lt;rpc message-id="101"
      xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"&gt;
   &lt;get-data xmlns="urn:ietf:params:xml:ns:yang:ietf-netconf-nmda"
-            xmlns:sysds="urn:ietf:params:xml:ns:yang:ietf-system-datastore"&gt;
+            xmlns:sysds="urn:ietf:params:xml:ns:yang:ietf-system-\
+                                                          datastore"&gt;
     &lt;datastore&gt;sysds:system&lt;/datastore&gt;
     &lt;subtree-filter&gt;
       &lt;user-groups xmlns="urn:example:user-group"/&gt;
@@ -2274,15 +2277,18 @@ module example-user-group {
        xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"&gt;
   &lt;data xmlns="urn:ietf:params:xml:ns:yang:ietf-netconf-nmda"&gt;
     &lt;user-groups xmlns="urn:example:user-group"
-      xmlns:imma="urn:ietf:params:xml:ns:yang:ietf-immutable-annotation"
+      xmlns:imma="urn:ietf:params:xml:ns:yang:ietf-immutable-\
+                                                          annotation"
       imma:immutable="false"&gt;
       &lt;group imma:immutable="true"&gt;
         &lt;name&gt;administrator&lt;/name&gt;
-        &lt;description imma:immutable="false"&gt;administrator group&lt;/description&gt;
+        &lt;description imma:immutable="false"&gt;administrator group&lt;/\
+                                                         description&gt;
         &lt;access-level&gt;admin&lt;/access-level&gt;
         &lt;user&gt;
           &lt;name&gt;ex-username-1&lt;/name&gt;
-          &lt;password&gt;$5$salt$42x6N3voGLL5rV7qU5qK6L8jF9eD2aB3c&lt;/password&gt;
+          &lt;password&gt;$5$rounds=10000$mysalt123456789$l4BjA1p/8q.qCYJ.\
+                               2pLqjR5mCJf2bP7cLpYWmnC7Hq8&lt;/password&gt;
         &lt;/user&gt;
         &lt;user imma:immutable="false"&gt;
           &lt;name&gt;ex-username-2&lt;/name&gt;
@@ -2324,7 +2330,10 @@ module example-user-group {
 <figure id="figure-3">
           <div class="alignLeft art-text artwork" id="appendix-B.2-2.1">
 <pre>
-GET /restconf/ds/ietf-system-datastore:system/example-user-group:user-groups/with-immutability HTTP/1.1
+=============== NOTE: '\' line wrapping per RFC 8792 ================
+
+GET /restconf/ds/ietf-system-datastore:system/example-user-group:\
+                               user-groups/with-immutability HTTP/1.1
 Host: example.com
 Accept: application/yang-data+json
 
@@ -2356,7 +2365,8 @@ Last-Modified: Mon, 5 Jan 2026 14:02:14 GMT
         "user": [
           {
             "name": "ex-username-1",
-            "password": "$5$salt$42x6N3voGLL5rV7qU5qK6L8jF9eD2aB3c"
+            "password": "$5$rounds=10000$mysalt123456789$l4BjA1p/8q.\
+                                    qCYJ.2pLqjR5mCJf2bP7cLpYWmnC7Hq8"
           },
           {
             "@": {
@@ -2399,7 +2409,7 @@ Last-Modified: Mon, 5 Jan 2026 14:02:14 GMT
         <h3 id="name-the-inheritance-of-immutabi">
 <a href="#appendix-B.3" class="section-number selfRef">B.3. </a><a href="#name-the-inheritance-of-immutabi" class="section-name selfRef">The Inheritance of Immutability</a>
         </h3>
-<p id="appendix-B.3-1">In the example in <a href="#NETCONF-with-immutability" class="auto internal xref">Figure 2</a> and <a href="#RESTCONF-with-immutability" class="auto internal xref">Figure 3</a>, there are two "user-group" list entries inside "user-groups"
+<p id="appendix-B.3-1">In the example in <a href="#NETCONF-with-immutability" class="auto internal xref">Figure 2</a> and <a href="#RESTCONF-with-immutability" class="auto internal xref">Figure 3</a>, there are two "group" list entries inside "user-groups"
 container node. The "immutable" metadata attribute for "user-groups" container
 instance is "false", which is also its default value as the top-level element,
 and thus can be omitted. The "administrator" list entry is immutable
@@ -2408,7 +2418,7 @@ Other descendant nodes inside "administrator" list entry inherit the immutabilit
 <p id="appendix-B.3-2">The "immutable" metadata attribute
 for "power-users" list entry is "false", which is also the same
 value as its parent node (i.e., the "user-groups" container), and thus can be omitted.
-Other descendant nodes inside "power-users" user-group inherit the immutability of the list entry thus are also mutable.<a href="#appendix-B.3-2" class="pilcrow">¶</a></p>
+Other descendant nodes inside "power-users" group inherit the immutability of the list entry thus are also mutable.<a href="#appendix-B.3-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="imm-list">
@@ -2416,17 +2426,17 @@ Other descendant nodes inside "power-users" user-group inherit the immutability 
         <h3 id="name-immutability-of-the-list">
 <a href="#appendix-B.4" class="section-number selfRef">B.4. </a><a href="#name-immutability-of-the-list" class="section-name selfRef">Immutability of the list</a>
         </h3>
-<p id="appendix-B.4-1">In the example in <a href="#NETCONF-with-immutability" class="auto internal xref">Figure 2</a> and <a href="#RESTCONF-with-immutability" class="auto internal xref">Figure 3</a>, the "user-group" list as a whole inherits immutability from the
+<p id="appendix-B.4-1">In the example in <a href="#NETCONF-with-immutability" class="auto internal xref">Figure 2</a> and <a href="#RESTCONF-with-immutability" class="auto internal xref">Figure 3</a>, the "group" list as a whole inherits immutability from the
  container "user-groups", which is mutable. One of the list entry named "administrator" is immutable,
  and the other entry named "power-user" is mutable. The client is able to copy the entire "user-groups"
- container in &lt;running&gt;, add new user-group entries, modify the values of descendant nodes of "power-users" list entry,
+ container in &lt;running&gt;, add new "group" entries, modify the values of descendant nodes of "power-users" list entry,
  but the values of descendant nodes of "administrator" list entry cannot be overridden with different values expect
  for the "description" and "ex-username-2" user list entry nodes, which is explicitly reset to be mutable.
- The client may also subsequently delete any copied "user-group" entries or the entire
+ The client may also subsequently delete any copied "group" entries or the entire
  "user-groups" container, which will not prevent the deleted data being present in &lt;intended&gt; (if implemented) assuming it
  is still contained in &lt;system&gt;.<a href="#appendix-B.4-1" class="pilcrow">¶</a></p>
-<p id="appendix-B.4-2">The "user" list inside the "administrator" user-group list entry as a whole inherits immutability from the
- list entry, which is immutable. Thus the client cannot add new user entries inside "administrator" user-group.
+<p id="appendix-B.4-2">The "user" list inside the "administrator" group list entry as a whole inherits immutability from the
+ list entry, which is immutable. Thus the client cannot add new user entries inside "administrator" group.
  As one of the user entry named "ex-username-1" is immutable through inheritance,
  and the other "ex-username-2" user entry is explicitly set to be mutable. The client cannot
  modify the "password" parameter, or add a "full-name" value for user "ex-username-1".
@@ -2440,10 +2450,10 @@ Other descendant nodes inside "power-users" user-group inherit the immutability 
         <h3 id="name-immutability-of-the-leaf-li">
 <a href="#appendix-B.5" class="section-number selfRef">B.5. </a><a href="#name-immutability-of-the-leaf-li" class="section-name selfRef">Immutability of the leaf-list</a>
         </h3>
-<p id="appendix-B.5-1">In the example in <a href="#NETCONF-with-immutability" class="auto internal xref">Figure 2</a> and <a href="#RESTCONF-with-immutability" class="auto internal xref">Figure 3</a>, the user-ordered "tag" leaf-list node inside the "administrator" user-group entry as a whole inherits immutability from the list entry, which is immutable. Thus the client cannot add, modify, or reorder
+<p id="appendix-B.5-1">In the example in <a href="#NETCONF-with-immutability" class="auto internal xref">Figure 2</a> and <a href="#RESTCONF-with-immutability" class="auto internal xref">Figure 3</a>, the user-ordered "tag" leaf-list node inside the "administrator" group entry as a whole inherits immutability from the list entry, which is immutable. Thus the client cannot add, modify, or reorder
 entries, the client may copy or subsequently delete any of the two leaf-list entries in &lt;running&gt;,
 but there is no way to delete the nodes from &lt;intended&gt; if those entries appear in &lt;system&gt;.<a href="#appendix-B.5-1" class="pilcrow">¶</a></p>
-<p id="appendix-B.5-2">The leaf-list node instance inside the "power-users" user-group entry as a whole inherits
+<p id="appendix-B.5-2">The leaf-list node instance inside the "power-users" group entry as a whole inherits
 immutability from the list entry, which is mutable. Thus the client can add or reorder
 entries, the client may copy or subsequently delete any of the two leaf-list entries in &lt;running&gt;,
 but there is no way to delete the nodes from &lt;intended&gt; if those entries appear in &lt;system&gt;.<a href="#appendix-B.5-2" class="pilcrow">¶</a></p>
@@ -2459,7 +2469,10 @@ but there is no way to delete the nodes from &lt;intended&gt; if those entries a
 <figure id="figure-4">
           <div class="alignLeft art-text artwork" id="appendix-B.6-2.1">
 <pre>
-&lt;rpc message-id="102" xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"&gt;
+=============== NOTE: '\' line wrapping per RFC 8792 ================
+
+&lt;rpc message-id="102"
+     xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"&gt;
   &lt;edit-config&gt;
     &lt;target&gt;
       &lt;running/&gt;
@@ -2475,7 +2488,8 @@ but there is no way to delete the nodes from &lt;intended&gt; if those entries a
   &lt;/edit-config&gt;
 &lt;/rpc&gt;
 
-&lt;rpc-reply message-id="102" xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"&gt;
+&lt;rpc-reply message-id="102"
+       xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"&gt;
   &lt;rpc-error&gt;
     &lt;error-type&gt;application&lt;/error-type&gt;
     &lt;error-tag&gt;invalid-value&lt;/error-tag&gt;
@@ -2484,7 +2498,8 @@ but there is no way to delete the nodes from &lt;intended&gt; if those entries a
       /user-groups/group[name="administrator"]/access-level
     &lt;/error-path&gt;
     &lt;error-message xml:lang="en"&gt;
-      Invalid access-level value due to the target node is marked as immutable
+      Invalid access-level value due to the target node is marked \
+                                                         as immutable
     &lt;/error-message&gt;
   &lt;/rpc-error&gt;
 &lt;/rpc-reply&gt;
