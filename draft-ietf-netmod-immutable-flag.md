@@ -423,7 +423,7 @@ Refer to {{RESTCONF-example}} for an example of RESTCONF operation with "with-im
    This module imports definitions from {{!RFC7952}}, {{!RFC8342}}, {{!RFC8526}}, and {{!I-D.ietf-netmod-system-config}}.
 
 ~~~~
-<CODE BEGINS> file "ietf-immutable-annotation@2025-11-28.yang"
+<CODE BEGINS> file "ietf-immutable-annotation@2026-01-12.yang"
 {::include ietf-immutable-annotation.yang}
 <CODE ENDS>
 ~~~~
@@ -617,7 +617,7 @@ urn:ietf:params:restconf:capability:with-immutability:1.0
         <access-level>admin</access-level>
         <user>
           <name>ex-username-1</name>
-          <password>$5$salt$42x6N3voGLL5rV7qU5qK6L8jF9eD2aB3c</password>
+          <password>$5$rounds=10000$mysalt123456789$l4BjA1p/8q.qCYJ.2pLqjR5mCJf2bP7cLpYWmnC7Hq8</password>
         </user>
         <user imma:immutable="false">
           <name>ex-username-2</name>
@@ -682,7 +682,7 @@ Last-Modified: Mon, 5 Jan 2026 14:02:14 GMT
         "user": [
           {
             "name": "ex-username-1",
-            "password": "$5$salt$42x6N3voGLL5rV7qU5qK6L8jF9eD2aB3c"
+            "password": "$5$rounds=10000$mysalt123456789$l4BjA1p/8q.qCYJ.2pLqjR5mCJf2bP7cLpYWmnC7Hq8"
           },
           {
             "@": {
@@ -718,7 +718,7 @@ Last-Modified: Mon, 5 Jan 2026 14:02:14 GMT
 
 ## The Inheritance of Immutability {#inherit}
 
-In the example in {{NETCONF-with-immutability}} and {{RESTCONF-with-immutability}}, there are two "user-group" list entries inside "user-groups"
+In the example in {{NETCONF-with-immutability}} and {{RESTCONF-with-immutability}}, there are two "group" list entries inside "user-groups"
 container node. The "immutable" metadata attribute for "user-groups" container
 instance is "false", which is also its default value as the top-level element,
 and thus can be omitted. The "administrator" list entry is immutable
@@ -728,22 +728,22 @@ Other descendant nodes inside "administrator" list entry inherit the immutabilit
 The "immutable" metadata attribute
 for "power-users" list entry is "false", which is also the same
 value as its parent node (i.e., the "user-groups" container), and thus can be omitted.
-Other descendant nodes inside "power-users" user-group inherit the immutability of the list entry thus are also mutable.
+Other descendant nodes inside "power-users" group inherit the immutability of the list entry thus are also mutable.
 
 ## Immutability of the list {#imm-list}
 
- In the example in {{NETCONF-with-immutability}} and {{RESTCONF-with-immutability}}, the "user-group" list as a whole inherits immutability from the
+ In the example in {{NETCONF-with-immutability}} and {{RESTCONF-with-immutability}}, the "group" list as a whole inherits immutability from the
  container "user-groups", which is mutable. One of the list entry named "administrator" is immutable,
  and the other entry named "power-user" is mutable. The client is able to copy the entire "user-groups"
- container in \<running\>, add new user-group entries, modify the values of descendant nodes of "power-users" list entry,
+ container in \<running\>, add new "group" entries, modify the values of descendant nodes of "power-users" list entry,
  but the values of descendant nodes of "administrator" list entry cannot be overridden with different values expect
  for the "description" and "ex-username-2" user list entry nodes, which is explicitly reset to be mutable.
- The client may also subsequently delete any copied "user-group" entries or the entire
+ The client may also subsequently delete any copied "group" entries or the entire
  "user-groups" container, which will not prevent the deleted data being present in \<intended\> (if implemented) assuming it
  is still contained in \<system\>.
 
- The "user" list inside the "administrator" user-group list entry as a whole inherits immutability from the
- list entry, which is immutable. Thus the client cannot add new user entries inside "administrator" user-group.
+ The "user" list inside the "administrator" group list entry as a whole inherits immutability from the
+ list entry, which is immutable. Thus the client cannot add new user entries inside "administrator" group.
  As one of the user entry named "ex-username-1" is immutable through inheritance,
  and the other "ex-username-2" user entry is explicitly set to be mutable. The client cannot
  modify the "password" parameter, or add a "full-name" value for user "ex-username-1".
@@ -753,11 +753,11 @@ Other descendant nodes inside "power-users" user-group inherit the immutability 
 
 ## Immutability of the leaf-list {#imm-leaf-list}
 
-In the example in {{NETCONF-with-immutability}} and {{RESTCONF-with-immutability}}, the user-ordered "tag" leaf-list node inside the "administrator" user-group entry as a whole inherits immutability from the list entry, which is immutable. Thus the client cannot add, modify, or reorder
+In the example in {{NETCONF-with-immutability}} and {{RESTCONF-with-immutability}}, the user-ordered "tag" leaf-list node inside the "administrator" group entry as a whole inherits immutability from the list entry, which is immutable. Thus the client cannot add, modify, or reorder
 entries, the client may copy or subsequently delete any of the two leaf-list entries in \<running\>,
 but there is no way to delete the nodes from \<intended\> if those entries appear in \<system\>.
 
-The leaf-list node instance inside the "power-users" user-group entry as a whole inherits
+The leaf-list node instance inside the "power-users" group entry as a whole inherits
 immutability from the list entry, which is mutable. Thus the client can add or reorder
 entries, the client may copy or subsequently delete any of the two leaf-list entries in \<running\>,
 but there is no way to delete the nodes from \<intended\> if those entries appear in \<system\>.
