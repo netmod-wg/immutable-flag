@@ -655,9 +655,9 @@ immutability from the list entry, which is mutable. Thus the client can add or r
 entries, the client may copy or subsequently delete any of the two leaf-list entries in \<running\>,
 but there is no way to delete the nodes from \<intended\> if those entries appear in \<system\>.
 
-## Error Response to Clients Updating Immutable Configuration
+## Error Response to Clients Overriding Immutable Configuration
 
-{{NETCONF-error}} provides examples of an attempt to update immutable configuration and the error response that the server might return.
+{{NETCONF-error}} provides examples of an attempt to override immutable configuration and the error response that the server might return.
 
 ~~~~
 {::include-fold error.xml}
