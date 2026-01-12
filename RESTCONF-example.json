@@ -1,0 +1,62 @@
+GET /restconf/ds/ietf-system-datastore:system/example-user-group:user-groups/with-immutability HTTP/1.1
+Host: example.com
+Accept: application/yang-data+json
+
+
+HTTP/1.1 200 OK
+Date: Fri, 9 Jan 2026 15:56:30 GMT
+Server: example-server
+Content-Type: application/yang-data+json
+Cache-Control: no-cache
+ETag: "a74eefc993a2b"
+Last-Modified: Mon, 5 Jan 2026 14:02:14 GMT
+
+{
+  "example-user-group:user-groups": {
+    "@": {
+      "ietf-immutable-annotation:immutable": false
+    },
+    "group": [
+      {
+        "@": {
+          "ietf-immutable-annotation:immutable": true
+        },
+        "name": "administrator",
+        "description": "administrator group",
+        "@description": {
+          "ietf-immutable-annotation:immutable": false
+        },
+        "access-level": "admin",
+        "user": [
+          {
+            "name": "ex-username-1",
+            "password": "$5$rounds=10000$mysalt123456789$l4BjA1p/8q.qCYJ.2pLqjR5mCJf2bP7cLpYWmnC7Hq8"
+          },
+          {
+            "@": {
+              "ietf-immutable-annotation:immutable": false
+            },
+            "name": "ex-username-2",
+            "password": "$1$/h1234q$abcdef1234567890abcdef"
+          }
+        ],
+        "tag": ["system", "non-editable"]
+      },
+      {
+        "@": {
+          "ietf-immutable-annotation:immutable": false
+        },
+        "name": "power-users",
+        "description": "Power user group",
+        "access-level": "power",
+        "user": [
+          {
+            "name": "ex-username-3",
+            "password": "$1$/h4567q$abcdef2345678901abcdef"
+          }
+        ],
+        "tag": ["system", "editable"]
+      }
+    ]
+  }
+}

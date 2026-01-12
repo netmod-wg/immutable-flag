@@ -465,9 +465,9 @@ Refer to {{RESTCONF-example}} for an example of RESTCONF operation with "with-im
    following the format defined in {{!RFC3688}}.
 
 ~~~~
-        URI: urn:ietf:params:xml:ns:yang:ietf-immutable-annotation
-        Registrant Contact: The IESG.
-        XML: N/A, the requested URIs are XML namespaces.
+URI: urn:ietf:params:xml:ns:yang:ietf-immutable-annotation
+Registrant Contact: The IESG.
+XML: N/A, the requested URIs are XML namespaces.
 ~~~~
 
 ## The "YANG Module Names" Registry
@@ -476,10 +476,10 @@ This document registers one module name in the 'YANG Module Names'
 registry, defined in {{!RFC6020}}.
 
 ~~~~
-        name: ietf-immutable-annotation
-        prefix: imma
-        namespace: urn:ietf:params:xml:ns:yang:ietf-immutable-annotation
-        RFC: XXXX
+name: ietf-immutable-annotation
+prefix: imma
+namespace: urn:ietf:params:xml:ns:yang:ietf-immutable-annotation
+RFC: XXXX
 ~~~~
 
 ## RESTCONF Capability URN Registry
@@ -593,53 +593,7 @@ urn:ietf:params:restconf:capability:with-immutability:1.0
    configuration in \<system\> with "with-immutability" parameter and the response a server might return.
 
 ~~~~
-<rpc message-id="101"
-     xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
-  <get-data xmlns="urn:ietf:params:xml:ns:yang:ietf-netconf-nmda"
-            xmlns:sysds="urn:ietf:params:xml:ns:yang:ietf-system-datastore">
-    <datastore>sysds:system</datastore>
-    <subtree-filter>
-      <user-groups xmlns="urn:example:user-group"/>
-    </subtree-filter>
-    <with-immutability/>
-  </get-data>
-</rpc>
-
-<rpc-reply message-id="101"
-       xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
-  <data xmlns="urn:ietf:params:xml:ns:yang:ietf-netconf-nmda">
-    <user-groups xmlns="urn:example:user-group"
-      xmlns:imma="urn:ietf:params:xml:ns:yang:ietf-immutable-annotation"
-      imma:immutable="false">
-      <group imma:immutable="true">
-        <name>administrator</name>
-        <description imma:immutable="false">administrator group</description>
-        <access-level>admin</access-level>
-        <user>
-          <name>ex-username-1</name>
-          <password>$5$rounds=10000$mysalt123456789$l4BjA1p/8q.qCYJ.2pLqjR5mCJf2bP7cLpYWmnC7Hq8</password>
-        </user>
-        <user imma:immutable="false">
-          <name>ex-username-2</name>
-          <password>$1$/h1234q$abcdef1234567890abcdef</password>
-        </user>
-        <tag>system</tag>
-        <tag>non-editable</tag>
-      </group>
-      <group imma:immutable="false">
-        <name>power-users</name>
-        <description>Power user group</description>
-        <access-level>power</access-level>
-        <user>
-          <name>ex-username-3</name>
-          <password>$1$/h4567q$abcdef2345678901abcdef</password>
-        </user>
-        <tag>system</tag>
-        <tag>editable</tag>
-      </group>
-    </user-groups>
-  </data>
-</rpc-reply>
+{::include-fold NETCONF-example.xml}
 ~~~~
 {: #NETCONF-with-immutability title="An NETCONF Example to Retrieve Immutable Configuration"}
 
@@ -650,68 +604,7 @@ urn:ietf:params:restconf:capability:with-immutability:1.0
   configuration in \<system\> with "with-immutability" query parameter and the response a server might return.
 
 ~~~~
-GET /restconf/ds/ietf-system-datastore:system/example-user-group:user-groups/with-immutability HTTP/1.1
-Host: example.com
-Accept: application/yang-data+json
-
-
-HTTP/1.1 200 OK
-Date: Fri, 9 Jan 2026 15:56:30 GMT
-Server: example-server
-Content-Type: application/yang-data+json
-Cache-Control: no-cache
-ETag: "a74eefc993a2b"
-Last-Modified: Mon, 5 Jan 2026 14:02:14 GMT
-
-{
-  "example-user-group:user-groups": {
-    "@": {
-      "ietf-immutable-annotation:immutable": false
-    },
-    "group": [
-      {
-        "@": {
-          "ietf-immutable-annotation:immutable": true
-        },
-        "name": "administrator",
-        "description": "administrator group",
-        "@description": {
-          "ietf-immutable-annotation:immutable": false
-        },
-        "access-level": "admin",
-        "user": [
-          {
-            "name": "ex-username-1",
-            "password": "$5$rounds=10000$mysalt123456789$l4BjA1p/8q.qCYJ.2pLqjR5mCJf2bP7cLpYWmnC7Hq8"
-          },
-          {
-            "@": {
-              "ietf-immutable-annotation:immutable": false
-            },
-            "name": "ex-username-2",
-            "password": "$1$/h1234q$abcdef1234567890abcdef"
-          }
-        ],
-        "tag": ["system", "non-editable"]
-      },
-      {
-        "@": {
-          "ietf-immutable-annotation:immutable": false
-        },
-        "name": "power-users",
-        "description": "Power user group",
-        "access-level": "power",
-        "user": [
-          {
-            "name": "ex-username-3",
-            "password": "$1$/h4567q$abcdef2345678901abcdef"
-          }
-        ],
-        "tag": ["system", "editable"]
-      }
-    ]
-  }
-}
+{::include-fold RESTCONF-example.json}
 ~~~~
 {: #RESTCONF-with-immutability title="An RESTCONF Example to Retrieve Immutable Configuration"}
 
@@ -767,35 +660,7 @@ but there is no way to delete the nodes from \<intended\> if those entries appea
 {{NETCONF-error}} provides examples of an attempt to update immutable configuration and the error response that the server might return.
 
 ~~~~
-<rpc message-id="102" xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
-  <edit-config>
-    <target>
-      <running/>
-    </target>
-    <config>
-      <user-groups xmlns="urn:example:user-group">
-        <group>
-          <name>administrator</name>
-          <access-level>guest</access-level>
-        </group>
-      </user-groups>
-    </config>
-  </edit-config>
-</rpc>
-
-<rpc-reply message-id="102" xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
-  <rpc-error>
-    <error-type>application</error-type>
-    <error-tag>invalid-value</error-tag>
-    <error-severity>error</error-severity>
-    <error-path xmlns="urn:example:user-group">
-      /user-groups/group[name="administrator"]/access-level
-    </error-path>
-    <error-message xml:lang="en">
-      Invalid access-level value due to the target node is marked as immutable
-    </error-message>
-  </rpc-error>
-</rpc-reply>
+{::include-fold error.xml}
 ~~~~
 {: #NETCONF-error title="An Example to Override Immutable Configuration with Error Response"}
 

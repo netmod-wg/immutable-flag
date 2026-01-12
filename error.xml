@@ -1,0 +1,31 @@
+<rpc message-id="102"
+     xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <edit-config>
+    <target>
+      <running/>
+    </target>
+    <config>
+      <user-groups xmlns="urn:example:user-group">
+        <group>
+          <name>administrator</name>
+          <access-level>guest</access-level>
+        </group>
+      </user-groups>
+    </config>
+  </edit-config>
+</rpc>
+
+<rpc-reply message-id="102" 
+       xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <rpc-error>
+    <error-type>application</error-type>
+    <error-tag>invalid-value</error-tag>
+    <error-severity>error</error-severity>
+    <error-path xmlns="urn:example:user-group">
+      /user-groups/group[name="administrator"]/access-level
+    </error-path>
+    <error-message xml:lang="en">
+      Invalid access-level value due to the target node is marked as immutable
+    </error-message>
+  </rpc-error>
+</rpc-reply>
