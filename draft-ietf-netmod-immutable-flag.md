@@ -165,8 +165,7 @@ informative:
   Please apply the following replacements:
 
   * XXXX --> the assigned RFC number for this draft
-  * YYYY --> the assigned RFC number for {{!I-D.ietf-netmod-system-config}}
-  * 2025-05-15 --> the actual date of the publication of this document
+  * 2026-01-12 --> the actual date of the publication of this document
 
 # Conventions and Definitions
 
@@ -257,8 +256,8 @@ informative:
 
 ### NETCONF Extensions to Support "with-immutability" {#NETCONF-ext}
 
-   This doument updates {{!RFC8526}} to augment the \<get-data\>
-   operation with an additional parameter named "with-immutability".
+   This document updates {{!RFC8526}} to augment the \<get-data\>
+   operation with an additional parameter named "with-immutability" when interacting with read-only datastores.
    If present, this parameter requests that the server includes
    the "immutable" metadata annotations in its response.
 
@@ -272,14 +271,16 @@ module: ietf-immutable-annotation
 ~~~~
 {: #tree title="Augmentations to NETCONF Operations" artwork-align="center}
 
+Refer to {{NETCONF-example}} for an example of NETCONF operation with "with-immutability" input parameter.
 
 ### RESTCONF Extensions to Support "with-immutability" {#RESTCONF-ext}
 
    This document extends {{Sections 4.8 and 9.1.1 of !RFC8040}} to add a query
    parameter named "with-immutability" to the GET operation. If present, this parameter
    requests that the server includes the "immutable" metadata annotations in its
-   response. This parameter is only allowed with no values carried. If it has
-   any unexpected value, then a "400 Bad Request" status-line is returned.
+   response. This parameter is only allowed with no values carried when interacting with read-only datastores.
+   If it has any unexpected value, then a "400 Bad Request" status-line is returned.
+   RESTCONF protocol operations for the datastore resources are defined in {{!RFC8527}}.
 
    To enable a RESTCONF client to discover if the "with-immutability" query parameter
    is supported by the server, the following capability URI is defined:
@@ -287,6 +288,9 @@ module: ietf-immutable-annotation
 ~~~~
     urn:ietf:params:restconf:capability:with-immutability:1.0
 ~~~~
+
+Refer to {{RESTCONF-example}} for an example of RESTCONF operation with "with-immutability" query parameter.
+
 
 # Use of Immutable Flag for Different Statements
 
@@ -416,7 +420,7 @@ module: ietf-immutable-annotation
 
 # YANG Module {#module}
 
-   This module imports definitions from {{!RFC6241}} and {{!RFC8526}}.
+   This module imports definitions from {{!RFC7952}}, {{!RFC8342}}, {{!RFC8526}}, and {{!I-D.ietf-netmod-system-config}}.
 
 ~~~~
 <CODE BEGINS> file "ietf-immutable-annotation@2025-11-28.yang"
@@ -535,11 +539,11 @@ urn:ietf:params:restconf:capability:with-immutability:1.0
    server.  The data is modeled as "config true" and thus should be annotated
    as immutable.
 
-   Seemingly an alternative would be to model the list and these leaves
+   Seemingly an alternative would be to model the list and these leafs
    as "config false", but that does not work because:
 
   * The list cannot be marked as "config false", because it needs to contain
-  configurable child nodes, e.g., ip-address or enabled;
+  configurable child nodes, e.g., IP address or enabled;
 
   * The key leaf (name) cannot be marked as "config false" as the list
   itself is config true;
@@ -583,10 +587,10 @@ urn:ietf:params:restconf:capability:with-immutability:1.0
 {::include example-user-group.yang}
 ~~~~
 
-## NETCONF Example to Retrieve Immutable Flag
+## NETCONF Example to Retrieve Immutable Configuration {#NETCONF-example}
 
-   {{NETCONF-with-immutability}} illustrates an NETCONF example to retrieve "user-groups"
-   configuration in \<system\> with immutable flag and the response a server might return.
+   {{NETCONF-with-immutability}} illustrates an NETCONF request example to retrieve "user-groups"
+   configuration in \<system\> with "with-immutability" parameter and the response a server might return.
 
 ~~~~
 <rpc message-id="101"
@@ -607,32 +611,32 @@ urn:ietf:params:restconf:capability:with-immutability:1.0
     <user-groups xmlns="urn:example:user-group"
       xmlns:imma="urn:ietf:params:xml:ns:yang:ietf-immutable-annotation"
       imma:immutable="false">
-      <user-group imma:immutable="true">
+      <group imma:immutable="true">
         <name>administrator</name>
         <description imma:immutable="false">administrator group</description>
-        <access-right>admin</access-right>
+        <access-level>admin</access-level>
         <user>
-          <user-name>ex-username-1</user-name>
+          <name>ex-username-1</name>
           <password>$5$salt$42x6N3voGLL5rV7qU5qK6L8jF9eD2aB3c</password>
         </user>
         <user imma:immutable="false">
-          <user-name>ex-username-2</user-name>
+          <name>ex-username-2</name>
           <password>$1$/h1234q$abcdef1234567890abcdef</password>
         </user>
         <tag>system</tag>
         <tag>non-editable</tag>
-      </user-group>
-      <user-group imma:immutable="false">
+      </group>
+      <group imma:immutable="false">
         <name>power-users</name>
         <description>Power user group</description>
-        <access-right>power</access-right>
+        <access-level>power</access-level>
         <user>
-          <user-name>ex-username-3</user-name>
+          <name>ex-username-3</name>
           <password>$1$/h4567q$abcdef2345678901abcdef</password>
         </user>
         <tag>system</tag>
         <tag>editable</tag>
-      </user-group>
+      </group>
     </user-groups>
   </data>
 </rpc-reply>
@@ -640,10 +644,10 @@ urn:ietf:params:restconf:capability:with-immutability:1.0
 {: #NETCONF-with-immutability title="An NETCONF Example to Retrieve Immutable Configuration"}
 
 
-## RESTCONF Example to Retrieve Immutable Flag
+## RESTCONF Example to Retrieve Immutable Configuration {#RESTCONF-example}
 
-  {{RESTCONF-with-immutability}} illustrates an RESTCONF example to retrieve "user-groups"
-  configuration in \<system\> with immutable flag and the response a server might return.
+  {{RESTCONF-with-immutability}} illustrates an RESTCONF request example to retrieve "user-groups"
+  configuration in \<system\> with "with-immutability" query parameter and the response a server might return.
 
 ~~~~
 GET /restconf/ds/ietf-system-datastore:system/example-user-group:user-groups/with-immutability HTTP/1.1
@@ -664,7 +668,7 @@ Last-Modified: Mon, 5 Jan 2026 14:02:14 GMT
     "@": {
       "ietf-immutable-annotation:immutable": false
     },
-    "user-group": [
+    "group": [
       {
         "@": {
           "ietf-immutable-annotation:immutable": true
@@ -674,17 +678,17 @@ Last-Modified: Mon, 5 Jan 2026 14:02:14 GMT
         "@description": {
           "ietf-immutable-annotation:immutable": false
         },
-        "access-right": "admin",
+        "access-level": "admin",
         "user": [
           {
-            "user-name": "ex-username-1",
+            "name": "ex-username-1",
             "password": "$5$salt$42x6N3voGLL5rV7qU5qK6L8jF9eD2aB3c"
           },
           {
             "@": {
               "ietf-immutable-annotation:immutable": false
             },
-            "user-name": "ex-username-2",
+            "name": "ex-username-2",
             "password": "$1$/h1234q$abcdef1234567890abcdef"
           }
         ],
@@ -696,10 +700,10 @@ Last-Modified: Mon, 5 Jan 2026 14:02:14 GMT
         },
         "name": "power-users",
         "description": "Power user group",
-        "access-right": "power",
+        "access-level": "power",
         "user": [
           {
-            "user-name": "ex-username-3",
+            "name": "ex-username-3",
             "password": "$1$/h4567q$abcdef2345678901abcdef"
           }
         ],
@@ -760,35 +764,35 @@ but there is no way to delete the nodes from \<intended\> if those entries appea
 
 ## Error Response to Clients Updating Immutable Configuration
 
-{{NETCONF-error}} provides examples of error responses when a client attempts to modify immutable configuration, addressing the use case where configuration changes are rejected by the server due to immutability.
+{{NETCONF-error}} provides examples of an attempt to update immutable configuration and the error response that the server might return.
 
 ~~~~
-<rpc message-id="101" xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+<rpc message-id="102" xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
   <edit-config>
     <target>
       <running/>
     </target>
     <config>
       <user-groups xmlns="urn:example:user-group">
-        <user-group>
+        <group>
           <name>administrator</name>
-          <access-right>guest</access-right>
-        </user-group>
+          <access-level>guest</access-level>
+        </group>
       </user-groups>
     </config>
   </edit-config>
 </rpc>
 
-<rpc-reply message-id="101" xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+<rpc-reply message-id="102" xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
   <rpc-error>
     <error-type>application</error-type>
     <error-tag>invalid-value</error-tag>
     <error-severity>error</error-severity>
-    <error-path xmlns:t="http://example.com/schema/1.2/config">
-      /interfaces/interface[name="eth0"]/type
+    <error-path xmlns="urn:example:user-group">
+      /user-groups/group[name="administrator"]/access-level
     </error-path>
     <error-message xml:lang="en">
-      Invalid type for interface eth0, marked as immutable
+      Invalid access-level value due to the target node is marked as immutable
     </error-message>
   </rpc-error>
 </rpc-reply>
