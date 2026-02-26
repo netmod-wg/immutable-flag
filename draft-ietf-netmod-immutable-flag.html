@@ -37,7 +37,7 @@
     pycountry 24.6.1
     PyYAML 6.0.3
     requests 2.32.5
-    wcwidth 0.2.14
+    wcwidth 0.3.0
 -->
 <link href="draft-ietf-netmod-immutable-flag.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
@@ -178,7 +178,7 @@
   font-weight: 400;
   font-display: swap;
   src: local('Oxygen Mono'), local('OxygenMono-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/oxygenmono-regular-latin-ext.woff2') format('woff2');
-  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 @font-face {
   font-family: 'Oxygen Mono';
@@ -186,7 +186,8 @@
   font-weight: 400;
   font-display: swap;
   src: local('Oxygen Mono'), local('OxygenMono-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/oxygenmono-regular-latin.woff2') format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
 }
 
 @font-face {
@@ -578,6 +579,7 @@ aside, blockquote {
 }
 blockquote {
   margin: 1em 0;
+  border-left: 2px var(--pilcrow-strong) solid;
 }
 cite {
   display: block;
@@ -648,7 +650,7 @@ a.pilcrow {
   }
 }
 @media not print {
-  :hover > a.pilcrow {
+  :hover > a.pilcrow, a.pilcrow:focus {
     opacity: 1;
   }
   a.pilcrow[href]:hover {
@@ -1056,11 +1058,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">immutable flag</td>
-<td class="right">January 2026</td>
+<td class="right">February 2026</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Ma, et al.</td>
-<td class="center">Expires 16 July 2026</td>
+<td class="center">Expires 30 August 2026</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1076,12 +1078,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <a href="https://www.rfc-editor.org/rfc/rfc8040" class="eref">8040</a>, <a href="https://www.rfc-editor.org/rfc/rfc8526" class="eref">8526</a> (if approved)</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2026-01-12" class="published">12 January 2026</time>
+<time datetime="2026-02-26" class="published">26 February 2026</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2026-07-16">16 July 2026</time></dd>
+<dd class="expires"><time datetime="2026-08-30">30 August 2026</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1149,7 +1151,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 16 July 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 30 August 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1364,7 +1366,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </li>
       </ul>
 <p id="section-1-4">If the server always rejects a client's attempt to override some
-   system-provided data because it internally thinks immutable, it should document
+   system-provided data because it internally thinks the data is immutable, it should document
    it towards the clients in a machine-readable way rather than writing as
    plain text in the "description" statement.<a href="#section-1-4" class="pilcrow">¶</a></p>
 <p id="section-1-5">This document defines a way to formally document the existing behavior,
@@ -1374,34 +1376,30 @@ svg :is([fill="white"], [fill^="#fff"]) {
    regulate server behaviors. That said, it is expected that a server will return
    an error with an error-tag containing "invalid-value" when immutability
    is attempted to be violated.<a href="#section-1-5" class="pilcrow">¶</a></p>
-<p id="section-1-6">This document does not apply to the server not having any immutable
-   system configuration.  While in some cases immutability may be
-   needed, it also has disadvantages, therefore it <span class="bcp14">SHOULD</span> be avoided
-   wherever possible.<a href="#section-1-6" class="pilcrow">¶</a></p>
-<p id="section-1-7">The following is a list of already implemented and potential use
-   cases:<a href="#section-1-7" class="pilcrow">¶</a></p>
+<p id="section-1-6">The following is a list of already implemented and potential use
+   cases:<a href="#section-1-6" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-1-8.1">
-          <p id="section-1-8.1.1">UC1  Modeling of server capabilities<a href="#section-1-8.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-1-7.1">
+          <p id="section-1-7.1.1">UC1  Modeling of server capabilities<a href="#section-1-7.1.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="section-1-8.2">
-          <p id="section-1-8.2.1">UC2  Hardware based auto-configuration<a href="#section-1-8.2.1" class="pilcrow">¶</a></p>
+        <li class="normal" id="section-1-7.2">
+          <p id="section-1-7.2.1">UC2  Hardware based auto-configuration<a href="#section-1-7.2.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="section-1-8.3">
-          <p id="section-1-8.3.1">UC3  Predefined administrator roles<a href="#section-1-8.3.1" class="pilcrow">¶</a></p>
+        <li class="normal" id="section-1-7.3">
+          <p id="section-1-7.3.1">UC3  Predefined administrator roles<a href="#section-1-7.3.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="section-1-8.4">
-          <p id="section-1-8.4.1">UC4  Declaring immutable system configuration from the perspective of a logical network element (LNE)<a href="#section-1-8.4.1" class="pilcrow">¶</a></p>
+        <li class="normal" id="section-1-7.4">
+          <p id="section-1-7.4.1">UC4  Declaring immutable system configuration from the perspective of a logical network element (LNE)<a href="#section-1-7.4.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<p id="section-1-9"><a href="#use-cases" class="auto internal xref">Appendix A</a> describes the use cases in detail.<a href="#section-1-9" class="pilcrow">¶</a></p>
+<p id="section-1-8"><a href="#use-cases" class="auto internal xref">Appendix A</a> describes the use cases in detail.<a href="#section-1-8" class="pilcrow">¶</a></p>
 <div id="updates-to-rfc-8040">
 <section id="section-1.1">
         <h3 id="name-updates-to-rfc-8040">
 <a href="#section-1.1" class="section-number selfRef">1.1. </a><a href="#name-updates-to-rfc-8040" class="section-name selfRef">Updates to RFC 8040</a>
         </h3>
 <p id="section-1.1-1">This document updates Sections <a href="https://rfc-editor.org/rfc/rfc8040#section-4.8" class="relref">4.8</a> and <a href="https://rfc-editor.org/rfc/rfc8040#section-9.1.1" class="relref">9.1.1</a> of <span>[<a href="#RFC8040" class="cite xref">RFC8040</a>]</span> to add an
-  additional input parameter named "with-immutability", as specified in <a href="#RESTCONF-ext" class="auto internal xref">Section 4.2.2</a>.<a href="#section-1.1-1" class="pilcrow">¶</a></p>
+  additional query parameter named "with-immutability", as specified in <a href="#RESTCONF-ext" class="auto internal xref">Section 4.2.2</a>.<a href="#section-1.1-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="updates-to-rfc-8526">
@@ -1429,7 +1427,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
             <p id="section-1.3-4.1.1">XXXX --&gt; the assigned RFC number for this draft<a href="#section-1.3-4.1.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-1.3-4.2">
-            <p id="section-1.3-4.2.1">2026-01-12 --&gt; the actual date of the publication of this document<a href="#section-1.3-4.2.1" class="pilcrow">¶</a></p>
+            <p id="section-1.3-4.2.1">2026-02-26 --&gt; the actual date of the publication of this document<a href="#section-1.3-4.2.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
@@ -1510,8 +1508,8 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
       <h2 id="name-applicability">
 <a href="#section-3" class="section-number selfRef">3. </a><a href="#name-applicability" class="section-name selfRef">Applicability</a>
       </h2>
-<p id="section-3-1">While immutable flag applies to all configuration nodes, its value "true"
-   can only be used for system configuration.<a href="#section-3-1" class="pilcrow">¶</a></p>
+<p id="section-3-1">While the immutable flag applies to all configuration nodes, its value true can
+   only be used for system configuration.<a href="#section-3-1" class="pilcrow">¶</a></p>
 <p id="section-3-2">The immutable flag is only visible in read-only datastores (i.e., &lt;system&gt;
    <span>[<a href="#I-D.ietf-netmod-system-config" class="cite xref">I-D.ietf-netmod-system-config</a>]</span>, &lt;intended&gt;, and &lt;operational&gt;)
    when a "with-immutability" parameter is carried (<a href="#with-immutability" class="auto internal xref">Section 4.2</a>),
@@ -1520,8 +1518,8 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
    datastore. If the immutable flag is requested to be returned for an invalid
    datastore, then the server <span class="bcp14">MUST</span> return an &lt;rpc-error&gt; element with an &lt;error-tag&gt;
    value of "invalid-value".<a href="#section-3-2" class="pilcrow">¶</a></p>
-<p id="section-3-3">An instance has the same immutability if it appears in different datastores,
-   the immutability of configuration data is also protocol and
+<p id="section-3-3">Configuration data has the same immutability if it appears in different datastores.
+   The immutability of configuration data is protocol and
    user independent. The immutability of any configuration data, and the value
    of any immutable configured data node, <span class="bcp14">MUST</span> only change via software
    upgrade, hardware resources change, or license change.<a href="#section-3-3" class="pilcrow">¶</a></p>
@@ -1546,7 +1544,7 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
    node is "false" if not specified.<a href="#section-4.1-1" class="pilcrow">¶</a></p>
 <p id="section-4.1-2">A node that is annotated as immutable cannot be changed via configuring
    a different value in read-write configuration datastores (e.g., &lt;running&gt;),
-   nor is there any way to delete the node from the combined configuration in the intended datastore (as described in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-netmod-system-config-17#section-4" class="relref">Section 4</a> of [<a href="#I-D.ietf-netmod-system-config" class="cite xref">I-D.ietf-netmod-system-config</a>]</span>). The node <span class="bcp14">MAY</span> be explicitly configured by a client in &lt;running&gt; with the
+   nor is there any way to delete the node from the combined configuration in the intended datastore (as described in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-netmod-system-config-20#section-4" class="relref">Section 4</a> of [<a href="#I-D.ietf-netmod-system-config" class="cite xref">I-D.ietf-netmod-system-config</a>]</span>). The node <span class="bcp14">MAY</span> be explicitly configured by a client in &lt;running&gt; with the
    same value and that configuration in &lt;running&gt; may subsequently be removed,
    but neither of these edits will change the configuration in &lt;intended&gt; (if implemented) on the device.<a href="#section-4.1-2" class="pilcrow">¶</a></p>
 <p id="section-4.1-3">Note that "immutable" metadata annotations are used to annotate data node
@@ -1726,7 +1724,7 @@ module: ietf-immutable-annotation
    recursively applied to descendants, which may reset the immutability
    state as needed, thereby affecting their descendants.  There is no limit
    to the number of times the immutability state may change in a data tree.<a href="#section-6-1" class="pilcrow">¶</a></p>
-<p id="section-6-2">If the "immutable" metadata annotation for returned child node is omitted,
+<p id="section-6-2">If the "immutable" metadata annotation for a returned child node is omitted,
    it has the same immutability as its parent node. The immutability of top
    hierarchy of returned nodes is false by default. Servers may suppress the
    annotation if it is inherited from its parent node or uses the default value
@@ -1748,7 +1746,7 @@ module: ietf-immutable-annotation
    does not appear in &lt;running&gt; unless it is explicitly configured.<a href="#section-7-1" class="pilcrow">¶</a></p>
 <p id="section-7-2">As specified in <a href="#immutable-def" class="auto internal xref">Section 4.1</a>, a client <span class="bcp14">MAY</span> create/delete immutable nodes
    with same values as defined by server in read-write configuration datastore (e.g.,
-   &lt;candidate&gt;, &lt;running&gt;), which merely mean making immutable nodes
+   &lt;candidate&gt;, &lt;running&gt;), which merely makes immutable nodes
    visible/invisible in the datastore.<a href="#section-7-2" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -1774,7 +1772,7 @@ module: ietf-immutable-annotation
       </h2>
 <p id="section-9-1">This module imports definitions from <span>[<a href="#RFC7952" class="cite xref">RFC7952</a>]</span>, <span>[<a href="#RFC8342" class="cite xref">RFC8342</a>]</span>, <span>[<a href="#RFC8526" class="cite xref">RFC8526</a>]</span>, and <span>[<a href="#I-D.ietf-netmod-system-config" class="cite xref">I-D.ietf-netmod-system-config</a>]</span>.<a href="#section-9-1" class="pilcrow">¶</a></p>
 <div class="breakable sourcecode" id="section-9-2">
-<pre>&lt;CODE BEGINS&gt; file "ietf-immutable-annotation@2026-01-12.yang"
+<pre>&lt;CODE BEGINS&gt; file "ietf-immutable-annotation@2026-02-26.yang"
 
 module ietf-immutable-annotation {
   yang-version 1.1;
@@ -1983,7 +1981,7 @@ urn:ietf:params:restconf:capability:with-immutability:1.0
 <dl class="references">
 <dt id="I-D.ietf-netmod-system-config">[I-D.ietf-netmod-system-config]</dt>
         <dd>
-<span class="refAuthor">Ma, Q.</span>, <span class="refAuthor">Wu, Q.</span>, and <span class="refAuthor">C. Feng</span>, <span class="refTitle">"System-defined Configuration"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-netmod-system-config-17</span>, <time datetime="2026-01-08" class="refDate">8 January 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-netmod-system-config-17">https://datatracker.ietf.org/doc/html/draft-ietf-netmod-system-config-17</a>&gt;</span>. </dd>
+<span class="refAuthor">Ma, Q.</span>, <span class="refAuthor">Wu, Q.</span>, and <span class="refAuthor">C. Feng</span>, <span class="refTitle">"System-defined Configuration"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-netmod-system-config-20</span>, <time datetime="2026-01-28" class="refDate">28 January 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-netmod-system-config-20">https://datatracker.ietf.org/doc/html/draft-ietf-netmod-system-config-20</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC2119">[RFC2119]</dt>
         <dd>
@@ -2113,9 +2111,9 @@ urn:ietf:params:restconf:capability:with-immutability:1.0
 </li>
         </ul>
 <p id="appendix-A.1-3">However, this is not possible as 'supported-timer-values' must be
-   read-only thus config=false while 'interface-timer' must be writable
-   thus config=true.  According to the rules of YANG it is not allowed
-   to put a constraint between config true and false data nodes.<a href="#appendix-A.1-3" class="pilcrow">¶</a></p>
+   read-only thus "config false" while 'interface-timer' must be writable
+   thus "config true".  According to the rules of YANG it is not allowed
+   to put a constraint between "config true" and "config false" data nodes.<a href="#appendix-A.1-3" class="pilcrow">¶</a></p>
 <p id="appendix-A.1-4">The solution is that the supported-timer-values data node in the YANG
    Model shall be defined as "config true" and shall also be marked with
    the "immutable" annotation making it unchangeable. After this the
@@ -2147,7 +2145,7 @@ urn:ietf:params:restconf:capability:with-immutability:1.0
 </li>
           <li class="normal" id="appendix-A.2-4.2">
             <p id="appendix-A.2-4.2.1">The key leaf (name) cannot be marked as "config false" as the list
-  itself is config true;<a href="#appendix-A.2-4.2.1" class="pilcrow">¶</a></p>
+  itself is "config true";<a href="#appendix-A.2-4.2.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="appendix-A.2-4.3">
             <p id="appendix-A.2-4.3.1">The type cannot be marked "config false", because we <span class="bcp14">MAY</span> need to
@@ -2203,20 +2201,44 @@ urn:ietf:params:restconf:capability:with-immutability:1.0
 module example-user-group {
   yang-version 1.1;
   namespace "urn:example:user-group";
-  prefix "ex-urp";
+  prefix ex-urp;
 
   import iana-crypt-hash {
     prefix ianach;
   }
 
+  organization
+    "Example, Inc.";
+
+  contact
+    "Support at example.com";
+
+  description
+    "An example module for basic user and group management.";
+
+  revision "2026-02-26" {
+    description
+      "Initial version.";
+    reference
+      "RFC XXXX: YANG Metadata Annotation for Immutable Flag";
+  }
+
   container user-groups {
+    description
+      "A container for user and group management";
     list group {
       key "name";
+      description
+        "The list of access user-groups";
       leaf name {
         type string;
+        description
+          "Unique name identifier for the user-group";
       }
       leaf description {
         type string;
+        description
+          "Human-readable description of the group";
       }
       leaf access-level {
         type enumeration {
@@ -2225,22 +2247,34 @@ module example-user-group {
           enum normal;
           enum guest;
         }
+        description
+          "Permission level assigned to the group";
       }
       list user {
         key "name";
+        description
+          "List of users belonging to the group";
         leaf name {
           type string;
+          description
+            "Unique name identifier for the user";
         }
         leaf password {
           type ianach:crypt-hash;
+          description
+            "Cryptographically hashed user password";
         }
         leaf full-name {
           type string;
+          description
+            "Human-readable full name of the user";
         }
       }
       leaf-list tag {
         type string;
         ordered-by user;
+        description
+          "User-ordered tags for categorizing the user-group";
       }
     }
   }
@@ -2430,7 +2464,7 @@ Other descendant nodes inside "power-users" group inherit the immutability of th
  container "user-groups", which is mutable. One of the list entry named "administrator" is immutable,
  and the other entry named "power-user" is mutable. The client is able to copy the entire "user-groups"
  container in &lt;running&gt;, add new "group" entries, modify the values of descendant nodes of "power-users" list entry,
- but the values of descendant nodes of "administrator" list entry cannot be overridden with different values expect
+ but the values of descendant nodes of "administrator" list entry cannot be overridden with different values except
  for the "description" and "ex-username-2" user list entry nodes, which is explicitly reset to be mutable.
  The client may also subsequently delete any copied "group" entries or the entire
  "user-groups" container, which will not prevent the deleted data being present in &lt;intended&gt; (if implemented) assuming it

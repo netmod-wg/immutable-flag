@@ -6,10 +6,10 @@ netmod                                                        Q. Ma, Ed.
 Internet-Draft                                                     Q. Wu
 Updates: 8040, 8526 (if approved)                                 Huawei
 Intended status: Standards Track                         B. Lengyel, Ed.
-Expires: 16 July 2026                                           Ericsson
+Expires: 30 August 2026                                         Ericsson
                                                                    H. Li
                                                                      HPE
-                                                         12 January 2026
+                                                        26 February 2026
 
 
               YANG Metadata Annotation for Immutable Flag
@@ -57,7 +57,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 16 July 2026.
+   This Internet-Draft will expire on 30 August 2026.
 
 Copyright Notice
 
@@ -149,9 +149,10 @@ Table of Contents
       created, modified or deleted.
 
    If the server always rejects a client's attempt to override some
-   system-provided data because it internally thinks immutable, it
-   should document it towards the clients in a machine-readable way
-   rather than writing as plain text in the "description" statement.
+   system-provided data because it internally thinks the data is
+   immutable, it should document it towards the clients in a machine-
+   readable way rather than writing as plain text in the "description"
+   statement.
 
    This document defines a way to formally document the existing
    behavior, implemented by servers in production, on the immutability
@@ -161,11 +162,6 @@ Table of Contents
    expected that a server will return an error with an error-tag
    containing "invalid-value" when immutability is attempted to be
    violated.
-
-   This document does not apply to the server not having any immutable
-   system configuration.  While in some cases immutability may be
-   needed, it also has disadvantages, therefore it SHOULD be avoided
-   wherever possible.
 
    The following is a list of already implemented and potential use
    cases:
@@ -184,7 +180,7 @@ Table of Contents
 1.1.  Updates to RFC 8040
 
    This document updates Sections 4.8 and 9.1.1 of [RFC8040] to add an
-   additional input parameter named "with-immutability", as specified in
+   additional query parameter named "with-immutability", as specified in
    Section 4.2.2.
 
 1.2.  Updates to RFC 8526
@@ -207,7 +203,7 @@ Table of Contents
 
    *  XXXX --> the assigned RFC number for this draft
 
-   *  2026-01-12 --> the actual date of the publication of this document
+   *  2026-02-26 --> the actual date of the publication of this document
 
 2.  Conventions and Definitions
 
@@ -259,8 +255,8 @@ Table of Contents
 
 3.  Applicability
 
-   While immutable flag applies to all configuration nodes, its value
-   "true" can only be used for system configuration.
+   While the immutable flag applies to all configuration nodes, its
+   value true can only be used for system configuration.
 
    The immutable flag is only visible in read-only datastores (i.e.,
    <system> [I-D.ietf-netmod-system-config], <intended>, and
@@ -271,11 +267,12 @@ Table of Contents
    returned for an invalid datastore, then the server MUST return an
    <rpc-error> element with an <error-tag> value of "invalid-value".
 
-   An instance has the same immutability if it appears in different
-   datastores, the immutability of configuration data is also protocol
-   and user independent.  The immutability of any configuration data,
-   and the value of any immutable configured data node, MUST only change
-   via software upgrade, hardware resources change, or license change.
+   Configuration data has the same immutability if it appears in
+   different datastores.  The immutability of configuration data is
+   protocol and user independent.  The immutability of any configuration
+   data, and the value of any immutable configured data node, MUST only
+   change via software upgrade, hardware resources change, or license
+   change.
 
 4.  "Immutable" Metadata Annotation
 
@@ -455,7 +452,7 @@ Table of Contents
    limit to the number of times the immutability state may change in a
    data tree.
 
-   If the "immutable" metadata annotation for returned child node is
+   If the "immutable" metadata annotation for a returned child node is
    omitted, it has the same immutability as its parent node.  The
    immutability of top hierarchy of returned nodes is false by default.
    Servers may suppress the annotation if it is inherited from its
@@ -477,7 +474,7 @@ Table of Contents
    As specified in Section 4.1, a client MAY create/delete immutable
    nodes with same values as defined by server in read-write
    configuration datastore (e.g., <candidate>, <running>), which merely
-   mean making immutable nodes visible/invisible in the datastore.
+   makes immutable nodes visible/invisible in the datastore.
 
 8.  NACM Interactions
 
@@ -495,7 +492,7 @@ Table of Contents
    This module imports definitions from [RFC7952], [RFC8342], [RFC8526],
    and [I-D.ietf-netmod-system-config].
 
-   <CODE BEGINS> file "ietf-immutable-annotation@2026-01-12.yang"
+   <CODE BEGINS> file "ietf-immutable-annotation@2026-02-26.yang"
    module ietf-immutable-annotation {
      yang-version 1.1;
      namespace "urn:ietf:params:xml:ns:yang:ietf-immutable-annotation";
@@ -672,9 +669,9 @@ Table of Contents
    [I-D.ietf-netmod-system-config]
               Ma, Q., Wu, Q., and C. Feng, "System-defined
               Configuration", Work in Progress, Internet-Draft, draft-
-              ietf-netmod-system-config-17, 8 January 2026,
+              ietf-netmod-system-config-20, 28 January 2026,
               <https://datatracker.ietf.org/doc/html/draft-ietf-netmod-
-              system-config-17>.
+              system-config-20>.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -804,9 +801,10 @@ A.1.  UC1 - Modeling of server capabilities
       pointing at the 'supported-timer-values'.
 
    However, this is not possible as 'supported-timer-values' must be
-   read-only thus config=false while 'interface-timer' must be writable
-   thus config=true.  According to the rules of YANG it is not allowed
-   to put a constraint between config true and false data nodes.
+   read-only thus "config false" while 'interface-timer' must be
+   writable thus "config true".  According to the rules of YANG it is
+   not allowed to put a constraint between "config true" and "config
+   false" data nodes.
 
    The solution is that the supported-timer-values data node in the YANG
    Model shall be defined as "config true" and shall also be marked with
@@ -836,7 +834,7 @@ A.2.  UC2 - Hardware based auto-configuration - Interface Example
       contain configurable child nodes, e.g., IP address or enabled;
 
    *  The key leaf (name) cannot be marked as "config false" as the list
-      itself is config true;
+      itself is "config true";
 
    *  The type cannot be marked "config false", because we MAY need to
       reference the type to make different configuration nodes
@@ -879,20 +877,44 @@ Appendix B.  Examples of Server's Immutable Behavior
    module example-user-group {
      yang-version 1.1;
      namespace "urn:example:user-group";
-     prefix "ex-urp";
+     prefix ex-urp;
 
      import iana-crypt-hash {
        prefix ianach;
      }
 
+     organization
+       "Example, Inc.";
+
+     contact
+       "Support at example.com";
+
+     description
+       "An example module for basic user and group management.";
+
+     revision "2026-02-26" {
+       description
+         "Initial version.";
+       reference
+         "RFC XXXX: YANG Metadata Annotation for Immutable Flag";
+     }
+
      container user-groups {
+       description
+         "A container for user and group management";
        list group {
          key "name";
+         description
+           "The list of access user-groups";
          leaf name {
            type string;
+           description
+             "Unique name identifier for the user-group";
          }
          leaf description {
            type string;
+           description
+             "Human-readable description of the group";
          }
          leaf access-level {
            type enumeration {
@@ -901,22 +923,34 @@ Appendix B.  Examples of Server's Immutable Behavior
              enum normal;
              enum guest;
            }
+           description
+             "Permission level assigned to the group";
          }
          list user {
            key "name";
+           description
+             "List of users belonging to the group";
            leaf name {
              type string;
+             description
+               "Unique name identifier for the user";
            }
            leaf password {
              type ianach:crypt-hash;
+             description
+               "Cryptographically hashed user password";
            }
            leaf full-name {
              type string;
+             description
+               "Human-readable full name of the user";
            }
          }
          leaf-list tag {
            type string;
            ordered-by user;
+           description
+             "User-ordered tags for categorizing the user-group";
          }
        }
      }
@@ -1087,7 +1121,7 @@ B.4.  Immutability of the list
    "group" entries, modify the values of descendant nodes of "power-
    users" list entry, but the values of descendant nodes of
    "administrator" list entry cannot be overridden with different values
-   expect for the "description" and "ex-username-2" user list entry
+   except for the "description" and "ex-username-2" user list entry
    nodes, which is explicitly reset to be mutable.  The client may also
    subsequently delete any copied "group" entries or the entire "user-
    groups" container, which will not prevent the deleted data being
