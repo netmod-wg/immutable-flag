@@ -211,7 +211,7 @@ informative:
    datastore, then the server MUST return an \<rpc-error\> element with an \<error-tag\>
    value of "invalid-value".
 
-   Configuration data has the same immutability if it appears in different read-write datastores.
+   Configuration data has the same immutability if it appears in different datastores.
    The immutability of configuration data is protocol and
    user independent.
 
