@@ -6,10 +6,10 @@ netmod                                                        Q. Ma, Ed.
 Internet-Draft                                                     Q. Wu
 Updates: 8040, 8526 (if approved)                                 Huawei
 Intended status: Standards Track                         B. Lengyel, Ed.
-Expires: 30 August 2026                                         Ericsson
+Expires: 2 October 2026                                         Ericsson
                                                                    H. Li
                                                                      HPE
-                                                        26 February 2026
+                                                           31 March 2026
 
 
               YANG Metadata Annotation for Immutable Flag
@@ -57,7 +57,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 30 August 2026.
+   This Internet-Draft will expire on 2 October 2026.
 
 Copyright Notice
 
@@ -328,6 +328,11 @@ Table of Contents
        +---w with-immutability?   empty
 
                Figure 1: Augmentations to NETCONF Operations
+
+   To discover if the "with-immutability" parameter is supported by the
+   server, a NETCONF client can query if the server implements "ietf-
+   immutable-annotation" module by reading the YANG library information
+   from the operational state datastore, as per [RFC8526].
 
    Refer to Appendix B.1 for an example of NETCONF operation with "with-
    immutability" input parameter.
@@ -768,9 +773,8 @@ Table of Contents
 
    [TR-531]   ONF, "UML to YANG Mapping Guidelines", February 2023,
               <https://wiki.opennetworking.org/download/
-              attachments/376340494/Draft_TR-531_UML-YANG_Mapping_Gdls_v
-              1.1.03.docx?version=5&modificationDate=1675432243513&api=v
-              2>.
+              attachments/376340494/Draft_TR-531_UML-
+              YANG_Mapping_Gdls_v1.1.03.docx?version=5&modificationDate=1675432243513&api=v2>.
 
    [TS28.623] 3GPP, "Telecommunication management; Generic Network
               Resource Model (NRM) Integration Reference Point (IRP);
