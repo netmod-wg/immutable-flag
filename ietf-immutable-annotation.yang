@@ -61,7 +61,7 @@ module ietf-immutable-annotation {
      (https://www.rfc-editor.org/info/rfcXXXX); see the RFC
      itself for full legal notices.";
 
-  revision 2026-02-26 {
+  revision 2026-03-31 {
     description
       "Initial revision.";
     // RFC Ed.: replace XXXX and remove this comment

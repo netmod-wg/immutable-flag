@@ -16,7 +16,7 @@ module example-user-group {
   description
     "An example module for basic user and group management.";
 
-  revision "2026-02-26" {
+  revision "2026-03-31" {
     description
       "Initial version.";
     reference

@@ -160,7 +160,7 @@ informative:
   Please apply the following replacements:
 
   * XXXX --> the assigned RFC number for this draft
-  * 2026-02-26 --> the actual date of the publication of this document
+  * 2026-03-31 --> the actual date of the publication of this document
 
 # Conventions and Definitions
 
@@ -211,11 +211,9 @@ informative:
    datastore, then the server MUST return an \<rpc-error\> element with an \<error-tag\>
    value of "invalid-value".
 
-   Configuration data has the same immutability if it appears in different datastores.
+   Configuration data has the same immutability if it appears in different read-write datastores.
    The immutability of configuration data is protocol and
-   user independent. The immutability of any configuration data, and the value
-   of any immutable configured data node, MUST only change via software
-   upgrade, hardware resources change, or license change.
+   user independent.
 
 # "Immutable" Metadata Annotation
 
@@ -421,7 +419,7 @@ Refer to {{RESTCONF-example}} for an example of RESTCONF operation with "with-im
    This module imports definitions from {{!RFC7952}}, {{!RFC8342}}, {{!RFC8526}}, and {{!I-D.ietf-netmod-system-config}}.
 
 ~~~~
-<CODE BEGINS> file "ietf-immutable-annotation@2026-02-26.yang"
+<CODE BEGINS> file "ietf-immutable-annotation@2026-03-31.yang"
 {::include ietf-immutable-annotation.yang}
 <CODE ENDS>
 ~~~~
