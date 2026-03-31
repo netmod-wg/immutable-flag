@@ -203,7 +203,7 @@ Table of Contents
 
    *  XXXX --> the assigned RFC number for this draft
 
-   *  2026-02-26 --> the actual date of the publication of this document
+   *  2026-03-31 --> the actual date of the publication of this document
 
 2.  Conventions and Definitions
 
@@ -268,11 +268,8 @@ Table of Contents
    <rpc-error> element with an <error-tag> value of "invalid-value".
 
    Configuration data has the same immutability if it appears in
-   different datastores.  The immutability of configuration data is
-   protocol and user independent.  The immutability of any configuration
-   data, and the value of any immutable configured data node, MUST only
-   change via software upgrade, hardware resources change, or license
-   change.
+   different read-write datastores.  The immutability of configuration
+   data is protocol and user independent.
 
 4.  "Immutable" Metadata Annotation
 
@@ -497,7 +494,7 @@ Table of Contents
    This module imports definitions from [RFC7952], [RFC8342], [RFC8526],
    and [I-D.ietf-netmod-system-config].
 
-   <CODE BEGINS> file "ietf-immutable-annotation@2026-02-26.yang"
+   <CODE BEGINS> file "ietf-immutable-annotation@2026-03-31.yang"
    module ietf-immutable-annotation {
      yang-version 1.1;
      namespace "urn:ietf:params:xml:ns:yang:ietf-immutable-annotation";
@@ -561,7 +558,7 @@ Table of Contents
         (https://www.rfc-editor.org/info/rfcXXXX); see the RFC
         itself for full legal notices.";
 
-     revision 2026-02-26 {
+     revision 2026-03-31 {
        description
          "Initial revision.";
        // RFC Ed.: replace XXXX and remove this comment
@@ -896,7 +893,7 @@ Appendix B.  Examples of Server's Immutable Behavior
      description
        "An example module for basic user and group management.";
 
-     revision "2026-02-26" {
+     revision "2026-03-31" {
        description
          "Initial version.";
        reference
