@@ -268,8 +268,8 @@ Table of Contents
    <rpc-error> element with an <error-tag> value of "invalid-value".
 
    Configuration data has the same immutability if it appears in
-   different read-write datastores.  The immutability of configuration
-   data is protocol and user independent.
+   different datastores.  The immutability of configuration data is
+   protocol and user independent.
 
 4.  "Immutable" Metadata Annotation
 
