@@ -124,8 +124,8 @@ informative:
    system-provided nodes, using a YANG metadata annotation {{!RFC7952}}
    called "immutable" to flag which nodes are immutable. This document does not
    regulate server behaviors. That said, it is expected that a server will return
-   an error with an error-tag containing "invalid-value" when immutability
-   is attempted to be violated.
+   an error with an error-tag containing "invalid-value" if a client attempts to
+   modify an immutable node.
 
    The following is a list of already implemented and potential use
    cases:
@@ -160,7 +160,7 @@ informative:
   Please apply the following replacements:
 
   * XXXX --> the assigned RFC number for this draft
-  * 2026-03-31 --> the actual date of the publication of this document
+  * 2026-05-14 --> the actual date of the publication of this document
 
 # Conventions and Definitions
 
@@ -199,8 +199,7 @@ informative:
 
 # Applicability
 
-   While the immutable flag applies to all configuration nodes, its value true can
-   only be used for system configuration.
+   While the immutable flag applies to all configuration nodes, its value MUST NOT be set to true for configuration data that is not system configuration.
 
    The immutable flag is only visible in read-only datastores (i.e., \<system\>
    {{?I-D.ietf-netmod-system-config}}, \<intended\>, and \<operational\>)
@@ -208,8 +207,8 @@ informative:
    however this only serves as descriptive information about the
    instance node itself, but has no effect on the handling of the read-only
    datastore. If the immutable flag is requested to be returned for an invalid
-   datastore, then the server MUST return an \<rpc-error\> element with an \<error-tag\>
-   value of "invalid-value".
+   datastore, then the server MUST return an error response with the error-tag value
+   "unknown-element".
 
    Configuration data has the same immutability if it appears in different datastores.
    The immutability of configuration data is protocol and
@@ -229,7 +228,7 @@ informative:
 
    A node that is annotated as immutable cannot be changed via configuring
    a different value in read-write configuration datastores (e.g., \<running\>),
-   nor is there any way to delete the node from the combined configuration in the intended datastore (as described in {{Section 4 of ?I-D.ietf-netmod-system-config}}). The node MAY be explicitly configured by a client in \<running\> with the
+   nor is there any way to delete the node from the intended datastore, which is the merged result of \<running\> and \<system\> as defined in {{Section 4 of ?I-D.ietf-netmod-system-config}}. The node MAY be explicitly configured by a client in \<running\> with the
    same value and that configuration in \<running\> may subsequently be removed,
    but neither of these edits will change the configuration in \<intended\> (if implemented) on the device.
 
@@ -374,7 +373,7 @@ Refer to {{RESTCONF-example}} for an example of RESTCONF operation with "with-im
 
 # Immutability of Interior Nodes {#interior}
 
-   Immutability is a conceptual operational state value that is
+   Immutability is a property of a configuration data node instance, conveyed as metadata {{!RFC7952}}. It is
    recursively applied to descendants, which may reset the immutability
    state as needed, thereby affecting their descendants.  There is no limit
    to the number of times the immutability state may change in a data tree.
@@ -406,11 +405,12 @@ Refer to {{RESTCONF-example}} for an example of RESTCONF operation with "with-im
 # NACM Interactions
 
    The server rejects an operation request due to immutability when it
-   tries to perform the operation on the request data.  It happens after
-   any access control processing, if the Network Configuration Access
-   Control Model (NACM) {{!RFC8341}} is implemented on a server.  For
+   tries to perform the operation on the request data. Any immutability checking
+   MUST be performed after
+   access control decisions, if the Network Configuration Access
+   Control Model (NACM) {{!RFC8341}} is implemented on a server. For
    example, if an operation requests to override an immutable
-   configuration data, but the server checks the user is not authorized
+   configuration node, but the server checks the user is not authorized
    to perform the requested access operation on the request data, the
    request is rejected with an "access-denied" error.
 
@@ -419,7 +419,7 @@ Refer to {{RESTCONF-example}} for an example of RESTCONF operation with "with-im
    This module imports definitions from {{!RFC7952}}, {{!RFC8342}}, {{!RFC8526}}, and {{!I-D.ietf-netmod-system-config}}.
 
 ~~~~
-<CODE BEGINS> file "ietf-immutable-annotation@2026-03-31.yang"
+<CODE BEGINS> file "ietf-immutable-annotation@2026-05-14.yang"
 {::include ietf-immutable-annotation.yang}
 <CODE ENDS>
 ~~~~
@@ -577,7 +577,9 @@ urn:ietf:params:restconf:capability:with-immutability:1.0
 
   This section provides some examples to illustrate the server's behavior with
   immutable flag. These examples are not intended as recommendations for
-  real-world deployments. The following fictional module is used throughout this section:
+  real-world deployments.
+
+  The following fictional module is used throughout this section:
 
 ~~~~
 {::include example-user-group.yang}
@@ -586,7 +588,7 @@ urn:ietf:params:restconf:capability:with-immutability:1.0
 ## NETCONF Example to Retrieve Immutable Configuration {#NETCONF-example}
 
    {{NETCONF-with-immutability}} illustrates a NETCONF request example to retrieve "user-groups"
-   configuration in \<system\> with "with-immutability" parameter and the response a server might return.
+   configuration in \<system\> with "with-immutability" parameter and the response a server might return. For illustrative clarity, some annotations that could otherwise be omitted are shown explicitly in the response.
 
 ~~~~
 {::include-fold NETCONF-example.xml}
@@ -597,7 +599,7 @@ urn:ietf:params:restconf:capability:with-immutability:1.0
 ## RESTCONF Example to Retrieve Immutable Configuration {#RESTCONF-example}
 
   {{RESTCONF-with-immutability}} illustrates a RESTCONF request example to retrieve "user-groups"
-  configuration in \<system\> with "with-immutability" query parameter and the response a server might return.
+  configuration in \<system\> with "with-immutability" query parameter and the response a server might return. For illustrative clarity, some annotations that could otherwise be omitted are shown explicitly in the response.
 
 ~~~~
 {::include-fold RESTCONF-example.json}
@@ -694,3 +696,7 @@ but there is no way to delete the nodes from \<intended\> if those entries appea
    Thanks to Kent Watsen, Jan Lindblad, Jason Sterne, Robert Wilton, Andy Bierman,
    Juergen Schoenwaelder, Reshad Rahman, Anthony Somerset, Lou Berger, Joe Clarke,
    and Scott Mansfield for reviewing, and providing important inputs to this document.
+
+   Thanks to Per Andersson for the YANGDOCTORS review.
+
+   Thanks to Mahesh Jethanandani for the AD review.
