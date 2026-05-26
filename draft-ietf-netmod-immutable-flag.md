@@ -653,7 +653,7 @@ immutability from the list entry, which is mutable. Thus the client can add or r
 entries, the client may copy or subsequently delete any of the two leaf-list entries in \<running\>,
 but there is no way to delete the nodes from \<intended\> if those entries appear in \<system\>.
 
-## Error Response to Clients Overriding Immutable Configuration
+## Error Responses to Clients Overriding Immutable Configuration
 
 This section provides examples of clients attempts to override immutable configuration and error responses that the server might return. Separate examples are provided for NETCONF and RESTCONF protocols, in {{NETCONF-error}} and {{RESTCONF-error}} respectively.
 
