@@ -655,13 +655,17 @@ but there is no way to delete the nodes from \<intended\> if those entries appea
 
 ## Error Response to Clients Overriding Immutable Configuration
 
-{{NETCONF-error}} provides examples of an attempt to override immutable configuration and the error response that the server might return.
+This section provides examples of clients attempts to override immutable configuration and error responses that the server might return. Separate examples are provided for NETCONF and RESTCONF protocols, in {{NETCONF-error}} and {{RESTCONF-error}} respectively.
 
 ~~~~
 {::include-fold error.xml}
 ~~~~
-{: #NETCONF-error title="An Example to Override Immutable Configuration with Error Response"}
+{: #NETCONF-error title="A NETCONF Example to Override Immutable Configuration with Error Response"}
 
+~~~~
+{::include-fold restconf-error.txt}
+~~~~
+{: #RESTCONF-error title="A RESTCONF Example to Override Immutable Configuration with Error Response"}
 
 # Existing Implementations {#implementations}
 
