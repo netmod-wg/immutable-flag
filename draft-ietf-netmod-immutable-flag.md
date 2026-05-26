@@ -662,6 +662,7 @@ This section provides examples of clients attempts to override immutable configu
 ~~~~
 {: #NETCONF-error title="A NETCONF Example to Override Immutable Configuration with Error Response"}
 
+
 ~~~~
 {::include-fold restconf-error.txt}
 ~~~~
