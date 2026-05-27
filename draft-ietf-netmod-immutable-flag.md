@@ -160,7 +160,7 @@ informative:
   Please apply the following replacements:
 
   * XXXX --> the assigned RFC number for this draft
-  * 2026-05-14 --> the actual date of the publication of this document
+  * 2026-05-26 --> the actual date of the publication of this document
 
 # Conventions and Definitions
 
@@ -419,7 +419,7 @@ Refer to {{RESTCONF-example}} for an example of RESTCONF operation with "with-im
    This module imports definitions from {{!RFC7952}}, {{!RFC8342}}, {{!RFC8526}}, and {{!I-D.ietf-netmod-system-config}}.
 
 ~~~~
-<CODE BEGINS> file "ietf-immutable-annotation@2026-05-14.yang"
+<CODE BEGINS> file "ietf-immutable-annotation@2026-05-26.yang"
 {::include ietf-immutable-annotation.yang}
 <CODE ENDS>
 ~~~~
