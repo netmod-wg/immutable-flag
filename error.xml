@@ -25,7 +25,7 @@
       /user-groups/group[name="administrator"]/access-level
     </error-path>
     <error-message xml:lang="en">
-      Invalid access-level value due to the target node is marked as immutable
+      Invalid access-level value because the target node is marked as immutable
     </error-message>
   </rpc-error>
 </rpc-reply>
