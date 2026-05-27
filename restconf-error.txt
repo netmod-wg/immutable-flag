@@ -17,7 +17,7 @@ Content-Type: application/yang-data+json
         "error-tag": "invalid-value",
         "error-severity": "error",
         "error-path": "/example-user-group:user-groups/group[name='administrator']/access-level",
-        "error-message": "Invalid access-level value due to the target node is marked as immutable"
+        "error-message": "Invalid access-level value because the target node is marked as immutable"
       }
     ]
   }
