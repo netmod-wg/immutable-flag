@@ -1234,7 +1234,7 @@ B.6.  Error Responses to Clients Overriding Immutable Configuration
            "error-severity": "error",
            "error-path": "/example-user-group:user-groups/group[name='\
                                           administrator']/access-level",
-           "error-message": "Invalid access-level value due to the \
+           "error-message": "Invalid access-level value because the \
                                      target node is marked as immutable"
          }
        ]
