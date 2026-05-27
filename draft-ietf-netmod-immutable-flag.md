@@ -655,7 +655,7 @@ but there is no way to delete the nodes from \<intended\> if those entries appea
 
 ## Error Responses to Clients Overriding Immutable Configuration
 
-This section provides examples of clients attempts to override immutable configuration and error responses that the server might return. Separate examples are provided for NETCONF and RESTCONF protocols, in {{NETCONF-error}} and {{RESTCONF-error}} respectively.
+This section provides examples of client attempts to override immutable configuration and error responses that the server might return. Separate examples are provided for NETCONF and RESTCONF protocols, in {{NETCONF-error}} and {{RESTCONF-error}} respectively.
 
 ~~~~
 {::include-fold error.xml}
