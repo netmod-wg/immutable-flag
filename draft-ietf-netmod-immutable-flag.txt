@@ -1202,7 +1202,7 @@ B.6.  Error Responses to Clients Overriding Immutable Configuration
          /user-groups/group[name="administrator"]/access-level
        </error-path>
        <error-message xml:lang="en">
-         Invalid access-level value due to the target node is marked \
+         Invalid access-level value because the target node is marked \
                                                             as immutable
        </error-message>
      </rpc-error>
