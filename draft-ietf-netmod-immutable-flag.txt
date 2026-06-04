@@ -6,10 +6,10 @@ netmod                                                        Q. Ma, Ed.
 Internet-Draft                                                     Q. Wu
 Updates: 8040, 8526 (if approved)                                 Huawei
 Intended status: Standards Track                         B. Lengyel, Ed.
-Expires: 28 November 2026                                       Ericsson
+Expires: 6 December 2026                                        Ericsson
                                                                    H. Li
                                                                      HPE
-                                                             27 May 2026
+                                                             4 June 2026
 
 
               YANG Metadata Annotation for Immutable Flag
@@ -57,7 +57,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 28 November 2026.
+   This Internet-Draft will expire on 6 December 2026.
 
 Copyright Notice
 
@@ -383,8 +383,9 @@ Table of Contents
    which implies a leaf-list as a whole can only inherit immutability
    from a parent node (e.g., container).
 
-   If a leaf-list as a whole is immutable, any leaf-list entries cannot
-   be added, modified, or reordered (if it is ordered-by user).
+   If a leaf-list as a whole is immutable via inheritance from a parent
+   node, any leaf-list entries cannot be added, modified, or reordered
+   (if it is ordered-by user).
 
    Refer to Appendix B.5 for an example of immutability of leaf-lists.
 
@@ -396,10 +397,7 @@ Table of Contents
 
    Descendant nodes of the container recursively inherit the
    immutability of the container, unless the immutability is overridden
-   by an "immutable" annotation on a descendant node.
-
-   By default, as with all interior nodes, immutability is recursively
-   applied to descendants (Section 6).
+   by an "immutable" annotation on a descendant node (Section 6).
 
 5.4.  The "list" Statement
 
@@ -409,10 +407,7 @@ Table of Contents
 
    Descendant nodes of the list entry recursively inherit the
    immutability of the list entry, unless the immutability is overridden
-   by an "immutable" annotation on a descendant node.
-
-   By default, as with all interior nodes, immutability is recursively
-   applied to descendants (Section 6).
+   by an "immutable" annotation on a descendant node (Section 6).
 
    The immutable annotation attached to the individual list entry
    provides immutability with respect to the entry itself.  As per the
@@ -421,11 +416,11 @@ Table of Contents
    implies a list as a whole can only inherit immutability from a parent
    node (e.g., container).
 
-   If a list as a whole is immutable, any list entries cannot be added,
-   removed, or reordered (if it is ordered-by user).  Each list entry
-   inherits the immutability of the list by default, unless the
-   immutability is overridden by an "immutable" annotation on a list
-   entry.
+   If a list as a whole is immutable via inheritance from a parent node,
+   any list entries cannot be added, removed, or reordered (if it is
+   ordered-by user).  Each list entry inherits the immutability of the
+   list by default, unless the immutability is overridden by an
+   "immutable" annotation on a list entry.
 
    Refer to Appendix B.4 for an example of immutability of lists.
 
