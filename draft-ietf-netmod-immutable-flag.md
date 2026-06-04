@@ -312,7 +312,7 @@ Refer to {{RESTCONF-example}} for an example of RESTCONF operation with "with-im
    to individual leaf-list entries, which implies a leaf-list as a whole
    can only inherit immutability from a parent node (e.g., container).
 
-   If a leaf-list as a whole is immutable, any leaf-list entries cannot be added,
+   If a leaf-list as a whole is immutable via inheritance from a parent node, any leaf-list entries cannot be added,
    modified, or reordered (if it is ordered-by user).
 
    Refer to {{imm-leaf-list}} for an example of immutability of leaf-lists.
@@ -324,10 +324,7 @@ Refer to {{RESTCONF-example}} for an example of RESTCONF operation with "with-im
    (see Sections {{<immutable-def}} and {{<system-interact}}).
 
    Descendant nodes of the container recursively inherit the immutability of the container, unless
-   the immutability is overridden by an "immutable" annotation on a descendant node.
-
-   By default, as with all interior nodes, immutability is recursively
-   applied to descendants ({{interior}}).
+   the immutability is overridden by an "immutable" annotation on a descendant node ({{interior}}).
 
 ## The "list" Statement
 
@@ -336,10 +333,7 @@ Refer to {{RESTCONF-example}} for an example of RESTCONF operation with "with-im
   (see Sections {{<immutable-def}} and {{<system-interact}}).
 
   Descendant nodes of the list entry recursively inherit the immutability of the list entry, unless
-  the immutability is overridden by an "immutable" annotation on a descendant node.
-
-   By default, as with all interior nodes, immutability is recursively
-   applied to descendants ({{interior}}).
+  the immutability is overridden by an "immutable" annotation on a descendant node ({{interior}}).
 
    The immutable annotation attached to the individual list entry provides
    immutability with respect to the entry itself. As per the restrictions in {{!RFC7952}},
@@ -347,7 +341,7 @@ Refer to {{RESTCONF-example}} for an example of RESTCONF operation with "with-im
    to individual list entries, which implies a list as a whole
    can only inherit immutability from a parent node (e.g., container).
 
-   If a list as a whole is immutable, any list entries cannot be added, removed, or reordered (if it is ordered-by user).
+   If a list as a whole is immutable via inheritance from a parent node, any list entries cannot be added, removed, or reordered (if it is ordered-by user).
    Each list entry inherits the immutability of the list by default, unless the immutability is
    overridden by an "immutable" annotation on a list entry.
 
