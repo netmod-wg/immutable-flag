@@ -16,7 +16,7 @@ module example-user-group {
   description
     "An example module for basic user and group management.";
 
-  revision "2026-03-31" {
+  revision "2026-05-26" {
     description
       "Initial version.";
     reference
@@ -25,20 +25,20 @@ module example-user-group {
 
   container user-groups {
     description
-      "A container for user and group management";
+      "A container for user and group management.";
     list group {
       key "name";
       description
-        "The list of access user-groups";
+        "Specifies the list of access user-groups.";
       leaf name {
         type string;
         description
-          "Unique name identifier for the user-group";
+          "Inclydes a unique name identifier for the user-group.";
       }
       leaf description {
         type string;
         description
-          "Human-readable description of the group";
+          "Provides a human-readable description of the group.";
       }
       leaf access-level {
         type enumeration {
@@ -48,33 +48,33 @@ module example-user-group {
           enum guest;
         }
         description
-          "Permission level assigned to the group";
+          "Indicates permission level assigned to the group.";
       }
       list user {
         key "name";
         description
-          "List of users belonging to the group";
+          "Lists users that belong to a group.";
         leaf name {
           type string;
           description
-            "Unique name identifier for the user";
+            "Specifies a unique name identifier for the user.";
         }
         leaf password {
           type ianach:crypt-hash;
           description
-            "Cryptographically hashed user password";
+            "Records a cryptographically-hashed user password.";
         }
         leaf full-name {
           type string;
           description
-            "Human-readable full name of the user";
+            "Indicates a human-readable full name of the user.";
         }
       }
       leaf-list tag {
         type string;
         ordered-by user;
         description
-          "User-ordered tags for categorizing the user-group";
+          "Indicates yser-ordered tags for categorizing the user-group.";
       }
     }
   }
