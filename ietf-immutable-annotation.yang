@@ -12,7 +12,7 @@ module ietf-immutable-annotation {
     prefix ncds;
     reference
       "RFC 8526: NETCONF Extensions to Support the Network
-       Management Datastore Architecture";
+                 Management Datastore Architecture";
   }
   import ietf-system-datastore {
     prefix sysds;
@@ -30,7 +30,7 @@ module ietf-immutable-annotation {
     "IETF Network Modeling (NETMOD) Working Group";
   contact
     "WG Web: <https://datatracker.ietf.org/wg/netmod/>
-     WG List: <mailto:netmod@ietf.org>
+     WG List: NETMOD <mailto:netmod@ietf.org>
      Author: Qiufang Ma
              <mailto:maqiufang1@huawei.com>
      Author: Qin Wu
@@ -57,14 +57,16 @@ module ietf-immutable-annotation {
      Legal Provisions Relating to IETF Documents
      (https://trustee.ietf.org/license-info).
 
-     This version of this YANG module is part of RFC XXXX
-     (https://www.rfc-editor.org/info/rfcXXXX); see the RFC
-     itself for full legal notices.";
+     All revisions of IETF and IANA published modules can be found
+     at the YANG Parameters registry group
+     (https://www.iana.org/assignments/yang-parameters).
+
+     This version of this YANG module is part of RFC XXXX; see
+     the RFC itself for full legal notices.";
 
   revision 2026-05-26 {
     description
       "Initial revision.";
-    // RFC Ed.: replace XXXX and remove this comment
     reference
       "RFC XXXX: YANG Metadata Annotation for Immutable Flag";
   }
