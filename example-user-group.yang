@@ -33,7 +33,7 @@ module example-user-group {
       leaf name {
         type string;
         description
-          "Inclydes a unique name identifier for the user-group.";
+          "Indicates a unique name identifier for the user-group.";
       }
       leaf description {
         type string;
