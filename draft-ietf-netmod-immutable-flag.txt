@@ -587,9 +587,9 @@ Table of Contents
           annotations in its response to get-data operation.";
        leaf with-immutability {
          when
-          "derived-from-or-self(../ncds:datastore,'sysds:system') "
-        + "or derived-from-or-self(../ncds:datastore,'ds:intended') "
-        + "or derived-from-or-self(../ncds:datastore,'ds:operational')";
+           "derived-from-or-self(../ncds:datastore,'sysds:system') "
+         + "or derived-from-or-self(../ncds:datastore,'ds:intended') "
+         + "or derived-from-or-self(../ncds:datastore,'ds:operational')";
          type empty;
          description
            "If this parameter is present, the server returns the
