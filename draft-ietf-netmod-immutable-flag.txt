@@ -6,10 +6,10 @@ netmod                                                        Q. Ma, Ed.
 Internet-Draft                                                     Q. Wu
 Updates: 8040, 8526 (if approved)                                 Huawei
 Intended status: Standards Track                         B. Lengyel, Ed.
-Expires: 14 December 2026                                       Ericsson
+Expires: 25 December 2026                                       Ericsson
                                                                    H. Li
                                                                      HPE
-                                                            12 June 2026
+                                                            23 June 2026
 
 
               YANG Metadata Annotation for Immutable Flag
@@ -17,7 +17,7 @@ Expires: 14 December 2026                                       Ericsson
 
 Abstract
 
-   This document defines a way to formally document an existing
+   This document defines a mechanism to formally document an existing
    behavior, implemented by servers in production, on the immutability
    of some system-provided nodes, using a YANG metadata annotation
    called "immutable" to flag which nodes are immutable.
@@ -57,7 +57,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 14 December 2026.
+   This Internet-Draft will expire on 25 December 2026.
 
 Copyright Notice
 
@@ -105,12 +105,12 @@ Table of Contents
    12. References
      12.1.  Normative References
      12.2.  Informative References
-   Appendix A.  Detailed Use Cases
-     A.1.  UC1 - Modeling of server capabilities
-     A.2.  UC2 - Hardware based auto-configuration - Interface Example
-     A.3.  UC3 - Predefined Administrator Roles
-     A.4.  UC4 - Declaring immutable system configuration from the
-           perspective of a logical network element (LNE)
+   Appendix A.  Sample Use Cases
+     A.1.  UC1: Modeling of Server Capabilities
+     A.2.  UC2: Hardware-based Auto-configuration - Interface Example
+     A.3.  UC3: Predefined Administrator Roles
+     A.4.  UC4: Declaring Immutable System Configuration from the
+           Perspective of a Logical Network Element (LNE)
    Appendix B.  Examples of Server's Immutable Behavior
      B.1.  NETCONF Example to Retrieve Immutable Configuration
      B.2.  RESTCONF Example to Retrieve Immutable Configuration
@@ -135,8 +135,8 @@ Table of Contents
    YANG [RFC7950] is a data modeling language used to model both state
    and configuration data, based on the "config" statement.  However,
    there exists some system configuration data that cannot be modified
-   by the client (it is immutable), but still needs to be declared as
-   "config true" to:
+   by clients (that is, it is immutable), but still needs to be declared
+   as "config true" to:
 
    *  allow configuration of data nodes under immutable lists or
       containers;
@@ -148,34 +148,32 @@ Table of Contents
       and needed by the system, while additional list entries can be
       created, modified or deleted.
 
-   If the server always rejects a client's attempt to override some
+   If a server always rejects a client's attempt to override some
    system-provided data because it internally thinks the data is
    immutable, it should document it towards the clients in a machine-
    readable way rather than writing as plain text in the "description"
    statement.
 
-   This document defines a way to formally document the existing
+   This document defines an approach to formally document an existing
    behavior, implemented by servers in production, on the immutability
-   of some system-provided nodes, using a YANG metadata annotation
+   of some system-provided data, using a YANG metadata annotation
    [RFC7952] called "immutable" to flag which nodes are immutable.  This
    document does not regulate server behaviors.  That said, it is
    expected that a server will return an error with an error-tag
    containing "invalid-value" if a client attempts to modify an
    immutable node.
 
-   The following is a list of already implemented and potential use
-   cases:
+   A non-exhaustive list of already implemented and potential use cases
+   is provided below:
 
-   *  UC1 Modeling of server capabilities
+   *  UC1: Modeling of server capabilities (Appendix A.1)
 
-   *  UC2 Hardware based auto-configuration
+   *  UC2: Hardware based auto-configuration (Appendix A.2)
 
-   *  UC3 Predefined administrator roles
+   *  UC3: Predefined administrator roles (Appendix A.3)
 
-   *  UC4 Declaring immutable system configuration from the perspective
-      of a logical network element (LNE)
-
-   Appendix A describes the use cases in detail.
+   *  UC4: Declaring immutable system configuration from the perspective
+      of a Logical Network Element (LNE) (Appendix A.4)
 
 1.1.  Updates to RFC 8040
 
@@ -203,6 +201,8 @@ Table of Contents
 
    *  XXXX --> the assigned RFC number for this draft
 
+   *  YYYY --> RFC number assigned to [I-D.ietf-netmod-system-config]
+
    *  2026-05-26 --> the actual date of the publication of this document
 
 2.  Conventions and Definitions
@@ -213,11 +213,11 @@ Table of Contents
    BCP 14 [RFC2119] [RFC8174] when, and only when, they appear in all
    capitals, as shown here.
 
-   The document uses the following definition in [RFC6241]:
+   The document uses the following term defined in [RFC6241]:
 
    *  configuration data
 
-   The document uses the following definition in [RFC7950]:
+   The document uses the following terms defined in [RFC7950]:
 
    *  data node
 
@@ -237,18 +237,18 @@ Table of Contents
 
    *  data tree
 
-   The document uses the following definition in [RFC8341]:
+   The document uses the following term defined in [RFC8341]:
 
    *  access operation
 
-   The document uses the following definition in
+   The document uses the following term defined in
    [I-D.ietf-netmod-system-config]:
 
    *  system configuration
 
    This document defines the following term:
 
-   immutable flag:  A read-only state value the server provides to
+   immutable flag:  A read-only state value that the server provides to
       describe immutability of the configuration, which is conveyed via
       a YANG metadata annotation called "immutable" with a boolean
       value.
@@ -262,7 +262,7 @@ Table of Contents
    The immutable flag is only visible in read-only datastores (i.e.,
    <system> [I-D.ietf-netmod-system-config], <intended>, and
    <operational>) when a "with-immutability" parameter is carried
-   (Section 4.2), however this only serves as descriptive information
+   (Section 4.2).  However, this only serves as descriptive information
    about the instance node itself, but has no effect on the handling of
    the read-only datastore.  If the immutable flag is requested to be
    returned for an invalid datastore, then the server MUST return an
@@ -327,13 +327,13 @@ Table of Contents
 
                Figure 1: Augmentations to NETCONF Operations
 
-   To discover if the "with-immutability" parameter is supported by the
+   To discover if the "with-immutability" parameter is supported by a
    server, a NETCONF client can query if the server implements "ietf-
-   immutable-annotation" module by reading the YANG library information
-   from the operational state datastore, as per [RFC8526].
+   immutable-annotation" module Section 9 by reading the YANG library
+   information from the operational state datastore, as per [RFC8526].
 
-   Refer to Appendix B.1 for an example of NETCONF operation with "with-
-   immutability" input parameter.
+   Refer to Appendix B.1 for an example of a NETCONF operation with
+   "with-immutability" input parameter.
 
 4.2.2.  RESTCONF Extensions to Support "with-immutability"
 
@@ -347,18 +347,18 @@ Table of Contents
    datastore resources are defined in [RFC8527].
 
    To enable a RESTCONF client to discover if the "with-immutability"
-   query parameter is supported by the server, the following capability
+   query parameter is supported by a server, the following capability
    URI is defined:
 
        urn:ietf:params:restconf:capability:with-immutability:1.0
 
-   Refer to Appendix B.2 for an example of RESTCONF operation with
+   Refer to Appendix B.2 for an example of a RESTCONF operation with
    "with-immutability" query parameter.
 
 5.  Use of Immutable Flag for Different Statements
 
    This section defines what the immutable flag means to the client for
-   each instance of YANG data node statement.
+   each instance of YANG data node statements.
 
 5.1.  The "leaf" Statement
 
@@ -376,7 +376,7 @@ Table of Contents
    can be created/deleted in read-write configuration datastores (see
    Sections 4.1 and 7).
 
-   The immutable annotation attached to the individual leaf-list entry
+   The immutable annotation attached to an individual leaf-list entry
    provides immutability with respect to the entry itself.  As per the
    restrictions in [RFC7952], annotations cannot be attached to an
    entire leaf-list instance and only to individual leaf-list entries,
@@ -395,9 +395,9 @@ Table of Contents
    from <intended> (if implemented).  Though it can be created/deleted
    in read-write configuration datastores (see Sections 4.1 and 7).
 
-   Descendant nodes of the container recursively inherit the
-   immutability of the container, unless the immutability is overridden
-   by an "immutable" annotation on a descendant node (Section 6).
+   Descendant nodes of a container recursively inherit the immutability
+   of the container, unless the immutability is overridden by an
+   "immutable" annotation on a descendant node (Section 6).
 
 5.4.  The "list" Statement
 
@@ -405,11 +405,11 @@ Table of Contents
    (if implemented).  Though it can be created/deleted in read-write
    configuration datastores (see Sections 4.1 and 7).
 
-   Descendant nodes of the list entry recursively inherit the
-   immutability of the list entry, unless the immutability is overridden
-   by an "immutable" annotation on a descendant node (Section 6).
+   Descendant nodes of a list entry recursively inherit the immutability
+   of the list entry, unless the immutability is overridden by an
+   "immutable" annotation on a descendant node (Section 6).
 
-   The immutable annotation attached to the individual list entry
+   The immutable annotation attached to an individual list entry
    provides immutability with respect to the entry itself.  As per the
    restrictions in [RFC7952], annotations cannot be attached to an
    entire list instance and only to individual list entries, which
@@ -506,7 +506,7 @@ Table of Contents
        prefix ncds;
        reference
          "RFC 8526: NETCONF Extensions to Support the Network
-          Management Datastore Architecture";
+                    Management Datastore Architecture";
      }
      import ietf-system-datastore {
        prefix sysds;
@@ -524,7 +524,7 @@ Table of Contents
        "IETF Network Modeling (NETMOD) Working Group";
      contact
        "WG Web: <https://datatracker.ietf.org/wg/netmod/>
-        WG List: <mailto:netmod@ietf.org>
+        WG List: NETMOD <mailto:netmod@ietf.org>
         Author: Qiufang Ma
                 <mailto:maqiufang1@huawei.com>
         Author: Qin Wu
@@ -551,14 +551,16 @@ Table of Contents
         Legal Provisions Relating to IETF Documents
         (https://trustee.ietf.org/license-info).
 
-        This version of this YANG module is part of RFC XXXX
-        (https://www.rfc-editor.org/info/rfcXXXX); see the RFC
-        itself for full legal notices.";
+        All revisions of IETF and IANA published modules can be found
+        at the YANG Parameters registry group
+        (https://www.iana.org/assignments/yang-parameters).
+
+        This version of this YANG module is part of RFC XXXX; see
+        the RFC itself for full legal notices.";
 
      revision 2026-05-26 {
        description
          "Initial revision.";
-       // RFC Ed.: replace XXXX and remove this comment
        reference
          "RFC XXXX: YANG Metadata Annotation for Immutable Flag";
      }
@@ -598,7 +600,7 @@ Table of Contents
 
 10.  Security Considerations
 
-   This section is modeled after the template described in Section 3.7
+   This section is modeled after the template described in Section 3.7.1
    of [RFC9907].
 
    The "ietf-immutable-annotation" YANG module defines a data model that
@@ -634,34 +636,34 @@ Table of Contents
 
 11.1.  The "IETF XML" Registry
 
-   This document registers one XML namespace URN in the 'IETF XML
-   registry', following the format defined in [RFC3688].
+   IANA is requested to register the following URI in the "ns" registry
+   within the "IETF XML Registry" group [RFC3688]:
 
    URI: urn:ietf:params:xml:ns:yang:ietf-immutable-annotation
    Registrant Contact: The IESG.
-   XML: N/A, the requested URIs are XML namespaces.
+   XML: N/A; the requested URIs are XML namespaces.
 
 11.2.  The "YANG Module Names" Registry
 
-   This document registers one module name in the 'YANG Module Names'
-   registry, defined in [RFC6020].
+   IANA is requested to register the following YANG module in the "YANG
+   Module Names" registry [RFC6020] within the "YANG Parameters"
+   registry group.
 
    name: ietf-immutable-annotation
-   prefix: imma
+   Maintained by IANA?  N
    namespace: urn:ietf:params:xml:ns:yang:ietf-immutable-annotation
+   prefix: imma
    RFC: XXXX
 
 11.3.  RESTCONF Capability URN Registry
 
-   This document defines the following capability identifier URNs in the
-   "RESTCONF Capability URNs" registry defined in [RFC8040]:
+   IANA is requested to register the following capability identifier
+   URNs in the "RESTCONF Capability URNs" registry defined in [RFC8040]:
 
-   Index
-   Capability Identifier
-   ---------------------
+   Index:  :with-immutability
 
-   :with-immutability
-   urn:ietf:params:restconf:capability:with-immutability:1.0
+   Capability Identifier:  urn:ietf:params:restconf:capability:with-
+      immutability:1.0
 
 12.  References
 
@@ -783,17 +785,17 @@ Table of Contents
               <https://www.3gpp.org/ftp/Specs/
               archive/32_series/32.156/32156-h10.zip>.
 
-Appendix A.  Detailed Use Cases
+Appendix A.  Sample Use Cases
 
-A.1.  UC1 - Modeling of server capabilities
+A.1.  UC1: Modeling of Server Capabilities
 
    System capabilities might be represented as immutable configuration.
-   Configurable data nodes might need constraints specified as "when",
-   "must" or "path" statements to ensure that configuration is set
-   according to the system's capabilities.  For example,
+   Configurable data nodes might need constraints specified using
+   "when", "must", or "path" statements to ensure that configuration is
+   set according to the system's capabilities.  For example,
 
-   *  A timer can support the values 1,5,8 seconds.  This is defined in
-      the leaf-list 'supported-timer-values'.
+   *  A timer can support the values 1, 5, and 8 seconds.  This is
+      defined in the leaf-list 'supported-timer-values'.
 
    *  When the configurable 'interface-timer' leaf is set, it should be
       ensured that one of the supported values is used.  The natural
@@ -806,13 +808,13 @@ A.1.  UC1 - Modeling of server capabilities
    not allowed to put a constraint between "config true" and "config
    false" data nodes.
 
-   The solution is that the supported-timer-values data node in the YANG
+   A solution is that the 'supported-timer-values' data node in the YANG
    Model shall be defined as "config true" and shall also be marked with
    the "immutable" annotation making it unchangeable.  After this the
    'interface-timer' shall be defined as a leaf-ref pointing at the
    'supported-timer-values'.
 
-A.2.  UC2 - Hardware based auto-configuration - Interface Example
+A.2.  UC2: Hardware-based Auto-configuration - Interface Example
 
    [RFC8343] defines a YANG data model for the management of network
    interfaces.  When a system-controlled interface is physically
@@ -821,14 +823,14 @@ A.2.  UC2 - Hardware based auto-configuration - Interface Example
    [I-D.ietf-netmod-system-config]).
 
    The system-generated type value is dependent on and represents the
-   hardware present, and as a consequence cannot be changed by the
-   client.  If a client tries to set the type of an interface to a value
-   that can never be used by the system, the request will be rejected by
-   the server.  The data is modeled as "config true" and thus should be
+   hardware present, and as a consequence cannot be changed by clients.
+   If a client tries to set the type of an interface to a value that can
+   never be used by the system, the request will be rejected by the
+   server.  The data is modeled as "config true" and thus should be
    annotated as immutable.
 
-   Seemingly an alternative would be to model the list and these leafs
-   as "config false", but that does not work because:
+   An alternative would be to model the list and these leafs as "config
+   false", but that does not work because:
 
    *  The list cannot be marked as "config false", because it needs to
       contain configurable child nodes, e.g., IP address or enabled;
@@ -836,11 +838,11 @@ A.2.  UC2 - Hardware based auto-configuration - Interface Example
    *  The key leaf (name) cannot be marked as "config false" as the list
       itself is "config true";
 
-   *  The type cannot be marked "config false", because we MAY need to
+   *  The type cannot be marked "config false", because we may need to
       reference the type to make different configuration nodes
       conditionally available.
 
-A.3.  UC3 - Predefined Administrator Roles
+A.3.  UC3: Predefined Administrator Roles
 
    User and group management is fundamental for setting up access
    control rules (see Section 2.5 of [RFC8341]).
@@ -852,14 +854,14 @@ A.3.  UC3 - Predefined Administrator Roles
    privileges, but the predefined administrator account and its granted
    access are immutable.
 
-A.4.  UC4 - Declaring immutable system configuration from the
-      perspective of a logical network element (LNE)
+A.4.  UC4: Declaring Immutable System Configuration from the Perspective
+      of a Logical Network Element (LNE)
 
-   A logical network element (LNE), as described in [RFC8530], is an
-   independently managed virtual network device made up of resources
-   allocated to it from its host or parent network device.  The host
-   device may allocate some resources to an LNE, which from an LNE's
-   perspective is provided by the system and may not be modifiable.
+   An LNE, as described in [RFC8530], is an independently managed
+   virtual network device made up of resources allocated to it from its
+   host or parent network device.  The host device may allocate some
+   resources to an LNE, which from an LNE's perspective is provided by
+   the system and may not be modifiable.
 
    For example, a host may allocate an interface to an LNE with a valid
    MTU value as its management interface, so that the allocated
@@ -875,95 +877,95 @@ Appendix B.  Examples of Server's Immutable Behavior
 
    The following fictional module is used throughout this section:
 
-   module example-user-group {
-     yang-version 1.1;
-     namespace "urn:example:user-group";
-     prefix ex-urp;
+module example-user-group {
+  yang-version 1.1;
+  namespace "urn:example:user-group";
+  prefix ex-urp;
 
-     import iana-crypt-hash {
-       prefix ianach;
-     }
+  import iana-crypt-hash {
+    prefix ianach;
+  }
 
-     organization
-       "Example, Inc.";
+  organization
+    "Example, Inc.";
 
-     contact
-       "Support at example.com";
+  contact
+    "Support at example.com";
 
-     description
-       "An example module for basic user and group management.";
+  description
+    "An example module for basic user and group management.";
 
-     revision "2026-03-31" {
-       description
-         "Initial version.";
-       reference
-         "RFC XXXX: YANG Metadata Annotation for Immutable Flag";
-     }
+  revision "2026-05-26" {
+    description
+      "Initial version.";
+    reference
+      "RFC XXXX: YANG Metadata Annotation for Immutable Flag";
+  }
 
-     container user-groups {
-       description
-         "A container for user and group management";
-       list group {
-         key "name";
-         description
-           "The list of access user-groups";
-         leaf name {
-           type string;
-           description
-             "Unique name identifier for the user-group";
-         }
-         leaf description {
-           type string;
-           description
-             "Human-readable description of the group";
-         }
-         leaf access-level {
-           type enumeration {
-             enum admin;
-             enum power;
-             enum normal;
-             enum guest;
-           }
-           description
-             "Permission level assigned to the group";
-         }
-         list user {
-           key "name";
-           description
-             "List of users belonging to the group";
-           leaf name {
-             type string;
-             description
-               "Unique name identifier for the user";
-           }
-           leaf password {
-             type ianach:crypt-hash;
-             description
-               "Cryptographically hashed user password";
-           }
-           leaf full-name {
-             type string;
-             description
-               "Human-readable full name of the user";
-           }
-         }
-         leaf-list tag {
-           type string;
-           ordered-by user;
-           description
-             "User-ordered tags for categorizing the user-group";
-         }
-       }
-     }
-   }
+  container user-groups {
+    description
+      "A container for user and group management.";
+    list group {
+      key "name";
+      description
+        "Specifies the list of access user-groups.";
+      leaf name {
+        type string;
+        description
+          "Indicates a unique name identifier for the user-group.";
+      }
+      leaf description {
+        type string;
+        description
+          "Provides a human-readable description of the group.";
+      }
+      leaf access-level {
+        type enumeration {
+          enum admin;
+          enum power;
+          enum normal;
+          enum guest;
+        }
+        description
+          "Indicates permission level assigned to the group.";
+      }
+      list user {
+        key "name";
+        description
+          "A list of users that belong to a group.";
+        leaf name {
+          type string;
+          description
+            "Specifies a unique name identifier for the user.";
+        }
+        leaf password {
+          type ianach:crypt-hash;
+          description
+            "Records a cryptographically-hashed user password.";
+        }
+        leaf full-name {
+          type string;
+          description
+            "Indicates a human-readable full name of the user.";
+        }
+      }
+      leaf-list tag {
+        type string;
+        ordered-by user;
+        description
+          "Indicates user-ordered tags for categorizing the user-group.";
+      }
+    }
+  }
+}
 
 B.1.  NETCONF Example to Retrieve Immutable Configuration
 
    Figure 2 illustrates a NETCONF request example to retrieve "user-
    groups" configuration in <system> with "with-immutability" parameter
-   and the response a server might return.  For illustrative clarity,
-   some annotations that could otherwise be omitted are shown explicitly
-   in the response.
+   and the response that a server might return.  For illustrative
+   clarity, some annotations that could otherwise be omitted are shown
+   explicitly in the response.
 
    =============== NOTE: '\' line wrapping per RFC 8792 ================
 
@@ -1165,7 +1167,7 @@ B.5.  Immutability of the leaf-list
 
 B.6.  Error Responses to Clients Overriding Immutable Configuration
 
-   This section provides examples of client attempts to override
+   This section provides examples of a client's attempts to override
    immutable configuration and error responses that the server might
    return.  Separate examples are provided for NETCONF and RESTCONF
    protocols, in Figure 4 and Figure 5 respectively.

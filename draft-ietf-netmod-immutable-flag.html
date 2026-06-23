@@ -10,7 +10,7 @@
 <meta content="Balazs Lengyel" name="author">
 <meta content="Hongwei Li" name="author">
 <meta content='
-       This document defines a way to formally document an existing behavior,
+       This document defines a mechanism to formally document an existing behavior,
    implemented by servers in production, on the immutability of some
    system-provided nodes, using a YANG metadata annotation called
    "immutable" to flag which nodes are immutable. 
@@ -21,23 +21,24 @@
    proscriptive, dictating server behaviors. 
        This document updates RFC 8040 and RFC 8526. 
     ' name="description">
-<meta content="xml2rfc 3.33.0" name="generator">
+<meta content="xml2rfc 3.34.0" name="generator">
 <meta content="immutable flag" name="keyword">
 <meta content="system configuration" name="keyword">
 <meta content="draft-ietf-netmod-immutable-flag-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.33.0
-    Python 3.12.13
-    ConfigArgParse 1.7
+  xml2rfc 3.34.0
+    Python 3.14.5
+    ConfigArgParse 1.7.5
     google-i18n-address 3.1.1
     intervaltree 3.2.1
     Jinja2 3.1.6
-    lxml 6.0.2
-    platformdirs 4.9.6
+    lxml 6.1.1
+    natsort 8.4.0
+    platformdirs 4.10.0
     pycountry 24.6.1
     PyYAML 6.0.3
     requests 2.33.1
-    wcwidth 0.7.0
+    wcwidth 0.8.1
 -->
 <link href="draft-ietf-netmod-immutable-flag.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
@@ -1060,7 +1061,7 @@ svg {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Ma, et al.</td>
-<td class="center">Expires 14 December 2026</td>
+<td class="center">Expires 25 December 2026</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1076,12 +1077,12 @@ svg {
 <a href="https://www.rfc-editor.org/rfc/rfc8040" class="eref">8040</a>, <a href="https://www.rfc-editor.org/rfc/rfc8526" class="eref">8526</a> (if approved)</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2026-06-12" class="published">12 June 2026</time>
+<time datetime="2026-06-23" class="published">23 June 2026</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2026-12-14">14 December 2026</time></dd>
+<dd class="expires"><time datetime="2026-12-25">25 December 2026</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1108,7 +1109,7 @@ svg {
 <h1 id="title">YANG Metadata Annotation for Immutable Flag</h1>
 <section id="section-abstract">
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
-<p id="section-abstract-1">This document defines a way to formally document an existing behavior,
+<p id="section-abstract-1">This document defines a mechanism to formally document an existing behavior,
    implemented by servers in production, on the immutability of some
    system-provided nodes, using a YANG metadata annotation called
    "immutable" to flag which nodes are immutable.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
@@ -1149,7 +1150,7 @@ svg {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 14 December 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 25 December 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1281,19 +1282,19 @@ svg {
             </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.13">
-            <p id="section-toc.1-1.13.1"><a href="#appendix-A" class="auto internal xref">Appendix A</a>.  <a href="#name-detailed-use-cases" class="internal xref">Detailed Use Cases</a></p>
+            <p id="section-toc.1-1.13.1"><a href="#appendix-A" class="auto internal xref">Appendix A</a>.  <a href="#name-sample-use-cases" class="internal xref">Sample Use Cases</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.13.2.1">
-                <p id="section-toc.1-1.13.2.1.1"><a href="#appendix-A.1" class="auto internal xref">A.1</a>.  <a href="#name-uc1-modeling-of-server-capa" class="internal xref">UC1 - Modeling of server capabilities</a></p>
+                <p id="section-toc.1-1.13.2.1.1"><a href="#appendix-A.1" class="auto internal xref">A.1</a>.  <a href="#name-uc1-modeling-of-server-capa" class="internal xref">UC1: Modeling of Server Capabilities</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.13.2.2">
-                <p id="section-toc.1-1.13.2.2.1"><a href="#appendix-A.2" class="auto internal xref">A.2</a>.  <a href="#name-uc2-hardware-based-auto-con" class="internal xref">UC2 - Hardware based auto-configuration - Interface Example</a></p>
+                <p id="section-toc.1-1.13.2.2.1"><a href="#appendix-A.2" class="auto internal xref">A.2</a>.  <a href="#name-uc2-hardware-based-auto-con" class="internal xref">UC2: Hardware-based Auto-configuration - Interface Example</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.13.2.3">
-                <p id="section-toc.1-1.13.2.3.1"><a href="#appendix-A.3" class="auto internal xref">A.3</a>.  <a href="#name-uc3-predefined-administrato" class="internal xref">UC3 - Predefined Administrator Roles</a></p>
+                <p id="section-toc.1-1.13.2.3.1"><a href="#appendix-A.3" class="auto internal xref">A.3</a>.  <a href="#name-uc3-predefined-administrato" class="internal xref">UC3: Predefined Administrator Roles</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.13.2.4">
-                <p id="section-toc.1-1.13.2.4.1"><a href="#appendix-A.4" class="auto internal xref">A.4</a>.  <a href="#name-uc4-declaring-immutable-sys" class="internal xref">UC4 - Declaring immutable system configuration from the perspective of a logical network element (LNE)</a></p>
+                <p id="section-toc.1-1.13.2.4.1"><a href="#appendix-A.4" class="auto internal xref">A.4</a>.  <a href="#name-uc4-declaring-immutable-sys" class="internal xref">UC4: Declaring Immutable System Configuration from the Perspective of a Logical Network Element (LNE)</a></p>
 </li>
             </ul>
 </li>
@@ -1347,7 +1348,7 @@ svg {
 <p id="section-1-2">YANG <span>[<a href="#RFC7950" class="cite xref">RFC7950</a>]</span> is a data modeling language used to model both state
    and configuration data, based on the "config" statement.  However,
    there exists some system configuration data that cannot be modified
-   by the client (it is immutable), but still needs to be declared as
+   by clients (that is, it is immutable), but still needs to be declared as
    "config true" to:<a href="#section-1-2" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-1-3.1">
@@ -1363,34 +1364,32 @@ svg {
    modified or deleted.<a href="#section-1-3.3.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<p id="section-1-4">If the server always rejects a client's attempt to override some
+<p id="section-1-4">If a server always rejects a client's attempt to override some
    system-provided data because it internally thinks the data is immutable, it should document
    it towards the clients in a machine-readable way rather than writing as
    plain text in the "description" statement.<a href="#section-1-4" class="pilcrow">¶</a></p>
-<p id="section-1-5">This document defines a way to formally document the existing behavior,
+<p id="section-1-5">This document defines an approach to formally document an existing behavior,
    implemented by servers in production, on the immutability of some
-   system-provided nodes, using a YANG metadata annotation <span>[<a href="#RFC7952" class="cite xref">RFC7952</a>]</span>
+   system-provided data, using a YANG metadata annotation <span>[<a href="#RFC7952" class="cite xref">RFC7952</a>]</span>
    called "immutable" to flag which nodes are immutable. This document does not
    regulate server behaviors. That said, it is expected that a server will return
    an error with an error-tag containing "invalid-value" if a client attempts to
    modify an immutable node.<a href="#section-1-5" class="pilcrow">¶</a></p>
-<p id="section-1-6">The following is a list of already implemented and potential use
-   cases:<a href="#section-1-6" class="pilcrow">¶</a></p>
+<p id="section-1-6">A non-exhaustive list of already implemented and potential use cases is provided below:<a href="#section-1-6" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-1-7.1">
-          <p id="section-1-7.1.1">UC1  Modeling of server capabilities<a href="#section-1-7.1.1" class="pilcrow">¶</a></p>
+          <p id="section-1-7.1.1">UC1: Modeling of server capabilities (<a href="#sec-uc1" class="auto internal xref">Appendix A.1</a>)<a href="#section-1-7.1.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-1-7.2">
-          <p id="section-1-7.2.1">UC2  Hardware based auto-configuration<a href="#section-1-7.2.1" class="pilcrow">¶</a></p>
+          <p id="section-1-7.2.1">UC2: Hardware based auto-configuration (<a href="#sec-uc2" class="auto internal xref">Appendix A.2</a>)<a href="#section-1-7.2.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-1-7.3">
-          <p id="section-1-7.3.1">UC3  Predefined administrator roles<a href="#section-1-7.3.1" class="pilcrow">¶</a></p>
+          <p id="section-1-7.3.1">UC3: Predefined administrator roles (<a href="#sec-uc3" class="auto internal xref">Appendix A.3</a>)<a href="#section-1-7.3.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-1-7.4">
-          <p id="section-1-7.4.1">UC4  Declaring immutable system configuration from the perspective of a logical network element (LNE)<a href="#section-1-7.4.1" class="pilcrow">¶</a></p>
+          <p id="section-1-7.4.1">UC4: Declaring immutable system configuration from the perspective of a Logical Network Element (LNE) (<a href="#sec-uc4" class="auto internal xref">Appendix A.4</a>)<a href="#section-1-7.4.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<p id="section-1-8"><a href="#use-cases" class="auto internal xref">Appendix A</a> describes the use cases in detail.<a href="#section-1-8" class="pilcrow">¶</a></p>
 <div id="updates-to-rfc-8040">
 <section id="section-1.1">
         <h3 id="name-updates-to-rfc-8040">
@@ -1425,7 +1424,10 @@ svg {
             <p id="section-1.3-4.1.1">XXXX --&gt; the assigned RFC number for this draft<a href="#section-1.3-4.1.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-1.3-4.2">
-            <p id="section-1.3-4.2.1">2026-05-26 --&gt; the actual date of the publication of this document<a href="#section-1.3-4.2.1" class="pilcrow">¶</a></p>
+            <p id="section-1.3-4.2.1">YYYY --&gt; RFC number assigned to <span>[<a href="#I-D.ietf-netmod-system-config" class="cite xref">I-D.ietf-netmod-system-config</a>]</span><a href="#section-1.3-4.2.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-1.3-4.3">
+            <p id="section-1.3-4.3.1">2026-05-26 --&gt; the actual date of the publication of this document<a href="#section-1.3-4.3.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
@@ -1441,13 +1443,13 @@ svg {
 "<span class="bcp14">MAY</span>", and "<span class="bcp14">OPTIONAL</span>" in this document are to be interpreted as
 described in BCP 14 <span>[<a href="#RFC2119" class="cite xref">RFC2119</a>]</span> <span>[<a href="#RFC8174" class="cite xref">RFC8174</a>]</span> when, and only when, they
 appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶</a></p>
-<p id="section-2-2">The document uses the following definition in <span>[<a href="#RFC6241" class="cite xref">RFC6241</a>]</span>:<a href="#section-2-2" class="pilcrow">¶</a></p>
+<p id="section-2-2">The document uses the following term defined in <span>[<a href="#RFC6241" class="cite xref">RFC6241</a>]</span>:<a href="#section-2-2" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-2-3.1">
           <p id="section-2-3.1.1">configuration data<a href="#section-2-3.1.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<p id="section-2-4">The document uses the following definition in <span>[<a href="#RFC7950" class="cite xref">RFC7950</a>]</span>:<a href="#section-2-4" class="pilcrow">¶</a></p>
+<p id="section-2-4">The document uses the following terms defined  in <span>[<a href="#RFC7950" class="cite xref">RFC7950</a>]</span>:<a href="#section-2-4" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-2-5.1">
           <p id="section-2-5.1.1">data node<a href="#section-2-5.1.1" class="pilcrow">¶</a></p>
@@ -1477,13 +1479,13 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
           <p id="section-2-5.9.1">data tree<a href="#section-2-5.9.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<p id="section-2-6">The document uses the following definition in <span>[<a href="#RFC8341" class="cite xref">RFC8341</a>]</span>:<a href="#section-2-6" class="pilcrow">¶</a></p>
+<p id="section-2-6">The document uses the following term defined  in <span>[<a href="#RFC8341" class="cite xref">RFC8341</a>]</span>:<a href="#section-2-6" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-2-7.1">
           <p id="section-2-7.1.1">access operation<a href="#section-2-7.1.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<p id="section-2-8">The document uses the following definition in <span>[<a href="#I-D.ietf-netmod-system-config" class="cite xref">I-D.ietf-netmod-system-config</a>]</span>:<a href="#section-2-8" class="pilcrow">¶</a></p>
+<p id="section-2-8">The document uses the following term defined  in <span>[<a href="#I-D.ietf-netmod-system-config" class="cite xref">I-D.ietf-netmod-system-config</a>]</span>:<a href="#section-2-8" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-2-9.1">
           <p id="section-2-9.1.1">system configuration<a href="#section-2-9.1.1" class="pilcrow">¶</a></p>
@@ -1493,7 +1495,7 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
 <span class="break"></span><dl class="dlParallel" id="section-2-11">
         <dt id="section-2-11.1">immutable flag:</dt>
         <dd style="margin-left: 1.5em" id="section-2-11.2">
-          <p id="section-2-11.2.1">A read-only state value the server provides to describe
+          <p id="section-2-11.2.1">A read-only state value that the server provides to describe
    immutability of the configuration, which is conveyed via a YANG metadata annotation
    called "immutable" with a boolean value.<a href="#section-2-11.2.1" class="pilcrow">¶</a></p>
 </dd>
@@ -1509,8 +1511,8 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
 <p id="section-3-1">While the immutable flag applies to all configuration nodes, its value <span class="bcp14">MUST NOT</span> be set to true for configuration data that is not system configuration.<a href="#section-3-1" class="pilcrow">¶</a></p>
 <p id="section-3-2">The immutable flag is only visible in read-only datastores (i.e., &lt;system&gt;
    <span>[<a href="#I-D.ietf-netmod-system-config" class="cite xref">I-D.ietf-netmod-system-config</a>]</span>, &lt;intended&gt;, and &lt;operational&gt;)
-   when a "with-immutability" parameter is carried (<a href="#with-immutability" class="auto internal xref">Section 4.2</a>),
-   however this only serves as descriptive information about the
+   when a "with-immutability" parameter is carried (<a href="#with-immutability" class="auto internal xref">Section 4.2</a>).
+   However, this only serves as descriptive information about the
    instance node itself, but has no effect on the handling of the read-only
    datastore. If the immutable flag is requested to be returned for an invalid
    datastore, then the server <span class="bcp14">MUST</span> return an error response with the error-tag value
@@ -1582,9 +1584,9 @@ module: ietf-immutable-annotation
 <a href="#name-augmentations-to-netconf-op" class="selfRef">Augmentations to NETCONF Operations</a>
             </figcaption></figure>
 </div>
-<p id="section-4.2.1-4">To discover if the "with-immutability" parameter is supported by the server,
-a NETCONF client can query if the server implements "ietf-immutable-annotation" module by reading the YANG library information from the operational state datastore, as per <span>[<a href="#RFC8526" class="cite xref">RFC8526</a>]</span>.<a href="#section-4.2.1-4" class="pilcrow">¶</a></p>
-<p id="section-4.2.1-5">Refer to <a href="#NETCONF-example" class="auto internal xref">Appendix B.1</a> for an example of NETCONF operation with "with-immutability" input parameter.<a href="#section-4.2.1-5" class="pilcrow">¶</a></p>
+<p id="section-4.2.1-4">To discover if the "with-immutability" parameter is supported by a server,
+a NETCONF client can query if the server implements "ietf-immutable-annotation" module <a href="#module" class="auto internal xref">Section 9</a> by reading the YANG library information from the operational state datastore, as per <span>[<a href="#RFC8526" class="cite xref">RFC8526</a>]</span>.<a href="#section-4.2.1-4" class="pilcrow">¶</a></p>
+<p id="section-4.2.1-5">Refer to <a href="#NETCONF-example" class="auto internal xref">Appendix B.1</a> for an example of a NETCONF operation with "with-immutability" input parameter.<a href="#section-4.2.1-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="RESTCONF-ext">
@@ -1599,13 +1601,13 @@ a NETCONF client can query if the server implements "ietf-immutable-annotation" 
    If it has any unexpected value, then a "400 Bad Request" status-line is returned.
    RESTCONF protocol operations for the datastore resources are defined in <span>[<a href="#RFC8527" class="cite xref">RFC8527</a>]</span>.<a href="#section-4.2.2-1" class="pilcrow">¶</a></p>
 <p id="section-4.2.2-2">To enable a RESTCONF client to discover if the "with-immutability" query parameter
-   is supported by the server, the following capability URI is defined:<a href="#section-4.2.2-2" class="pilcrow">¶</a></p>
+   is supported by a server, the following capability URI is defined:<a href="#section-4.2.2-2" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-4.2.2-3">
 <pre>
     urn:ietf:params:restconf:capability:with-immutability:1.0
 </pre><a href="#section-4.2.2-3" class="pilcrow">¶</a>
 </div>
-<p id="section-4.2.2-4">Refer to <a href="#RESTCONF-example" class="auto internal xref">Appendix B.2</a> for an example of RESTCONF operation with "with-immutability" query parameter.<a href="#section-4.2.2-4" class="pilcrow">¶</a></p>
+<p id="section-4.2.2-4">Refer to <a href="#RESTCONF-example" class="auto internal xref">Appendix B.2</a> for an example of a RESTCONF operation with "with-immutability" query parameter.<a href="#section-4.2.2-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1618,7 +1620,7 @@ a NETCONF client can query if the server implements "ietf-immutable-annotation" 
 <a href="#section-5" class="section-number selfRef">5. </a><a href="#name-use-of-immutable-flag-for-d" class="section-name selfRef">Use of Immutable Flag for Different Statements</a>
       </h2>
 <p id="section-5-1">This section defines what the immutable flag means to the client for
-   each instance of YANG data node statement.<a href="#section-5-1" class="pilcrow">¶</a></p>
+   each instance of YANG data node statements.<a href="#section-5-1" class="pilcrow">¶</a></p>
 <div id="the-leaf-statement">
 <section id="section-5.1">
         <h3 id="name-the-leaf-statement">
@@ -1639,7 +1641,7 @@ a NETCONF client can query if the server implements "ietf-immutable-annotation" 
   different value in read-write configuration datastore (e.g., &lt;running&gt;) or
   removed from &lt;intended&gt; (if implemented). Though it can be created/deleted
   in read-write configuration datastores (see Sections <a href="#immutable-def" class="auto internal xref">4.1</a> and <a href="#system-interact" class="auto internal xref">7</a>).<a href="#section-5.2-1" class="pilcrow">¶</a></p>
-<p id="section-5.2-2">The immutable annotation attached to the individual leaf-list entry
+<p id="section-5.2-2">The immutable annotation attached to an individual leaf-list entry
    provides immutability with respect to the entry itself. As per the restrictions in <span>[<a href="#RFC7952" class="cite xref">RFC7952</a>]</span>,
    annotations cannot be attached to an entire leaf-list instance and only
    to individual leaf-list entries, which implies a leaf-list as a whole
@@ -1657,7 +1659,7 @@ a NETCONF client can query if the server implements "ietf-immutable-annotation" 
 <p id="section-5.3-1">When a container node instance is immutable, it cannot be removed from &lt;intended&gt; (if implemented).
    Though it can be created/deleted in read-write configuration datastores
    (see Sections <a href="#immutable-def" class="auto internal xref">4.1</a> and <a href="#system-interact" class="auto internal xref">7</a>).<a href="#section-5.3-1" class="pilcrow">¶</a></p>
-<p id="section-5.3-2">Descendant nodes of the container recursively inherit the immutability of the container, unless
+<p id="section-5.3-2">Descendant nodes of a container recursively inherit the immutability of the container, unless
    the immutability is overridden by an "immutable" annotation on a descendant node (<a href="#interior" class="auto internal xref">Section 6</a>).<a href="#section-5.3-2" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -1669,9 +1671,9 @@ a NETCONF client can query if the server implements "ietf-immutable-annotation" 
 <p id="section-5.4-1">When a list entry is immutable, it cannot be removed from &lt;intended&gt; (if implemented).
   Though it can be created/deleted in read-write configuration datastores
   (see Sections <a href="#immutable-def" class="auto internal xref">4.1</a> and <a href="#system-interact" class="auto internal xref">7</a>).<a href="#section-5.4-1" class="pilcrow">¶</a></p>
-<p id="section-5.4-2">Descendant nodes of the list entry recursively inherit the immutability of the list entry, unless
+<p id="section-5.4-2">Descendant nodes of a list entry recursively inherit the immutability of the list entry, unless
   the immutability is overridden by an "immutable" annotation on a descendant node (<a href="#interior" class="auto internal xref">Section 6</a>).<a href="#section-5.4-2" class="pilcrow">¶</a></p>
-<p id="section-5.4-3">The immutable annotation attached to the individual list entry provides
+<p id="section-5.4-3">The immutable annotation attached to an individual list entry provides
    immutability with respect to the entry itself. As per the restrictions in <span>[<a href="#RFC7952" class="cite xref">RFC7952</a>]</span>,
    annotations cannot be attached to an entire list instance and only
    to individual list entries, which implies a list as a whole
@@ -1782,7 +1784,7 @@ module ietf-immutable-annotation {
     prefix ncds;
     reference
       "RFC 8526: NETCONF Extensions to Support the Network
-       Management Datastore Architecture";
+                 Management Datastore Architecture";
   }
   import ietf-system-datastore {
     prefix sysds;
@@ -1800,7 +1802,7 @@ module ietf-immutable-annotation {
     "IETF Network Modeling (NETMOD) Working Group";
   contact
     "WG Web: &lt;https://datatracker.ietf.org/wg/netmod/&gt;
-     WG List: &lt;mailto:netmod@ietf.org&gt;
+     WG List: NETMOD &lt;mailto:netmod@ietf.org&gt;
      Author: Qiufang Ma
              &lt;mailto:maqiufang1@huawei.com&gt;
      Author: Qin Wu
@@ -1827,14 +1829,16 @@ module ietf-immutable-annotation {
      Legal Provisions Relating to IETF Documents
      (https://trustee.ietf.org/license-info).
 
-     This version of this YANG module is part of RFC XXXX
-     (https://www.rfc-editor.org/info/rfcXXXX); see the RFC
-     itself for full legal notices.";
+     All revisions of IETF and IANA published modules can be found
+     at the YANG Parameters registry group
+     (https://www.iana.org/assignments/yang-parameters).
+
+     This version of this YANG module is part of RFC XXXX; see
+     the RFC itself for full legal notices.";
 
   revision 2026-05-26 {
     description
       "Initial revision.";
-    // RFC Ed.: replace XXXX and remove this comment
     reference
       "RFC XXXX: YANG Metadata Annotation for Immutable Flag";
   }
@@ -1880,7 +1884,7 @@ module ietf-immutable-annotation {
       <h2 id="name-security-considerations">
 <a href="#section-10" class="section-number selfRef">10. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
       </h2>
-<p id="section-10-1">This section is modeled after the template described in <span><a href="https://rfc-editor.org/rfc/rfc9907#section-3.7" class="relref">Section 3.7</a> of [<a href="#RFC9907" class="cite xref">RFC9907</a>]</span>.<a href="#section-10-1" class="pilcrow">¶</a></p>
+<p id="section-10-1">This section is modeled after the template described in <span><a href="https://rfc-editor.org/rfc/rfc9907#section-3.7.1" class="relref">Section 3.7.1</a> of [<a href="#RFC9907" class="cite xref">RFC9907</a>]</span>.<a href="#section-10-1" class="pilcrow">¶</a></p>
 <p id="section-10-2">The "ietf-immutable-annotation" YANG module defines a data model that is
    designed to be accessed via YANG-based management protocols, such as the Network Configuration Protocol (NETCONF) <span>[<a href="#RFC6241" class="cite xref">RFC6241</a>]</span> and RESTCONF <span>[<a href="#RFC8040" class="cite xref">RFC8040</a>]</span>. These YANG-based management protocols (1) have to
    use a secure transport layer (e.g., Secure Shell (SSH) <span>[<a href="#RFC4252" class="cite xref">RFC4252</a>]</span>, TLS <span>[<a href="#I-D.ietf-tls-rfc8446bis" class="cite xref">I-D.ietf-tls-rfc8446bis</a>]</span>, and QUIC <span>[<a href="#RFC9000" class="cite xref">RFC9000</a>]</span>) and (2) have to use mutual authentication.<a href="#section-10-2" class="pilcrow">¶</a></p>
@@ -1911,13 +1915,13 @@ module ietf-immutable-annotation {
         <h3 id="name-the-ietf-xml-registry">
 <a href="#section-11.1" class="section-number selfRef">11.1. </a><a href="#name-the-ietf-xml-registry" class="section-name selfRef">The "IETF XML" Registry</a>
         </h3>
-<p id="section-11.1-1">This document registers one XML namespace URN in the 'IETF XML registry',
-   following the format defined in <span>[<a href="#RFC3688" class="cite xref">RFC3688</a>]</span>.<a href="#section-11.1-1" class="pilcrow">¶</a></p>
+<p id="section-11.1-1">IANA is requested to register the following URI in the "ns"
+registry within the "IETF XML Registry" group <span>[<a href="#RFC3688" class="cite xref">RFC3688</a>]</span>:<a href="#section-11.1-1" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-11.1-2">
 <pre>
 URI: urn:ietf:params:xml:ns:yang:ietf-immutable-annotation
 Registrant Contact: The IESG.
-XML: N/A, the requested URIs are XML namespaces.
+XML: N/A; the requested URIs are XML namespaces.
 </pre><a href="#section-11.1-2" class="pilcrow">¶</a>
 </div>
 </section>
@@ -1927,13 +1931,15 @@ XML: N/A, the requested URIs are XML namespaces.
         <h3 id="name-the-yang-module-names-regis">
 <a href="#section-11.2" class="section-number selfRef">11.2. </a><a href="#name-the-yang-module-names-regis" class="section-name selfRef">The "YANG Module Names" Registry</a>
         </h3>
-<p id="section-11.2-1">This document registers one module name in the 'YANG Module Names'
-registry, defined in <span>[<a href="#RFC6020" class="cite xref">RFC6020</a>]</span>.<a href="#section-11.2-1" class="pilcrow">¶</a></p>
+<p id="section-11.2-1">IANA is requested to register the following YANG module in the "YANG
+Module Names" registry <span>[<a href="#RFC6020" class="cite xref">RFC6020</a>]</span> within the "YANG Parameters"
+registry group.<a href="#section-11.2-1" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-11.2-2">
 <pre>
 name: ietf-immutable-annotation
-prefix: imma
+Maintained by IANA?  N
 namespace: urn:ietf:params:xml:ns:yang:ietf-immutable-annotation
+prefix: imma
 RFC: XXXX
 </pre><a href="#section-11.2-2" class="pilcrow">¶</a>
 </div>
@@ -1944,18 +1950,20 @@ RFC: XXXX
         <h3 id="name-restconf-capability-urn-reg">
 <a href="#section-11.3" class="section-number selfRef">11.3. </a><a href="#name-restconf-capability-urn-reg" class="section-name selfRef">RESTCONF Capability URN Registry</a>
         </h3>
-<p id="section-11.3-1">This document defines the following capability identifier URNs in the
+<p id="section-11.3-1">IANA is requested to register the following capability identifier URNs in the
 "RESTCONF Capability URNs" registry defined in <span>[<a href="#RFC8040" class="cite xref">RFC8040</a>]</span>:<a href="#section-11.3-1" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-11.3-2">
-<pre>
-Index
-Capability Identifier
----------------------
-
-:with-immutability
-urn:ietf:params:restconf:capability:with-immutability:1.0
-</pre><a href="#section-11.3-2" class="pilcrow">¶</a>
-</div>
+<span class="break"></span><dl class="dlParallel" id="section-11.3-2">
+          <dt id="section-11.3-2.1">Index:</dt>
+          <dd style="margin-left: 1.5em" id="section-11.3-2.2">
+            <p id="section-11.3-2.2.1">:with-immutability<a href="#section-11.3-2.2.1" class="pilcrow">¶</a></p>
+</dd>
+          <dd class="break"></dd>
+<dt id="section-11.3-2.3">Capability Identifier:</dt>
+          <dd style="margin-left: 1.5em" id="section-11.3-2.4">
+            <p id="section-11.3-2.4.1">urn:ietf:params:restconf:capability:with-immutability:1.0<a href="#section-11.3-2.4.1" class="pilcrow">¶</a></p>
+</dd>
+        <dd class="break"></dd>
+</dl>
 </section>
 </div>
 </section>
@@ -2079,21 +2087,21 @@ urn:ietf:params:restconf:capability:with-immutability:1.0
 </div>
 <div id="use-cases">
 <section id="appendix-A">
-      <h2 id="name-detailed-use-cases">
-<a href="#appendix-A" class="section-number selfRef">Appendix A. </a><a href="#name-detailed-use-cases" class="section-name selfRef">Detailed Use Cases</a>
+      <h2 id="name-sample-use-cases">
+<a href="#appendix-A" class="section-number selfRef">Appendix A. </a><a href="#name-sample-use-cases" class="section-name selfRef">Sample Use Cases</a>
       </h2>
-<div id="uc1-modeling-of-server-capabilities">
+<div id="sec-uc1">
 <section id="appendix-A.1">
         <h3 id="name-uc1-modeling-of-server-capa">
-<a href="#appendix-A.1" class="section-number selfRef">A.1. </a><a href="#name-uc1-modeling-of-server-capa" class="section-name selfRef">UC1 - Modeling of server capabilities</a>
+<a href="#appendix-A.1" class="section-number selfRef">A.1. </a><a href="#name-uc1-modeling-of-server-capa" class="section-name selfRef">UC1: Modeling of Server Capabilities</a>
         </h3>
 <p id="appendix-A.1-1">System capabilities might be represented as immutable configuration.
-   Configurable data nodes might need constraints specified as
-   "when", "must" or "path" statements to ensure that configuration is set
+   Configurable data nodes might need constraints specified using
+   "when", "must", or "path" statements to ensure that configuration is set
    according to the system's capabilities. For example,<a href="#appendix-A.1-1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="appendix-A.1-2.1">
-            <p id="appendix-A.1-2.1.1">A timer can support the values 1,5,8 seconds. This is defined in the
+            <p id="appendix-A.1-2.1.1">A timer can support the values 1, 5, and 8 seconds. This is defined in the
    leaf-list 'supported-timer-values'.<a href="#appendix-A.1-2.1.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="appendix-A.1-2.2">
@@ -2106,29 +2114,29 @@ urn:ietf:params:restconf:capability:with-immutability:1.0
    read-only thus "config false" while 'interface-timer' must be writable
    thus "config true".  According to the rules of YANG it is not allowed
    to put a constraint between "config true" and "config false" data nodes.<a href="#appendix-A.1-3" class="pilcrow">¶</a></p>
-<p id="appendix-A.1-4">The solution is that the supported-timer-values data node in the YANG
+<p id="appendix-A.1-4">A solution is that the 'supported-timer-values' data node in the YANG
    Model shall be defined as "config true" and shall also be marked with
    the "immutable" annotation making it unchangeable. After this the
    'interface-timer' shall be defined as a leaf-ref pointing at the
    'supported-timer-values'.<a href="#appendix-A.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="uc2-hardware-based-auto-configuration-interface-example">
+<div id="sec-uc2">
 <section id="appendix-A.2">
         <h3 id="name-uc2-hardware-based-auto-con">
-<a href="#appendix-A.2" class="section-number selfRef">A.2. </a><a href="#name-uc2-hardware-based-auto-con" class="section-name selfRef">UC2 - Hardware based auto-configuration - Interface Example</a>
+<a href="#appendix-A.2" class="section-number selfRef">A.2. </a><a href="#name-uc2-hardware-based-auto-con" class="section-name selfRef">UC2: Hardware-based Auto-configuration - Interface Example</a>
         </h3>
 <p id="appendix-A.2-1"><span>[<a href="#RFC8343" class="cite xref">RFC8343</a>]</span> defines a YANG data model for the management of network
    interfaces.  When a system-controlled interface is physically present,
    the system creates an interface entry with valid name and type
    values in &lt;system&gt; (if exists, see <span>[<a href="#I-D.ietf-netmod-system-config" class="cite xref">I-D.ietf-netmod-system-config</a>]</span>).<a href="#appendix-A.2-1" class="pilcrow">¶</a></p>
 <p id="appendix-A.2-2">The system-generated type value is dependent on and represents the hardware
-   present, and as a consequence cannot be changed by the client.  If a
+   present, and as a consequence cannot be changed by clients.  If a
    client tries to set the type of an interface to a value that can
    never be used by the system, the request will be rejected by the
    server.  The data is modeled as "config true" and thus should be annotated
    as immutable.<a href="#appendix-A.2-2" class="pilcrow">¶</a></p>
-<p id="appendix-A.2-3">Seemingly an alternative would be to model the list and these leafs
+<p id="appendix-A.2-3">An alternative would be to model the list and these leafs
    as "config false", but that does not work because:<a href="#appendix-A.2-3" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="appendix-A.2-4.1">
@@ -2140,17 +2148,17 @@ urn:ietf:params:restconf:capability:with-immutability:1.0
   itself is "config true";<a href="#appendix-A.2-4.2.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="appendix-A.2-4.3">
-            <p id="appendix-A.2-4.3.1">The type cannot be marked "config false", because we <span class="bcp14">MAY</span> need to
+            <p id="appendix-A.2-4.3.1">The type cannot be marked "config false", because we may need to
   reference the type to make different configuration nodes
   conditionally available.<a href="#appendix-A.2-4.3.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
 </div>
-<div id="uc3-predefined-administrator-roles">
+<div id="sec-uc3">
 <section id="appendix-A.3">
         <h3 id="name-uc3-predefined-administrato">
-<a href="#appendix-A.3" class="section-number selfRef">A.3. </a><a href="#name-uc3-predefined-administrato" class="section-name selfRef">UC3 - Predefined Administrator Roles</a>
+<a href="#appendix-A.3" class="section-number selfRef">A.3. </a><a href="#name-uc3-predefined-administrato" class="section-name selfRef">UC3: Predefined Administrator Roles</a>
         </h3>
 <p id="appendix-A.3-1">User and group management is fundamental for setting up access
    control rules (see <span><a href="https://rfc-editor.org/rfc/rfc8341#section-2.5" class="relref">Section 2.5</a> of [<a href="#RFC8341" class="cite xref">RFC8341</a>]</span>).<a href="#appendix-A.3-1" class="pilcrow">¶</a></p>
@@ -2161,12 +2169,12 @@ urn:ietf:params:restconf:capability:with-immutability:1.0
    but the predefined administrator account and its granted access are immutable.<a href="#appendix-A.3-2" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="uc4-declaring-immutable-system-configuration-from-the-perspective-of-a-logical-network-element-lne">
+<div id="sec-uc4">
 <section id="appendix-A.4">
         <h3 id="name-uc4-declaring-immutable-sys">
-<a href="#appendix-A.4" class="section-number selfRef">A.4. </a><a href="#name-uc4-declaring-immutable-sys" class="section-name selfRef">UC4 - Declaring immutable system configuration from the perspective of a logical network element (LNE)</a>
+<a href="#appendix-A.4" class="section-number selfRef">A.4. </a><a href="#name-uc4-declaring-immutable-sys" class="section-name selfRef">UC4: Declaring Immutable System Configuration from the Perspective of a Logical Network Element (LNE)</a>
         </h3>
-<p id="appendix-A.4-1">A logical network element (LNE), as described in <span>[<a href="#RFC8530" class="cite xref">RFC8530</a>]</span>, is an independently managed virtual
+<p id="appendix-A.4-1">An LNE, as described in <span>[<a href="#RFC8530" class="cite xref">RFC8530</a>]</span>, is an independently managed virtual
    network device made up of resources allocated to it from its host or
    parent network device.  The host device may allocate some
    resources to an LNE, which from an LNE's perspective is provided by
@@ -2209,7 +2217,7 @@ module example-user-group {
   description
     "An example module for basic user and group management.";
 
-  revision "2026-03-31" {
+  revision "2026-05-26" {
     description
       "Initial version.";
     reference
@@ -2218,20 +2226,20 @@ module example-user-group {
 
   container user-groups {
     description
-      "A container for user and group management";
+      "A container for user and group management.";
     list group {
       key "name";
       description
-        "The list of access user-groups";
+        "Specifies the list of access user-groups.";
       leaf name {
         type string;
         description
-          "Unique name identifier for the user-group";
+          "Indicates a unique name identifier for the user-group.";
       }
       leaf description {
         type string;
         description
-          "Human-readable description of the group";
+          "Provides a human-readable description of the group.";
       }
       leaf access-level {
         type enumeration {
@@ -2241,33 +2249,33 @@ module example-user-group {
           enum guest;
         }
         description
-          "Permission level assigned to the group";
+          "Indicates permission level assigned to the group.";
       }
       list user {
         key "name";
         description
-          "List of users belonging to the group";
+          "A list of users that belong to a group.";
         leaf name {
           type string;
           description
-            "Unique name identifier for the user";
+            "Specifies a unique name identifier for the user.";
         }
         leaf password {
           type ianach:crypt-hash;
           description
-            "Cryptographically hashed user password";
+            "Records a cryptographically-hashed user password.";
         }
         leaf full-name {
           type string;
           description
-            "Human-readable full name of the user";
+            "Indicates a human-readable full name of the user.";
         }
       }
       leaf-list tag {
         type string;
         ordered-by user;
         description
-          "User-ordered tags for categorizing the user-group";
+          "Indicates user-ordered tags for categorizing the user-group.";
       }
     }
   }
@@ -2280,7 +2288,7 @@ module example-user-group {
 <a href="#appendix-B.1" class="section-number selfRef">B.1. </a><a href="#name-netconf-example-to-retrieve" class="section-name selfRef">NETCONF Example to Retrieve Immutable Configuration</a>
         </h3>
 <p id="appendix-B.1-1"><a href="#NETCONF-with-immutability" class="auto internal xref">Figure 2</a> illustrates a NETCONF request example to retrieve "user-groups"
-   configuration in &lt;system&gt; with "with-immutability" parameter and the response a server might return. For illustrative clarity, some annotations that could otherwise be omitted are shown explicitly in the response.<a href="#appendix-B.1-1" class="pilcrow">¶</a></p>
+   configuration in &lt;system&gt; with "with-immutability" parameter and the response that a server might return. For illustrative clarity, some annotations that could otherwise be omitted are shown explicitly in the response.<a href="#appendix-B.1-1" class="pilcrow">¶</a></p>
 <span id="name-a-netconf-example-to-retrie"></span><div id="NETCONF-with-immutability">
 <figure id="figure-2">
           <div class="alignLeft art-text artwork" id="appendix-B.1-2.1">
@@ -2491,7 +2499,7 @@ but there is no way to delete the nodes from &lt;intended&gt; if those entries a
         <h3 id="name-error-responses-to-clients-">
 <a href="#appendix-B.6" class="section-number selfRef">B.6. </a><a href="#name-error-responses-to-clients-" class="section-name selfRef">Error Responses to Clients Overriding Immutable Configuration</a>
         </h3>
-<p id="appendix-B.6-1">This section provides examples of client attempts to override immutable configuration and error responses that the server might return. Separate examples are provided for NETCONF and RESTCONF protocols, in <a href="#NETCONF-error" class="auto internal xref">Figure 4</a> and <a href="#RESTCONF-error" class="auto internal xref">Figure 5</a> respectively.<a href="#appendix-B.6-1" class="pilcrow">¶</a></p>
+<p id="appendix-B.6-1">This section provides examples of a client's attempts to override immutable configuration and error responses that the server might return. Separate examples are provided for NETCONF and RESTCONF protocols, in <a href="#NETCONF-error" class="auto internal xref">Figure 4</a> and <a href="#RESTCONF-error" class="auto internal xref">Figure 5</a> respectively.<a href="#appendix-B.6-1" class="pilcrow">¶</a></p>
 <span id="name-a-netconf-example-to-overri"></span><div id="NETCONF-error">
 <figure id="figure-4">
           <div class="alignLeft art-text artwork" id="appendix-B.6-2.1">
