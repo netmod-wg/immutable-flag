@@ -121,7 +121,7 @@ informative:
 
    This document defines an approach to formally document an existing behavior,
    implemented by servers in production, on the immutability of some
-   system-provided data nodes, using a YANG metadata annotation {{!RFC7952}}
+   system-provided data, using a YANG metadata annotation {{!RFC7952}}
    called "immutable" to flag which nodes are immutable. This document does not
    regulate server behaviors. That said, it is expected that a server will return
    an error with an error-tag containing "invalid-value" if a client attempts to
