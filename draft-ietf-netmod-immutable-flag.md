@@ -127,7 +127,7 @@ informative:
    an error with an error-tag containing "invalid-value" if a client attempts to
    modify an immutable node.
 
-   A list of already implemented and non-exhaustive list of potential use 
+   A non-exhaustive list of already implemented and potential use 
    cases is provided below:
 
    * UC1: Modeling of server capabilities ({{sec-uc1}})
