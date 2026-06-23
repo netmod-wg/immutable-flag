@@ -127,8 +127,7 @@ informative:
    an error with an error-tag containing "invalid-value" if a client attempts to
    modify an immutable node.
 
-   A non-exhaustive list of already implemented and potential use 
-   cases is provided below:
+   A non-exhaustive list of already implemented and potential use cases is provided below:
 
    * UC1: Modeling of server capabilities ({{sec-uc1}})
    * UC2: Hardware based auto-configuration ({{sec-uc2}})
@@ -334,7 +333,7 @@ Refer to {{RESTCONF-example}} for an example of a RESTCONF operation with "with-
   Descendant nodes of a list entry recursively inherit the immutability of the list entry, unless
   the immutability is overridden by an "immutable" annotation on a descendant node ({{interior}}).
 
-   The immutable annotation attached to the individual list entry provides
+   The immutable annotation attached to an individual list entry provides
    immutability with respect to the entry itself. As per the restrictions in {{!RFC7952}},
    annotations cannot be attached to an entire list instance and only
    to individual list entries, which implies a list as a whole
