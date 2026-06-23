@@ -587,9 +587,9 @@ Table of Contents
           annotations in its response to get-data operation.";
        leaf with-immutability {
          when
-           "derived-from-or-self(../ncds:datastore,'sysds:system') "
-         + "or derived-from-or-self(../ncds:datastore,'ds:intended') "
-         + "or derived-from-or-self(../ncds:datastore,'ds:operational')";
+          "derived-from-or-self(../ncds:datastore,'sysds:system') "
+        + "or derived-from-or-self(../ncds:datastore,'ds:intended') "
+        + "or derived-from-or-self(../ncds:datastore,'ds:operational')";
          type empty;
          description
            "If this parameter is present, the server returns the
@@ -907,87 +907,88 @@ Appendix B.  Examples of Server's Immutable Behavior
 
    The following fictional module is used throughout this section:
 
-module example-user-group {
-  yang-version 1.1;
-  namespace "urn:example:user-group";
-  prefix ex-urp;
+   module example-user-group {
+     yang-version 1.1;
+     namespace "urn:example:user-group";
+     prefix ex-urp;
 
-  import iana-crypt-hash {
-    prefix ianach;
-  }
+     import iana-crypt-hash {
+       prefix ianach;
+     }
 
-  organization
-    "Example, Inc.";
+     organization
+       "Example, Inc.";
 
-  contact
-    "Support at example.com";
+     contact
+       "Support at example.com";
 
-  description
-    "An example module for basic user and group management.";
+     description
+       "An example module for basic user and group management.";
 
-  revision "2026-05-26" {
-    description
-      "Initial version.";
-    reference
-      "RFC XXXX: YANG Metadata Annotation for Immutable Flag";
-  }
+     revision "2026-05-26" {
+       description
+         "Initial version.";
+       reference
+         "RFC XXXX: YANG Metadata Annotation for Immutable Flag";
+     }
 
-  container user-groups {
-    description
-      "A container for user and group management.";
-    list group {
-      key "name";
-      description
-        "Specifies the list of access user-groups.";
-      leaf name {
-        type string;
-        description
-          "Indicates a unique name identifier for the user-group.";
-      }
-      leaf description {
-        type string;
-        description
-          "Provides a human-readable description of the group.";
-      }
-      leaf access-level {
-        type enumeration {
-          enum admin;
-          enum power;
-          enum normal;
-          enum guest;
-        }
-        description
-          "Indicates permission level assigned to the group.";
-      }
-      list user {
-        key "name";
-        description
-          "A list of users that belong to a group.";
-        leaf name {
-          type string;
-          description
-            "Specifies a unique name identifier for the user.";
-        }
-        leaf password {
-          type ianach:crypt-hash;
-          description
-            "Records a cryptographically-hashed user password.";
-        }
-        leaf full-name {
-          type string;
-          description
-            "Indicates a human-readable full name of the user.";
-        }
-      }
-      leaf-list tag {
-        type string;
-        ordered-by user;
-        description
-          "Indicates user-ordered tags for categorizing the user-group.";
-      }
-    }
-  }
-}
+     container user-groups {
+       description
+         "A container for user and group management.";
+       list group {
+         key "name";
+         description
+           "Specifies the list of access user-groups.";
+         leaf name {
+           type string;
+           description
+             "Indicates a unique name identifier for the user-group.";
+         }
+         leaf description {
+           type string;
+           description
+             "Provides a human-readable description of the group.";
+         }
+         leaf access-level {
+           type enumeration {
+             enum admin;
+             enum power;
+             enum normal;
+             enum guest;
+           }
+           description
+             "Indicates permission level assigned to the group.";
+         }
+         list user {
+           key "name";
+           description
+             "A list of users that belong to a group.";
+           leaf name {
+             type string;
+             description
+               "Specifies a unique name identifier for the user.";
+           }
+           leaf password {
+             type ianach:crypt-hash;
+             description
+               "Records a cryptographically-hashed user password.";
+           }
+           leaf full-name {
+             type string;
+             description
+               "Indicates a human-readable full name of the user.";
+           }
+         }
+         leaf-list tag {
+           type string;
+           ordered-by user;
+           description
+             "Indicates user-ordered tags for categorizing the
+              user-group.";
+         }
+       }
+     }
+   }
 
 B.1.  NETCONF Example to Retrieve Immutable Configuration
 

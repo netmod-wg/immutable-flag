@@ -1865,9 +1865,9 @@ module ietf-immutable-annotation {
        annotations in its response to get-data operation.";
     leaf with-immutability {
       when
-        "derived-from-or-self(../ncds:datastore,'sysds:system') "
-      + "or derived-from-or-self(../ncds:datastore,'ds:intended') "
-      + "or derived-from-or-self(../ncds:datastore,'ds:operational')";
+       "derived-from-or-self(../ncds:datastore,'sysds:system') "
+     + "or derived-from-or-self(../ncds:datastore,'ds:intended') "
+     + "or derived-from-or-self(../ncds:datastore,'ds:operational')";
       type empty;
       description
         "If this parameter is present, the server returns the
@@ -2287,7 +2287,8 @@ module example-user-group {
         type string;
         ordered-by user;
         description
-          "Indicates user-ordered tags for categorizing the user-group.";
+          "Indicates user-ordered tags for categorizing the
+           user-group.";
       }
     }
   }
