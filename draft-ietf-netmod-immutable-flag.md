@@ -72,7 +72,7 @@ informative:
      target: https://www.3gpp.org/ftp/Specs/archive/32_series/32.156/32156-h10.zip
      date: false
 
-   RFC8792:
+  RFC8792:
 
 --- abstract
 
