@@ -53,7 +53,7 @@ module example-user-group {
       list user {
         key "name";
         description
-          "Lists users that belong to a group.";
+          "A list of users that belong to a group.";
         leaf name {
           type string;
           description
