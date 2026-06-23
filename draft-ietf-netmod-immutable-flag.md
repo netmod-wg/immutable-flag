@@ -53,8 +53,8 @@ informative:
      author:
        -
         organization: "ONF"
-     target: https://wiki.opennetworking.org/download/attachments/376340494/Draft_TR-531_UML-YANG_Mapping_Gdls_v1.1.03.docx?version=5&modificationDate=1675432243513&api=v2
-     date: February 2023
+     target: https://opennetworking.org/wp-content/uploads/2018/08/TR-531_UML-YANG_Mapping_Gdls_v1.1-1-1.pdfhttps://opennetworking.org/wp-content/uploads/2018/08/TR-531_UML-YANG_Mapping_Gdls_v1.1-1-1.pdf
+     date: July 2018
 
   TS28.623:
      title: "Telecommunication management; Generic Network Resource Model (NRM) Integration Reference Point (IRP); Solution Set (SS) definitions"
@@ -71,6 +71,8 @@ informative:
         organization: "3GPP"
      target: https://www.3gpp.org/ftp/Specs/archive/32_series/32.156/32156-h10.zip
      date: false
+
+   RFC8792:
 
 --- abstract
 
@@ -94,10 +96,7 @@ informative:
 
    This document defines a YANG metadata annotation {{!RFC7952}} to formally document
    an existing model handling behavior that has been used by
-   multiple standard organizations and vendors.  It is the aim to create
-   one single standard solution for documenting non-modifiable system
-   data declared as configuration, instead of the multiple existing
-   vendor and organization specific solutions.
+   multiple standard organizations (e.g., 3GPP TS 32.156 {{TS32.156}}, 28.623 {{TS28.623}}, and ONF TR-531 {{TR-531}}) and vendors.
 
    YANG {{!RFC7950}} is a data modeling language used to model both state
    and configuration data, based on the "config" statement.  However,
@@ -180,11 +179,11 @@ informative:
    * interior node
    * data tree
 
-   The document uses the following term defined  in {{!RFC8341}}:
+   The document uses the following term defined in {{!RFC8341}}:
 
    * access operation
 
-   The document uses the following term defined  in {{?I-D.ietf-netmod-system-config}}:
+   The document uses the following term defined in {{?I-D.ietf-netmod-system-config}}:
 
    * system configuration
 
@@ -205,7 +204,7 @@ informative:
    However, this only serves as descriptive information about the
    instance node itself, but has no effect on the handling of the read-only
    datastore. If the immutable flag is requested to be returned for an invalid
-   datastore, then the server MUST return an error response with the error-tag value
+   datastore (i.e., any datastore other than \<system\>, \<intended\>, or \<operational\>), then the server MUST return an error response with the error-tag value
    "unknown-element".
 
    Configuration data has the same immutability if it appears in different datastores.
@@ -221,7 +220,7 @@ informative:
    parameter ({{with-immutability}}). If the "immutable" metadata annotation for
    a configuration node is not specified, the default "immutable" value is the
    same as the value of its parent node in the data tree ({{interior}}).
-   The immutable metadata annotation value for a top-level instance
+   The "immutable" metadata annotation value for a top-level instance
    node is "false" if not specified.
 
    A node that is annotated as immutable cannot be changed via configuring
@@ -416,6 +415,51 @@ Refer to {{RESTCONF-example}} for an example of a RESTCONF operation with "with-
 <CODE ENDS>
 ~~~~
 
+# IANA Considerations
+
+## The "IETF XML" Registry
+
+IANA is requested to register the following URI in the "ns"
+registry within the "IETF XML Registry" group {{!RFC3688}}:
+
+~~~~
+URI: urn:ietf:params:xml:ns:yang:ietf-immutable-annotation
+Registrant Contact: The IESG
+XML: N/A; the requested URI is an XML namespace.
+~~~~
+
+## The "YANG Module Names" Registry
+
+IANA is requested to register the following YANG module in the "YANG
+Module Names" registry {{!RFC6020}} within the "YANG Parameters"
+registry group.
+
+~~~~
+Name: ietf-immutable-annotation
+Maintained by IANA?  N
+Namespace: urn:ietf:params:xml:ns:yang:ietf-immutable-annotation
+Prefix: imma
+Reference: RFC XXXX
+~~~~
+
+## RESTCONF Capability URN Registry
+
+IANA is requested to register the following capability identifier URNs in the
+"RESTCONF Capability URNs" registry defined in {{!RFC8040}}:
+
+Index:
+: :with-immutability
+
+Capability Identifier:
+: urn:ietf:params:restconf:capability:with-immutability:1.0
+
+# Operational Considerations
+
+This document specifies a mechanism for clients to discover immutable system configuration before attempting modifications. Clients can leverage this information to avoid sending edit requests that would otherwise fail due to immutable nodes.
+
+The mechanism defined in this document is backward compatible with existing implementations. A legacy client unware of this mechanism will not include the "with-immutability" query parameter in its retrieval requests. Consequently, servers will process the request normally without returning any "immutable" metadata annotations. Conversely, a client explicitly requesting the immutable flag from a legacy server may either receive an error response for unsupported query parameter or have the parameter ignored, depending on the server's implementation.
+
+
 # Security Considerations
 
    This section is modeled after the template described in {{Section 3.7.1 of ?RFC9907}}.
@@ -433,7 +477,7 @@ Refer to {{RESTCONF-example}} for an example of a RESTCONF operation with "with-
    it also extends the RPC operations of the NETCONF protocol in {{!RFC6241}}
    and {{!RFC8526}}.
 
-   The immutable metadata annotation exposes the immutability of configuration data,
+   The "immutable" metadata annotation exposes the immutability of configuration data,
    which may provide hints for attackers to find vulnerabilities in the network,
    e.g., to leverage the immutability of some configuration to better craft an attack.
    Since immutable annotations are attached to the instances of configuration data nodes,
@@ -442,44 +486,6 @@ Refer to {{RESTCONF-example}} for an example of a RESTCONF operation with "with-
    The security considerations for the NETCONF protocol operations (see
    {{Section 9 of !RFC6241}} and {{Section 6 of !RFC8526}}) also apply to
    the operations extended in this document.
-
-# IANA Considerations
-
-## The "IETF XML" Registry
-
-IANA is requested to register the following URI in the "ns"
-registry within the "IETF XML Registry" group {{!RFC3688}}:
-
-~~~~
-URI: urn:ietf:params:xml:ns:yang:ietf-immutable-annotation
-Registrant Contact: The IESG.
-XML: N/A; the requested URIs are XML namespaces.
-~~~~
-
-## The "YANG Module Names" Registry
-
-IANA is requested to register the following YANG module in the "YANG
-Module Names" registry {{!RFC6020}} within the "YANG Parameters"
-registry group.
-
-~~~~
-name: ietf-immutable-annotation
-Maintained by IANA?  N
-namespace: urn:ietf:params:xml:ns:yang:ietf-immutable-annotation
-prefix: imma
-RFC: XXXX
-~~~~
-
-## RESTCONF Capability URN Registry
-
-IANA is requested to register the following capability identifier URNs in the
-"RESTCONF Capability URNs" registry defined in {{!RFC8040}}:
-
-Index:
-: :with-immutability
-
-Capability Identifier:
-: urn:ietf:params:restconf:capability:with-immutability:1.0
 
 --- back
 
@@ -490,24 +496,21 @@ Capability Identifier:
    System capabilities might be represented as immutable configuration.
    Configurable data nodes might need constraints specified using
    "when", "must", or "path" statements to ensure that configuration is set
-   according to the system's capabilities. For example,
+   according to the system's capabilities. For example, configurable timer (e.g., for an "interface-timer" or a "bfd-interval-timer") values are dependent on the underlying system timer resource limits.
 
-   * A timer can support the values 1, 5, and 8 seconds. This is defined in the
-   leaf-list 'supported-timer-values'.
+   * A timer might only support the values 1, 5, and 8 seconds, determined by the system capabilities. This is defined in the leaf-list 'supported-timer'.
 
-   * When the configurable 'interface-timer' leaf is set, it should be ensured
-   that one of the supported values is used.  The natural solution would be to
-   make the 'interface-timer' a leaf-ref pointing at the 'supported-timer-values'.
+   * When the configurable 'interface-timer' leaf is set by a client, it should be ensured that one of the supported values is used.  The natural solution would be to make the "interface-timer" a leafref pointing at the "supported-timer".
 
-   However, this is not possible as 'supported-timer-values' must be
+   However, this is not possible as "supported-timer" must be
    read-only thus "config false" while 'interface-timer' must be writable
    thus "config true".  According to the rules of YANG it is not allowed
-   to put a constraint between "config true" and "config false" data nodes.
+   to put a constraint between "config true" and "config false" data nodes ({{Section 9.9 of ?RFC7950}}).
 
-   A solution is that the 'supported-timer-values' data node in the YANG
+   A solution is that the 'supported-timer' data node in the YANG
    Model shall be defined as "config true" and shall also be marked with
    the "immutable" annotation making it unchangeable. After this the
-   'interface-timer' shall be defined as a leaf-ref pointing at the
+   'interface-timer' shall be defined as a leafref pointing at the
    'supported-timer-values'.
 
 ## UC2: Hardware-based Auto-configuration - Interface Example {#sec-uc2}
@@ -577,7 +580,7 @@ Capability Identifier:
 ## NETCONF Example to Retrieve Immutable Configuration {#NETCONF-example}
 
    {{NETCONF-with-immutability}} illustrates a NETCONF request example to retrieve "user-groups"
-   configuration in \<system\> with "with-immutability" parameter and the response that a server might return. For illustrative clarity, some annotations that could otherwise be omitted are shown explicitly in the response.
+   configuration in \<system\> with "with-immutability" parameter and the response that a server might return if it supports this query parameter. For illustrative clarity, some annotations that could otherwise be omitted are shown explicitly in the response.
 
 ~~~~
 {::include-fold NETCONF-example.xml}
@@ -588,7 +591,7 @@ Capability Identifier:
 ## RESTCONF Example to Retrieve Immutable Configuration {#RESTCONF-example}
 
   {{RESTCONF-with-immutability}} illustrates a RESTCONF request example to retrieve "user-groups"
-  configuration in \<system\> with "with-immutability" query parameter and the response a server might return. For illustrative clarity, some annotations that could otherwise be omitted are shown explicitly in the response.
+  configuration in \<system\> with "with-immutability" query parameter and the response a server might return if it supports this query parameter. The JSON representation of the metadata annotations in the response follows the encoding specified in {{Section 5.2 of ?RFC7952}}. For illustrative clarity, some annotations that could otherwise be omitted are shown explicitly in the response.
 
 ~~~~
 {::include-fold RESTCONF-example.json}
@@ -603,12 +606,12 @@ container node. The "immutable" metadata attribute for "user-groups" container
 instance is "false", which is also its default value as the top-level element,
 and thus can be omitted. The "administrator" list entry is immutable
 with the immutability of its descendant nodes "description" and "user" list entry of "ex-username-2" being explicitly toggled.
-Other descendant nodes inside "administrator" list entry inherit the immutability of the list entry thus are also immutable.
+Other descendant nodes (e.g., "access-level", "ex-username-1" user list entry, and "tag" leaf-list) inside "administrator" list entry inherit the immutability of the list entry, thus are also immutable.
 
 The "immutable" metadata attribute
 for "power-users" list entry is "false", which is also the same
 value as its parent node (i.e., the "user-groups" container), and thus can be omitted.
-Other descendant nodes inside "power-users" group inherit the immutability of the list entry thus are also mutable.
+Descendant nodes (e.g., "description", "access-level", "user" list, and "tag" leaf-list) inside "power-users" group inherit the immutability of the list entry, thus are also mutable.
 
 ## Immutability of the list {#imm-list}
 

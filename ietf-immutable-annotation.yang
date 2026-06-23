@@ -29,15 +29,16 @@ module ietf-immutable-annotation {
   organization
     "IETF Network Modeling (NETMOD) Working Group";
   contact
-    "WG Web: <https://datatracker.ietf.org/wg/netmod/>
+    "WG Web:  https://datatracker.ietf.org/wg/netmod/
      WG List: NETMOD <mailto:netmod@ietf.org>
-     Author: Qiufang Ma
+     
+     Editor: Qiufang Ma
              <mailto:maqiufang1@huawei.com>
-     Author: Qin Wu
+     Editor: Qin Wu
              <mailto:bill.wu@huawei.com>
-     Author: Balazs Lengyel
+     Editor: Balazs Lengyel
              <mailto:balazs.lengyel@ericsson.com>
-     Author: Hongwei Li
+     Editor: Hongwei Li
              <mailto:flycoolman@gmail.com>";
   description
     "This module defines a metadata annotation called 'immutable'
@@ -70,6 +71,7 @@ module ietf-immutable-annotation {
     reference
       "RFC XXXX: YANG Metadata Annotation for Immutable Flag";
   }
+  
   md:annotation immutable {
     type boolean;
     description
