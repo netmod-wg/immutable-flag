@@ -6,10 +6,10 @@ netmod                                                        Q. Ma, Ed.
 Internet-Draft                                                     Q. Wu
 Updates: 8040, 8526 (if approved)                                 Huawei
 Intended status: Standards Track                         B. Lengyel, Ed.
-Expires: 25 December 2026                                       Ericsson
+Expires: 26 December 2026                                       Ericsson
                                                                    H. Li
                                                                      HPE
-                                                            23 June 2026
+                                                            24 June 2026
 
 
               YANG Metadata Annotation for Immutable Flag
@@ -57,7 +57,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 25 December 2026.
+   This Internet-Draft will expire on 26 December 2026.
 
 Copyright Notice
 
@@ -329,7 +329,7 @@ Table of Contents
 
    To discover if the "with-immutability" parameter is supported by a
    server, a NETCONF client can query if the server implements "ietf-
-   immutable-annotation" module Section 9 by reading the YANG library
+   immutable-annotation" module (Section 9) by reading the YANG library
    information from the operational state datastore, as per [RFC8526].
 
    Refer to Appendix B.1 for an example of a NETCONF operation with
