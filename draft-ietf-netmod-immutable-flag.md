@@ -86,7 +86,7 @@ informative:
    will cause the server to return an error.
 
    The immutable flag is descriptive, documenting an existing behavior, not
-   proscriptive, dictating server behaviors.
+   prescriptive, dictating server behaviors.
 
    This document updates RFC 8040 and RFC 8526.
 
@@ -99,7 +99,7 @@ informative:
    multiple standard organizations (e.g., 3GPP TS 32.156 {{TS32.156}}, 28.623 {{TS28.623}}, and ONF TR-531 {{TR-531}}) and vendors.
 
    YANG {{!RFC7950}} is a data modeling language used to model both state
-   and configuration data, based on the "config" statement.  However,
+   and configuration data, based on the "config" statement. However,
    there exists some system configuration data that cannot be modified
    by clients (that is, it is immutable), but still needs to be declared as
    "config true" to:
@@ -121,9 +121,9 @@ informative:
    This document defines an approach to formally document an existing behavior,
    implemented by servers in production, on the immutability of some
    system-provided data, using a YANG metadata annotation {{!RFC7952}}
-   called "immutable" to flag which nodes are immutable. This document does not
+   called "immutable" to flag which nodes are immutable. A server MUST NOT set the immutable flag to true for configuration data that is not system-provided. This document does not
    regulate server behaviors. That said, it is expected that a server will return
-   an error with an error-tag containing "invalid-value" if a client attempts to
+   an error with an error-tag value of "invalid-value" if a client attempts to
    modify an immutable node.
 
    A non-exhaustive list of already implemented and potential use cases is provided below:
@@ -190,7 +190,7 @@ informative:
    This document defines the following term:
 
    immutable flag:
-   : A read-only state value that the server provides to describe
+   : A read-only server-provided metadata value that describes the
    immutability of the configuration, which is conveyed via a YANG metadata annotation
    called "immutable" with a boolean value.
 
@@ -223,9 +223,9 @@ informative:
    The "immutable" metadata annotation value for a top-level instance
    node is "false" if not specified.
 
-   A node that is annotated as immutable cannot be changed via configuring
+   A node annotated as immutable indicates that the server does not allow it to be changed by configuring
    a different value in read-write configuration datastores (e.g., \<running\>),
-   nor is there any way to delete the node from the intended datastore, which is the merged result of \<running\> and \<system\> as defined in {{Section 4 of ?I-D.ietf-netmod-system-config}}. The node MAY be explicitly configured by a client in \<running\> with the
+   or deleted from the intended datastore, which is the merged result of \<running\> and \<system\> as defined in {{Section 4 of ?I-D.ietf-netmod-system-config}}. The node MAY be explicitly configured by a client in \<running\> with the
    same value and that configuration in \<running\> may subsequently be removed,
    but neither of these edits will change the configuration in \<intended\> (if implemented) on the device.
 
@@ -271,7 +271,7 @@ Refer to {{NETCONF-example}} for an example of a NETCONF operation with "with-im
    parameter named "with-immutability" to the GET operation. If present, this parameter
    requests that the server includes the "immutable" metadata annotations in its
    response. This parameter is only allowed with no values carried when interacting with read-only datastores.
-   If it has any unexpected value, then a "400 Bad Request" status-line is returned.
+   If it has any unexpected value, then a "400 Bad Request" status-line MUST be returned. The error-tag value "invalid-value" is used in this case.
    RESTCONF protocol operations for the datastore resources are defined in {{!RFC8527}}.
 
    To enable a RESTCONF client to discover if the "with-immutability" query parameter
@@ -280,6 +280,10 @@ Refer to {{NETCONF-example}} for an example of a NETCONF operation with "with-im
 ~~~~
     urn:ietf:params:restconf:capability:with-immutability:1.0
 ~~~~
+
+If the "with-immutability" query parameter URI is listed in the "capability"
+leaf-list defined in {{Section 9.3 of !RFC8040}}, then the server supports the
+"with-immutability" query parameter.
 
 Refer to {{RESTCONF-example}} for an example of a RESTCONF operation with "with-immutability" query parameter.
 
@@ -298,8 +302,7 @@ Refer to {{RESTCONF-example}} for an example of a RESTCONF operation with "with-
 
 ## The "leaf-list" Statement
 
-  When a leaf-list entry is immutable, it cannot be configured with a
-  different value in read-write configuration datastore (e.g., \<running\>) or
+  When a leaf-list entry is immutable, it cannot be
   removed from \<intended\> (if implemented). Though it can be created/deleted
   in read-write configuration datastores (see Sections {{<immutable-def}} and {{<system-interact}}).
 
@@ -370,8 +373,7 @@ Refer to {{RESTCONF-example}} for an example of a RESTCONF operation with "with-
    to the number of times the immutability state may change in a data tree.
 
    If the "immutable" metadata annotation for a returned child node is omitted,
-   it has the same immutability as its parent node. The immutability of top
-   hierarchy of returned nodes is false by default. Servers may suppress the
+   it has the same immutability as its parent node. For each top-level returned node, the default "immutable" annotation value is false unless explicitly annotated. Servers may suppress the
    annotation if it is inherited from its parent node or uses the default value
    as the top-level node, but are not precluded from returning the annotation
    on every single element.
@@ -384,7 +386,8 @@ Refer to {{RESTCONF-example}} for an example of a RESTCONF operation with "with-
    Immutable configuration can only be created, updated and deleted by the server,
    and it is present in \<system\>, if implemented. That said, the existence of
    immutable configuration is independent of whether \<system\> is implemented or
-   not. Not all system configuration data is immutable. Immutable configuration
+   not. For example, a server that does not support \<system\> may have predefined hardware-specific configuration in use that cannot be overridden or removed by clients.
+   Not all system configuration data is immutable. Immutable configuration
    does not appear in \<running\> unless it is explicitly configured.
 
    As specified in {{immutable-def}}, a client MAY create/delete immutable nodes

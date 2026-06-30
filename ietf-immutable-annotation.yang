@@ -98,9 +98,11 @@ module ietf-immutable-annotation {
       + "or derived-from-or-self(../ncds:datastore,'ds:operational')";
       type empty;
       description
-        "If this parameter is present, the server returns the
-         'immutable' annotation for configuration that it considers
-         immutable.";
+        "Requests that immutable metadata annotations be returned.
+        
+         This parameter is only valid when the datastore is system,
+         intended, or operational. See RFC XXXX Section 3 for the
+         required error behavior when used with other datastores.";
     }
   }
 }
