@@ -572,7 +572,7 @@ The mechanism defined in this document is backward compatible with existing impl
 
   This section provides some examples to illustrate the server's behavior with
   immutable flag. These examples are not intended as recommendations for
-  real-world deployments.
+  real-world deployments. Long lines within examples are handled in accordance with the line-wrapping specified in {{RFC8792}}.
 
   The following fictional module is used throughout this section:
 
