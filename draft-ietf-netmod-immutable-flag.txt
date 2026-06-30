@@ -913,7 +913,9 @@ Appendix B.  Examples of Server's Immutable Behavior
 
    This section provides some examples to illustrate the server's
    behavior with immutable flag.  These examples are not intended as
-   recommendations for real-world deployments.
+   recommendations for real-world deployments.  Long lines within
+   examples are handled in accordance with the line-wrapping specified
+   in [RFC8792].
 
    The following fictional module is used throughout this section:
 
