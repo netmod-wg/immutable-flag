@@ -77,7 +77,7 @@ informative:
 --- abstract
 
    This document defines a mechanism to formally document an existing behavior,
-   implemented by servers in production, on the immutability of some
+   implemented by servers of YANG-driven network management protocols (e.g., NETCONF and RESTCONF), on the immutability of some
    system-provided nodes, using a YANG metadata annotation called
    "immutable" to flag which nodes are immutable.
 
@@ -182,6 +182,11 @@ informative:
    The document uses the following term defined in {{!RFC8341}}:
 
    * access operation
+
+   The document uses the following terms defined in {{!RFC8342}}:
+
+   * client
+   * server
 
    The document uses the following term defined in {{?I-D.ietf-netmod-system-config}}:
 
