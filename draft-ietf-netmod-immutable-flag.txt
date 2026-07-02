@@ -6,10 +6,10 @@ netmod                                                        Q. Ma, Ed.
 Internet-Draft                                                     Q. Wu
 Updates: 8040, 8526 (if approved)                                 Huawei
 Intended status: Standards Track                         B. Lengyel, Ed.
-Expires: 1 January 2027                                         Ericsson
+Expires: 3 January 2027                                         Ericsson
                                                                    H. Li
                                                                      HPE
-                                                            30 June 2026
+                                                             2 July 2026
 
 
               YANG Metadata Annotation for Immutable Flag
@@ -18,9 +18,10 @@ Expires: 1 January 2027                                         Ericsson
 Abstract
 
    This document defines a mechanism to formally document an existing
-   behavior, implemented by servers in production, on the immutability
-   of some system-provided nodes, using a YANG metadata annotation
-   called "immutable" to flag which nodes are immutable.
+   behavior, implemented by servers of YANG-driven network management
+   protocols (e.g., NETCONF and RESTCONF), on the immutability of some
+   system-provided nodes, using a YANG metadata annotation called
+   "immutable" to flag which nodes are immutable.
 
    Clients may use "immutable" annotations provided by the server, to
    know beforehand why certain otherwise valid configuration requests
@@ -57,7 +58,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 1 January 2027.
+   This Internet-Draft will expire on 3 January 2027.
 
 Copyright Notice
 
@@ -240,6 +241,12 @@ Table of Contents
    The document uses the following term defined in [RFC8341]:
 
    *  access operation
+
+   The document uses the following terms defined in [RFC8342]:
+
+   *  client
+
+   *  server
 
    The document uses the following term defined in
    [I-D.ietf-netmod-system-config]:
